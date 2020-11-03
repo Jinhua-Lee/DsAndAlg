@@ -1,15 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-inline void inputArray(int*, int);
-inline void traverseArray(int*, int);
+inline void inputArray(int* arr, int length);
+inline void traverseArray(int* arr, int length);
+inline void swapInt(int* arr, int index1, int index2);
 
-inline void bubbleSort(int*, int);
-inline void selectSort(int*, int);
-inline void insertSort(int*, int);
-inline void shellSort(int*, int);
-inline void quickSort(int*, int, int);
-inline void heapSort(int*, int);
+inline void bubbleSort(int* arr, int length);
+inline void selectSort(int* arr, int length);
+inline void insertSort(int* arr, int length);
+inline void shellSort(int* arr, int length);
+inline void quickSort(int* arr, int start, int end);
+inline void heapSort(int* arr, int length);
 
 inline void testSort();
 
@@ -54,13 +55,21 @@ void traverseArray(int *arr, int length)
 }
 
 /**
+ * 交换int数组的两个位置的值
+ */
+void swapInt(int* arr,  int index1,  int index2) {
+	int temp = arr[index1];
+	arr[index1] = arr[index2];
+	arr[index2] = temp;
+}
+
+/**
  * 01_冒泡排序法
  *      1) 每轮会选出最大的元素到末端
  *      2) 改进：增加一个变量标记该轮是否有交换过元素，若没有交换，则已经排好序
  */
 void bubbleSort(int *arr, int length)
 {
-	int temp;
 	// 外层表示循环次数，循环 length - 1次
 	for (int i = 0; i < length - 1; i++)
 	{
@@ -72,9 +81,7 @@ void bubbleSort(int *arr, int length)
 			if (arr[j] > arr[j + 1])
 			{
 				swap = true;
-				temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
+				swapInt(arr, j, j + 1);
 			}
 			if (!swap)
 			{
@@ -205,9 +212,7 @@ void quickSort(int* arr, int start, int end)
 				// 两个值做交换（位置相等时候不用换）
 				if (i < j)
 				{
-					tempNum = arr[i];
-					arr[i] = arr[j];
-					arr[j] = tempNum;
+					swapInt(arr, i, j);
 				}
 				// 从下一个位置开始继续找
 				i++;
