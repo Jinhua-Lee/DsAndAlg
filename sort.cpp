@@ -11,6 +11,7 @@ inline void insertSort(int* arr, int length);
 inline void shellSort(int* arr, int length);
 inline void quickSort(int* arr, int start, int end);
 inline void heapSort(int* arr, int length);
+inline void buildTopMaxHeap(int* arr, int lastIndex);
 
 inline void testSort();
 
@@ -30,7 +31,8 @@ void testSort()
 	//selectSort(arr, length);
 	//insertSort(arr, length);
 	//shellSort(arr, length);
-	quickSort(arr, 0, length - 1);
+	//quickSort(arr, 0, length - 1);
+	heapSort(arr, length);
 
 	printf("排序后： \n");
 	traverseArray(arr, length);
@@ -233,8 +235,58 @@ void quickSort(int* arr, int start, int end)
 
 /**
  * 06_堆排序
- */
+ *		1. 大顶堆的特性：父节点大于任意两个子节点的值，可用于从小到大排序。反之小顶堆。
+ *		2. 堆是一个完全二叉树，只需要父节点，就可以由完全二叉树的特性知道其子节点
+ *		3. 堆排序是通过遍历非叶子节点，将大的值替换到父节点，逐步替换到堆顶。
+ *		4. 堆顶元素替换到最后一个叶子节点，完成该次最大值的选取。下一次构建堆就舍弃最后的叶子节点。
+ *		5. 堆的构建通过循环来实现简单，但必须从最后一个非叶子节点到堆顶，这样才能选出当次有效最大值。
+ *		6. 堆的相关公式：
+ *			1) 最后一个非叶子节点：
+ *					a. 节点数 / 2 - 1;
+ *					b. (最后一个节点下标 - 1) / 2;
+ *			2) 任意一个节点下标n：
+ *					a. 左孩子：2n + 1;
+ *					b. 右孩子：2(n + 1);
+ *			3) 判断节点是否有叶子节点
+ *					a. 如果有左孩子 2n + 1 < length
+ *					b. 如果有叶子节点
+ */	
 void heapSort(int* arr, int length)
 {
+	// 反向遍历，保证最大值能被选到0位置
+	for (int last = length -1; last >= 0; last--)
+	{
+		buildTopMaxHeap(arr, last);
+		// 交换堆顶和堆尾，堆尾脱落
+		swapInt(arr, 0, last);
+	}
+}
 
+/**
+ * 将数组从下标0到lastIndex位置的数构建为大顶堆。
+ */
+inline void buildTopMaxHeap(int* arr, int lastIndex)
+{
+	// 找到最后一个非叶子节点的下标
+	int lastNonLeaf = (lastIndex - 1) / 2;
+	for (int curIndex = lastNonLeaf; curIndex >= 0; curIndex--)
+	{
+		// 如果有左孩子
+		if (curIndex * 2 < lastIndex)
+		{
+			// 存孩子节点中值更大的一个的下标
+			int biggerIndex = curIndex * 2 + 1;
+
+			// 若右孩子存在，且右孩子值更大，则替换为右孩子的下标
+			if (biggerIndex < lastIndex && arr[biggerIndex] < arr[biggerIndex + 1])
+			{
+				biggerIndex++;
+			}
+			// 保证父节点更大
+			if (arr[curIndex] < arr[biggerIndex])
+			{
+				swapInt(arr, curIndex, biggerIndex);
+			}
+		}
+	}
 }
