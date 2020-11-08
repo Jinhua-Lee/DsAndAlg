@@ -1,5 +1,6 @@
 #include<math.h>
-#include"sort.cpp"
+#include".\Alg\sort.cpp"
+#include".\Alg\divideFunction.cpp"
 
 int main()
 {

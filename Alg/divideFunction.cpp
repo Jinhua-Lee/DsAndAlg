@@ -75,7 +75,7 @@ long long getValue(int ele, int num)
  */
 long long getValue2(int ele, int num)
 {
-	long long temp = ele * (long long)pow(10, num - 1);
+	long long temp = ele * pow(10, (long long)num - 1);
 	if (num == 1)
 	{
 		return temp;

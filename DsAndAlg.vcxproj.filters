@@ -13,16 +13,22 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\Alg">
+      <UniqueIdentifier>{b6c1223e-74ac-46de-ad03-c5632603c279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Ds">
+      <UniqueIdentifier>{053528b5-b82d-4247-ab2b-fd29a0a53ff6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="sort.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Alg</Filter>
     </ClCompile>
     <ClCompile Include="divideFunction.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Alg</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
