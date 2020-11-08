@@ -10,8 +10,10 @@ inline void selectSort(int* arr, int length);
 inline void insertSort(int* arr, int length);
 inline void shellSort(int* arr, int length);
 inline void quickSort(int* arr, int start, int end);
+// 对排序的建堆与主循环体定义
 inline void heapSort(int* arr, int length);
 inline void buildTopMaxHeap(int* arr, int lastIndex);
+// 归并排序的递归与合并定义
 inline void mergeSort(int* arr, int length, int left, int right, int* tempArr);
 inline void merge(int* arr, int left, int middle, int right, int* tempArr);
 

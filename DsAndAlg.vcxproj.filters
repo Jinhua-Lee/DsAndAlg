@@ -24,11 +24,19 @@
     <ClCompile Include="demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="sort.cpp">
+    <ClCompile Include="Alg\divideFunction.cpp">
       <Filter>源文件\Alg</Filter>
     </ClCompile>
-    <ClCompile Include="divideFunction.cpp">
+    <ClCompile Include="Alg\sort.cpp">
       <Filter>源文件\Alg</Filter>
     </ClCompile>
+    <ClCompile Include="Ds\01_SequenceList.cpp">
+      <Filter>源文件\Ds</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ds\01_SequenceList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

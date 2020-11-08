@@ -2,11 +2,11 @@
 #include<stdio.h>
 
 inline void testDivideFunction();
-
+// n 个 ele 组成的数，可以被 divisor 整除。
 inline int divideFunction(int, long);
-
-inline long long getValue(int, int);
-inline long long getValue2(int, int);
+// 获取ele个num组成的值
+inline long long getValue(int ele, int num);
+inline long long getValue2(int ele, int num);
 
 void testDivideFunction()
 {
