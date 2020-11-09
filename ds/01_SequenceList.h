@@ -27,18 +27,15 @@ typedef struct
 	int incrementSize;
 }SqList;
 
-SqList sqList;
-
-
 // 创建一个空的顺序表
-inline Status createList_Sq(SqList& sL, int initSize, int incrementSize);
+Status createList_Sq(SqList& sL, int initSize, int incrementSize);
 // 向顺序表的末尾加入数组的所有元素
-inline Status initList_Sq(SqList& sL, ElementType* elems, int targetLength);
+Status initList_Sq(SqList& sL, ElementType* elems, int targetLength);
 // 遍历顺序表
-inline void traverseList_Sq(SqList& sL);
+void traverseList_Sq(SqList& sL);
 // 访问顺序表元素
-inline void visit(ElementType elem);
+void visit(ElementType elem);
 // 比较元素
-inline int compareElem(ElementType a, ElementType b);
+int compareElem(ElementType a, ElementType b);
 // 查找元素，并且返回第一个匹配到的元素
-inline int locateElem_Sq(SqList& sL, ElementType elem);
+int locateElem_Sq(SqList& sL, ElementType elem);

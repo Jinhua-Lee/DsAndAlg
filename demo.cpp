@@ -11,7 +11,7 @@ int main()
 	//test();
 	//testSort();
 
-	//SqList sqList;
+	SqList sqList;
 	// ¥¥Ω®ø’¡¥±Ì
 	createList_Sq(sqList, LIST_INIT_SIZE, LIST_INCREMENT);
 	int length = 200;

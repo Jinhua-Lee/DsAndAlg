@@ -1,4 +1,4 @@
-#include"01_SEQUENCELIST.H"
+#include"01_SequenceList.h"
 
 /*创建一个空的顺序表*/
 Status createList_Sq(SqList& sL, int initSize = LIST_INIT_SIZE, int incrementSize = LIST_INCREMENT)
@@ -28,6 +28,7 @@ Status initList_Sq(SqList& sL, ElementType* elems, int targetLength)
 		// 分配成功，设置顺序表容量
 		if (sL.elem)
 		{
+			sL.length = srcLength + targetLength;
 			sL.listSize = srcLength + targetLength + LIST_INCREMENT;
 		}
 		// 分配失败返回错误
@@ -41,6 +42,7 @@ Status initList_Sq(SqList& sL, ElementType* elems, int targetLength)
 	{
 		sL.elem[i] = elems[i - srcLength];
 	}
+	return OK;
 }
 
 /*遍历顺序表的元素*/
@@ -55,7 +57,7 @@ void traverseList_Sq(SqList& sL)
 /*访问元素*/
 void visit(ElementType elem)
 {
-	printf("%-4d", elem);
+	printf("%-4d ", elem);
 }
 
 /*比较元素*/
