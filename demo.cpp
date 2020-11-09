@@ -3,6 +3,9 @@
 #include".\Alg\divideFunction.cpp"
 #include".\Ds\01_SequenceList.h"
 
+// 引用和指针的测试
+void testRefer();
+
 int main()
 {
 	//testArray();
@@ -10,22 +13,23 @@ int main()
 
 	//test();
 	//testSort();
+	//testRefer();
 
-	SqList sqList;
-	// 创建空链表
-	createList_Sq(sqList, LIST_INIT_SIZE, LIST_INCREMENT);
-	int length = 200;
-	// 批量插入元素
-	ElementType* elems = new ElementType[200];
-	for (int i = 0; i < length; i++)
-	{
-		elems[i] = i * 2;
-	}
-	initList_Sq(sqList, elems, length);
+	testSqList();
 
-	// 遍历元素
-	traverseList_Sq(sqList);
-
-	system("pause");
 	return 1;
+}
+
+/*测试引用*/
+void testRefer()
+{
+	int a = 123;
+	int* p = &a;
+	int& q = a;
+
+	printf("指针测试：p的值 = %d, p的地址 = %p\n", *p, p);
+	printf("引用测试：q的值 = %d, q的地址 = %p\n", q, &q);
+
+	printf("p 和 q 地址相等bool输出结果：%d\n", p == &q);
+
 }
