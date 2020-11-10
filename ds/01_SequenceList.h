@@ -37,7 +37,7 @@ void traverseList_Sq(SqList& sL);
 void visit(ElementType elem);
 // 比较元素
 int compareElem(ElementType a, ElementType b);
-// 04_顺序表——查找元素：并且返回第一个匹配到的元素
+// 04_顺序表——查找元素：并且返回第一个匹配到的元素索引
 int locateElem_Sq(SqList& sL, ElementType elem);
 // 05_顺序表——插入元素：在指定索引 index 之前插入一个元素
 Status insertElem_Sq(SqList& sL, int index, ElementType elem);
@@ -45,6 +45,10 @@ Status insertElem_Sq(SqList& sL, int index, ElementType elem);
 Status clearList_Sq(SqList& sL);
 // 07_顺序表——销毁
 Status destroyList_Sq(SqList& sL);
+// 08_顺序表——删除：删除指定索引的元素，返回被删除的元素值
+ElementType deleteElem_Sq(SqList& sL, int index);
+// 09_顺序表——合并：向A中加入B中特有的元素，最后删除B
+Status purgeList_Sq(SqList& sLa, SqList& sLb);
 
 // 测试方法
 void testSqList();
