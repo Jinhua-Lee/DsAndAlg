@@ -28,7 +28,7 @@ Status initList_Sq(SqList& sL, ElementType* elems, int targetLength)
 		// 分配成功，设置顺序表容量
 		if (sL.elem)
 		{
-			sL.listSize = sL.length + LIST_INCREMENT;
+			sL.listSize = sL.length + targetLength + LIST_INCREMENT;
 		}
 		// 分配失败返回错误
 		else
@@ -131,7 +131,7 @@ Status insertElem_Sq(SqList& sL, int index, ElementType elem)
 		*(sL.elem + index) = elem;
 	}
 	// 不要忘记长度
-	sL.length++;
+	++sL.length;
 
 	return OK;
 }
@@ -199,14 +199,19 @@ ElementType deleteElem_Sq(SqList& sL, int index)
 Status purgeList_Sq(SqList& sLa, SqList& sLb)
 {
 	ElementType bElem;
+	// 每次从B中取出该元素在A中定位，如果没找到，则插入
 	while (sLb.length > 0)
 	{
 		bElem = deleteElem_Sq(sLb, 0);
-		if (locateElem_Sq(sLa, bElem) >= 0)
+		printf("B删除了：%d\n", bElem);
+		// A中如果找不到该元素，则加入该元素
+		if (locateElem_Sq(sLa, bElem) == -1)
 		{
 			insertElem_Sq(sLa, sLa.length, bElem);
+			printf("A加入了：%d\n", bElem);
 		}
 	}
+	// 最后销毁B
 	destroyList_Sq(sLb);
 	return OK;
 }
@@ -227,7 +232,6 @@ void testSqList()
 	// 创建空链表A并初始化
 	createList_Sq(sLa, LIST_INIT_SIZE, LIST_INCREMENT);
 	initList_Sq(sLa, elems, aLength);
-
 	// 遍历元素
 	traverseList_Sq(sLa);
 
@@ -238,33 +242,33 @@ void testSqList()
 
 	// 插入元素
 	insertElem_Sq(sLa, 2, -234);
-	//traverseList_Sq(sLa);
+	traverseList_Sq(sLa);
 
-	//printf("\n删除指定索引元素后：\n");
-	//// 删除指定索引元素
-	//ElementType toDelete = deleteElem_Sq(sLa, 5);
-	//traverseList_Sq(sLa);
-	//printf("\n被删除元素为：%d\n", toDelete);
+	printf("\n删除指定索引元素后：\n");
+	// 删除指定索引元素
+	ElementType toDelete = deleteElem_Sq(sLa, 5);
+	traverseList_Sq(sLa);
+	printf("\n被删除元素为：%d\n", toDelete);
 
 	printf("\n=====================================\n");
 
-	//// 第二个顺序表加入
-	//SqList sLb;
-	//int bLength = 20;
-	//ElementType* elems2 = new ElementType[bLength];
-	//for (int i = 0; i < bLength; i++)
-	//{
-	//	elems2[i] = -i;
-	//}
-	//createList_Sq(sLb, LIST_INIT_SIZE, LIST_INCREMENT);
-	//initList_Sq(sLb, elems2, bLength);
+	// 第二个顺序表加入
+	SqList sLb;
+	int bLength = 20;
+	ElementType* elems2 = new ElementType[bLength];
+	for (int i = 0; i < bLength; i++)
+	{
+		elems2[i] = -i;
+	}
+	createList_Sq(sLb, LIST_INIT_SIZE, LIST_INCREMENT);
+	initList_Sq(sLb, elems2, bLength);
 
-	//printf("\nB 的长度：%d\n", sLb.length);
+	printf("\nB 的长度：%d\n", sLb.length);
 
-	//traverseList_Sq(sLb);
-	//// 合并A和B，遍历
-	//purgeList_Sq(sLa, sLb);
-	//printf("\n遍历合并后的A：\n");
-	//traverseList_Sq(sLa);
+	traverseList_Sq(sLb);
+	// 合并A和B，遍历
+	purgeList_Sq(sLa, sLb);
+	printf("\n遍历合并后的A：\n");
+	traverseList_Sq(sLa);
 
 }
