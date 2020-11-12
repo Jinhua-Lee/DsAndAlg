@@ -144,9 +144,11 @@
     <ClCompile Include="Alg\sort.cpp" />
     <ClCompile Include="demo.cpp" />
     <ClCompile Include="Ds\01_SequenceList.cpp" />
+    <ClCompile Include="Ds\02_SingleLinkedList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h" />
+    <ClInclude Include="Ds\02_SingleLinkedList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
