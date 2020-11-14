@@ -13,44 +13,67 @@ void testSingleLinkedList()
 		scanf_s("%d", datas + i);
 	}
 
+	// 测试带头结点
+	printf("=====带头结点=====");
+	testWithHead(datas, length);
+
+	// 测试不带头结点
+	printf("=====不带头结点=====");
+	testWithoutHead(datas, length);
+
+}
+
+/* 带头结点的测试方法*/
+void testWithHead(ElementType* datas, int length)
+{
 	// =====带头结点=====
 	// 指向头节点的指针：头指针
 	SL head = NULL;
 
 	// 初始化
 	int initStatus = initList_SLh(head);
-	printf("initStatus: %d\n", initStatus);
+	printf("初始化状态: %d\n", initStatus);
 
 	// 尾插法
 	int tailInsertStatus = tailInsert_SLh(head, datas, length);
-	printf("tailInsertStatus: %d\n", tailInsertStatus);
+	printf("尾插法状态: %d\n", tailInsertStatus);
+	traveseList_SLh(head);
+
+	// 头插法
+	int headInsertStatus = headInsert_SLh(head, datas, length);
+	printf("头插法状态: %d\n", headInsertStatus);
+	traveseList_SLh(head);
 
 	// 长度
 	int listLength = listLength_SLh(head);
 	printf("带头结点，单链表长度为： %d\n", listLength);
+}
 
-	// 遍历
-	traveseList_SLh(head);
-
+/* 不带头结点的测试方法*/
+void testWithoutHead(ElementType* datas, int length)
+{
 	// =====不带头结点=====
 	SL sL;
 
 	// 初始化
-	int initStatus2 = initList_SL(sL);
-	printf("initStatus2: %d\n", initStatus2);
+	int initStatus = initList_SL(sL);
+	printf("初始化状态: %d\n", initStatus);
 
 	// 尾插法
 	int tailInsertStatus2 = tailInsert_SL(sL, datas, length);
-	printf("tailInsertStatus2: %d\n", tailInsertStatus2);
+	printf("尾插法状态: %d\n", tailInsertStatus2);
+	traverseList_SL(sL);
+
+	// 头插法
+	int headInsertStatus2 = headInsert_SL(sL, datas, length);
+	printf("头插法状态: %d\n", headInsertStatus2);
+	traverseList_SL(sL);
 
 	// 长度
 	int listLength2 = listLength_SL(sL);
 	printf("不带头结点，单链表长度为： %d\n", listLength2);
-
-	// 遍历
-	traverseList_SL(sL);
-
 }
+
 
 /* 01_单链表——初始化_带头结点
 */
@@ -176,7 +199,7 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 	// 指针p，用来保存上一个结点
 	SL p = sL;
 	// 指针q，用于创建新结点
-	SL q = p;
+	SL q = NULL;
 
 	for (int i = 0; i < length; i++)
 	{
@@ -213,26 +236,39 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 Status headInsert_SLh(SL& head, ElementType* datas, int length)
 {
 	// 指针p，用作保存上一个创建的结点，使得头节点指向的新创建结点指向上一个结点。
-	SL p = head->next;
+	SL p = head;
+	// 指针q，用于创建新的结点
+	SL q = NULL;
+
 	for (int i = 0; i < length; i++)
 	{
 		// 每次通过头结点创建新结点
-		head->next = (SL)malloc(sizeof(SL_Node));
-		if (!head->next)
+		q = (SL)malloc(sizeof(SL_Node));
+		if (!q)
 		{
 			return ERROR;
 		}
-		head->next->data = *(datas + i);
-		// i==0，第一个结点即为链表的最后一个元素，next置空
-		if (i)
+		q->data = *(datas + i);
+		// 元素接到头结点后
+		head->next = q;
+		// 第一个结点插入
+		if (!i)
 		{
-			head->next->next = NULL;
+			// 第一个结点即为表尾结点
+			q->next = NULL;
+			// 指针p，保存为上一个插入的结点
+			
 		}
+		// 非第一个结点
 		else
 		{
-			head->next->next = p;
+			// 结点前置为头结点
+			head->next = q;
+			// 结点后继为上一个结点
+			q->next = p;
 		}
-		p = head->next;
+		// 指针p保存当次插入的结点位置
+		p = q;
 	}
 	return OK;
 }
@@ -240,26 +276,34 @@ Status headInsert_SLh(SL& head, ElementType* datas, int length)
 /* 10_单链表——头插法建立_不带头结点*/
 Status headInsert_SL(SL& sL, ElementType* datas, int length)
 {
-	// 同上，指针p用来保存上一个创建的结点，当新节点创建时候，next域赋值给p
+	// 同上，指针p用来保存上一个创建的结点
 	SL p = sL;
+	// 指针q，用来创建新的节点
+	SL q = NULL;
+
 	for (int i = 0; i < length; i++)
 	{
-		sL = (SL)malloc(sizeof(SL_Node));
-		if (!sL)
+		q = (SL)malloc(sizeof(SL_Node));
+		if (!q)
 		{
 			return ERROR;
 		}
-		sL->data = *(datas + i);
-		// i==0，第一个结点即为链表的最后一个元素，next置空
-		if (i)
+		q->data = *(datas + i);
+		// 第一个结点
+		if (!i)
 		{
-			sL->next = NULL;
+			// 第一个结点作为表尾结点
+			q->next = NULL;
 		}
 		else
 		{
-			sL->next = p;
+			// 连接到上一次插入的结点
+			q->next = p;
 		}
-		p = sL;
+		// 连接到开始
+		sL = q;
+		// 保存为上一个结点
+		p = q;
 	}
 	return OK;
 }

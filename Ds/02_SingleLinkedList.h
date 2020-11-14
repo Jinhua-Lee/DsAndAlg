@@ -20,6 +20,12 @@ typedef struct SL_Node
 // 测试单链表的方法
 void testSingleLinkedList();
 
+// 带头结点的测试方法
+void testWithHead(ElementType* datas, int length);
+
+// 不带头结点的测试方法
+void testWithoutHead(ElementType* datas, int length);
+
 // 01_单链表——初始化_带头结点
 Status initList_SLh(SL& head);
 
