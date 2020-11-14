@@ -64,3 +64,15 @@ void traverseList_SL(SL sL);
 
 // 13_单链表——访问方法
 void visit(Hnode hnode);
+
+// 14_单链表——删除结点_带头结点
+void deleteElem_SLh(SL& head, ElementType data);
+
+// 15_单链表——删除结点_不带头结点
+void deleteElem_SL(SL& sL, ElementType data);
+
+// 16_单链表——原地逆置_带头节点
+void invertList_SLh(SL& head);
+
+// 17_单链表——原地逆置_不带头节点
+void invertList_SL(SL& sL);
