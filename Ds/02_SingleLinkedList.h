@@ -12,31 +12,43 @@
 typedef struct SL_Node
 {
 	// 存储的元素
-	ElementType elem;
+	ElementType data;
 	// 指向下一个结点的指针
 	SL_Node* next;
-}hNode, *SL;
+}Hnode, *SL;
 
 // 测试单链表的方法
 void testSingleLinkedList();
 
-// 01_单链表——初始化单链表_带头结点
-SL_Node* initList_SLh();
-// 02_单链表——初始化单链表_无头结点
-SL_Node* initList_SL();
-// 03_单链表——求单链表长度_带头结点
-int listLength_SLh(hNode hNode);
-// 04_单链表——求单链表长度_无头结点
+// 01_单链表——初始化_带头结点
+Status initList_SLh(SL& head);
+
+// 02_单链表——初始化_无头结点
+Status initList_SL(SL& sL);
+
+// 03_单链表——长度_带头结点
+int listLength_SLh(SL head);
+
+// 04_单链表——长度_无头结点
 int listLength_SL(SL sL);
-// 05_单链表——销毁单链表_带头节点
-void destroy_SLh(hNode& hNode);
-// 06_单链表——销毁单链表_无头节点
+
+// 05_单链表——销毁_带头节点
+void destroy_SLh(SL& head);
+
+// 06_单链表——销毁_无头节点
 void destroy_SL(SL& sL);
-// 07_单链表——尾插法建立单链表_带头节点
-SL_Node* tailInsert_SLh(hNode& hNode);
-// 08_单链表——尾插法建立单链表_不带头节点
-SL_Node* tailInsert_SL(SL& sL);
-// 09_单链表——头插法建立单链表_带头结点
-SL_Node* headInsert_SLh(hNode& hNode);
-// 10_单链表——头插法建立单链表_不带头结点
-SL_Node* headInsert_SL(SL& sL);
+
+// 07_单链表——尾插法建立_带头节点
+Status tailInsert_SLh(SL& head, ElementType* datas, int length);
+
+// 08_单链表——尾插法建立_不带头节点
+Status tailInsert_SL(SL& sL, ElementType* datas, int length);
+
+// 09_单链表——头插法建立_带头结点
+Status headInsert_SLh(SL& head, ElementType* datas, int length);
+
+// 10_单链表——头插法建立_不带头结点
+Status headInsert_SL(SL& sL, ElementType* datas, int length);
+
+// 11_单链表——遍历_带头节点
+void traveseList_SLh(SL head);
