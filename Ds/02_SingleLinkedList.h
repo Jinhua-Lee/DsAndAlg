@@ -14,7 +14,7 @@ typedef struct SL_Node
 	// 存储的元素
 	ElementType data;
 	// 指向下一个结点的指针
-	SL_Node* next;
+	struct SL_Node* next;
 }Hnode, *SL;
 
 // 测试单链表的方法
@@ -50,5 +50,11 @@ Status headInsert_SLh(SL& head, ElementType* datas, int length);
 // 10_单链表——头插法建立_不带头结点
 Status headInsert_SL(SL& sL, ElementType* datas, int length);
 
-// 11_单链表——遍历_带头节点
+// 11_单链表——遍历_带头结点
 void traveseList_SLh(SL head);
+
+// 12_单链表——遍历_不带头结点
+void traverseList_SL(SL sL);
+
+// 13_单链表——访问方法
+void visit(Hnode hnode);

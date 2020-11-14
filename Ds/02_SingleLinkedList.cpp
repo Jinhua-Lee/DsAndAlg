@@ -29,9 +29,26 @@ void testSingleLinkedList()
 	int listLength = listLength_SLh(head);
 	printf("带头结点，单链表长度为： %d\n", listLength);
 
+	// 遍历
+	traveseList_SLh(head);
+
 	// =====不带头结点=====
 	SL sL;
-	initList_SL(sL);
+
+	// 初始化
+	int initStatus2 = initList_SL(sL);
+	printf("initStatus2: %d\n", initStatus2);
+
+	// 尾插法
+	int tailInsertStatus2 = tailInsert_SL(sL, datas, length);
+	printf("tailInsertStatus2: %d\n", tailInsertStatus2);
+
+	// 长度
+	int listLength2 = listLength_SL(sL);
+	printf("不带头结点，单链表长度为： %d\n", listLength2);
+
+	// 遍历
+	traverseList_SL(sL);
 
 }
 
@@ -63,7 +80,7 @@ int listLength_SLh(SL head)
 	// 初始迭代长度
 	int length = 0;
 	// 指向头结点的变量
-	Hnode* p = head->next;
+	SL p = head->next;
 	while (p)
 	{
 		length++;
@@ -77,8 +94,8 @@ int listLength_SL(SL sL)
 {
 	int length = 0;
 	// 从头指针开始迭代
-	SL_Node* p = sL;
-	while (sL)
+	SL p = sL;
+	while (p)
 	{
 		length++;
 		p = p->next;
@@ -129,19 +146,26 @@ void destroy_SL(SL& sL)
 /* 07_单链表——尾插法建立_带头节点*/
 Status tailInsert_SLh(SL& head, ElementType *datas, int length)
 {
-	SL& p = head->next;
-	for (int i =0; i < length; i++)
+	// 指针p存放上一个结点
+	SL p = head;
+	// 用于新建的结点
+	SL q = NULL;
+
+	for (int i = 0; i < length; i++)
 	{
 		// 指针p，每次循环在最后一个结点指针域，进行结点创建
-		p = (SL)malloc(sizeof(SL_Node));
-		if (!p)
+		q = (SL)malloc(sizeof(SL_Node));
+		if (!q)
 		{
 			return ERROR;
 		}
-		p->data = *(datas + i);
-		p->next = NULL;
+		q->data = *(datas + i);
+		q->next = NULL;
+		// 新结点连接到上一个结点
+		p->next = q;
 		// 迭代
-		p = p->next;
+		p = q;
+		q = q->next;
 	}
 	return OK;
 }
@@ -149,19 +173,38 @@ Status tailInsert_SLh(SL& head, ElementType *datas, int length)
 /* 08_单链表——尾插法建立_不带头节点*/
 Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 {
-	SL_Node* p = sL;
+	// 指针p，用来保存上一个结点
+	SL p = sL;
+	// 指针q，用于创建新结点
+	SL q = p;
+
 	for (int i = 0; i < length; i++)
 	{
 		// 指针p，每次循环在最后一个结点指针域，进行结点创建
-		p = (SL_Node*)malloc(sizeof(SL_Node));
-		if (!p)
+		q = (SL)malloc(sizeof(SL_Node));
+		if (!q)
 		{
 			return ERROR;
 		}
-		p->data = *(datas + i);
-		p->next = NULL;
-		// 移到最后一个结点的指针域
-		p = p->next;
+		q->data = *(datas + i);
+		q->next = NULL;
+		// 不为第一个结点时
+		if (i)
+		{
+			// 将新节点连到p后面
+			p->next = q;
+			// 新节点作为上一个结点
+			p = q;
+			
+		}
+		// 为第一个结点时q新创建的地址赋值给链表标识sL，以及上一个结点标识p
+		else
+		{
+			sL = q;
+			p = q;
+		}
+		// 指针q，再移动到新结点创建位置
+		q = q->next;
 	}
 	return OK;
 }
@@ -228,8 +271,26 @@ void traveseList_SLh(SL head)
 	printf("开始遍历！\n");
 	while (p)
 	{
-		printf("data -->> %d\t", p->data);
+		visit(*p);
 		p = p->next;
 	}
 	printf("遍历结束！\n");
+}
+
+/* 12_单链表——遍历_不带头结点*/
+void traverseList_SL(SL sL)
+{
+	SL p = sL;
+	printf("开始遍历！\n");
+	while (p)
+	{
+		visit(*p);
+		p = p->next;
+	}
+	printf("遍历结束！\n");
+}
+/* 13_单链表——访问方法*/
+void visit(Hnode hnode)
+{
+	printf("data -->> %d\n", hnode.data);
 }
