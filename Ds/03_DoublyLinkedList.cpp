@@ -3,21 +3,36 @@
 /* 测试双向循环链表的方法*/
 void testDoublyLinkedList()
 {
+	int length;
+	printf("请输入链表长度：\n");
+	scanf_s("%d", &length);
+	ElementType* datas = new ElementType[length];
+	printf("请输入链表的 %d 个元素：\n", length);
+	for (int i = 0; i < length; i++)
+	{
+		scanf_s("%d", datas + i);
+	}
+
 	DuL duL;
 
 	// 测试初始化
 	initList_DuL(duL);
-	// 打印指针
+	printf("\n=====初始化方法测试=====\n");
 	printf("duL -> %p\n", duL);
 	printf("prior -> %p\n", duL->prior);
 	printf("next -> %p\n", duL->next);
 
-	// 测试索引位置前插入元素：此处结果应该是 4 -> 6 -> 5
-	insertByIndex_DuL(duL, 1, 4);
-	insertByIndex_DuL(duL, 1, 5);
-	insertByIndex_DuL(duL, 1, 6);
+	// 测试索引位置前插入元素：此处结果应该是 0 -> 1 -> 2
+	insertByIndex_DuL(duL, 1, 0);
+	insertByIndex_DuL(duL, 1, 2);
+	insertByIndex_DuL(duL, 1, 1);
+	printf("\n=====指定索引前插入=====\n");
 	traverseList_DuL(duL);
 
+	// 测试在表尾批量插入元素的方法
+	batchInsertToTail_DuL(duL, datas, length);
+	printf("\n=====表尾批量插入=====\n");
+	traverseList_DuL(duL);
 }
 
 /* 01_双向循环链表——初始化_带头结点*/
@@ -95,4 +110,33 @@ void backTraverseList_DuL(DuL duL)
 void visit(DuNode duNode)
 {
 	printf("duNode data -> %d\n", duNode.data);
+}
+
+/* 06_双向循环链表——批量插入数据到表尾*/
+Status batchInsertToTail_DuL(DuL& duL, ElementType* datas, int length)
+{
+	// 待插入的位置
+	DuL tail = duL->prior;
+	// 待插入的结点迭代
+	DuL cur = NULL;
+	for (int i = 0; i < length; i++)
+	{
+		// 每次创建一个结点
+		cur = (DuL)malloc(sizeof(DuNode));
+		// 插入失败则返回错误
+		if (!cur)
+		{
+			return ERROR;
+		}
+		cur->data = *(datas + i);
+		// 连接前置结点
+		tail->next = cur;
+		cur->prior = tail;
+		// 连接后继结点
+		cur->next = duL;
+		duL->prior = cur;
+		// 下一个
+		tail = cur;
+	}
+	return OK;
 }

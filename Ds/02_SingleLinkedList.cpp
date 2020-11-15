@@ -14,15 +14,15 @@ void testSingleLinkedList()
 	}
 
 	// 测试带头结点
-	printf("=====带头结点=====");
+	printf("\n=====带头结点=====\n");
 	testWithHead(datas, length);
 
 	// 测试不带头结点
-	printf("=====不带头结点=====");
+	printf("\n=====不带头结点=====\n");
 	testWithoutHead(datas, length);
 
 	// 测试两个链表合并
-	printf("=====两个链表合并=====");
+	printf("\n=====两个链表合并=====\n");
 	testMerge();
 }
 

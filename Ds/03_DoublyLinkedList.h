@@ -36,3 +36,6 @@ void backTraverseList_DuL(DuL duL);
 
 // 05_双向循环链表——访问
 void visit(DuNode duNode);
+
+// 06_双向循环链表——批量插入数据到表尾
+Status batchInsertToTail_DuL(DuL& duL, ElementType* datas, int length);
