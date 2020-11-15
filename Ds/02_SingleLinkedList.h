@@ -26,6 +26,12 @@ void testWithHead(ElementType* datas, int length);
 // 不带头结点的测试方法
 void testWithoutHead(ElementType* datas, int length);
 
+// 测试两个链表合并的方法
+void testMerge();
+
+// 将两个递增序列链表合并为一个递减序列的链表
+SL mergeTwoList(SL headA, SL headB);
+
 // 01_单链表——初始化_带头结点
 Status initList_SLh(SL& head);
 

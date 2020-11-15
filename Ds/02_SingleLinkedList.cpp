@@ -21,6 +21,9 @@ void testSingleLinkedList()
 	printf("=====不带头结点=====");
 	testWithoutHead(datas, length);
 
+	// 测试两个链表合并
+	printf("=====两个链表合并=====");
+	testMerge();
 }
 
 /* 带头结点的测试方法*/
@@ -89,6 +92,85 @@ void testWithoutHead(ElementType* datas, int length)
 	invertList_SL(sL);
 	traverseList_SL(sL);
 
+}
+
+/* 测试两个链表合并的方法*/
+void testMerge()
+{
+	SL headA, headB, head;
+	initList_SLh(head);
+	initList_SLh(headA);
+	initList_SLh(headB);
+
+	ElementType arrA[] = { 1, 3, 5, 7, 9 };
+	ElementType arrB[] = { 0, 2, 4, 6, 8 };
+
+	printf("=====进入尾插法=====\n");
+	tailInsert_SLh(headA, arrA, 5);
+	tailInsert_SLh(headB, arrB, 5);
+	traveseList_SLh(headA);
+	traveseList_SLh(headB);
+
+	printf("=====开始合并=====\n");
+	head = mergeTwoList(headA, headB);
+	traveseList_SLh(head);
+}
+
+/* 将两个递增序列链表合并为一个递减序列的链表*/
+SL mergeTwoList(SL headA, SL headB)
+{
+	// 待返回的合并后的链表
+	SL head;
+	initList_SLh(head);
+	// 指针s，指向目标链表中上一个插入的元素
+	SL s = NULL;
+
+	SL p = headA->next;
+	SL q = headB->next;
+	// 当两个链表都有元素时，取小的元素进行头插法
+	while (p && q)
+	{
+		// 每次进循环，准备头插，保存目标链表上一次插入的结点
+		s = head->next;
+		if (p->data <= q->data)
+		{
+			// 目标链表头节点，直接指向待插入的元素
+			head->next = p;
+			// 被选取元素的链表，头结点指向被选元素的后继
+			headA->next = p->next;
+			// 目标链表的待插入元素指向保存的上一个结点，完成头插
+			p->next = s;
+			// 被选元素的下一次迭代
+			p = headA->next;
+		}
+		else
+		{
+			head->next = q;
+			headB->next = q->next;
+			q->next = s;
+			q = headB->next;
+		}
+	}
+	// 只有一个链表又元素时候，依次将所有元素进行头插法
+	while (p)
+	{
+		s = head->next;
+		head->next = p;
+		headA->next = p->next;
+		p->next = s;
+		p = headA->next;
+	}
+	while (q)
+	{
+		s = head->next;
+		head->next = q;
+		headB->next = q->next;
+		q->next = s;
+		q = headB->next;
+	}
+	free(headA);
+	free(headB);
+	return head;
 }
 
 
