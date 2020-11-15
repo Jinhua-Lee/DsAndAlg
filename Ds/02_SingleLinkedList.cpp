@@ -317,7 +317,6 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 			p->next = q;
 			// 新节点作为上一个结点
 			p = q;
-			
 		}
 		// 为第一个结点时q新创建的地址赋值给链表标识sL，以及上一个结点标识p
 		else
@@ -355,8 +354,6 @@ Status headInsert_SLh(SL& head, ElementType* datas, int length)
 		{
 			// 第一个结点即为表尾结点
 			q->next = NULL;
-			// 指针p，保存为上一个插入的结点
-			
 		}
 		// 非第一个结点
 		else

@@ -3,6 +3,7 @@
 #include".\Alg\divideFunction.cpp"
 #include".\Ds\01_SequenceList.h"
 #include ".\Ds\02_SingleLinkedList.h"
+#include ".\Ds\03_DoublyLinkedList.h"
 
 // 引用和指针的测试
 void testRefer();
@@ -17,7 +18,8 @@ int main()
 	//testRefer();
 
 	//testSqList();
-	testSingleLinkedList();
+	//testSingleLinkedList();
+	testDoublyLinkedList();
 
 	return 1;
 }
