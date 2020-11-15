@@ -33,6 +33,13 @@ void testDoublyLinkedList()
 	batchInsertToTail_DuL(duL, datas, length);
 	printf("\n=====表尾批量插入=====\n");
 	traverseList_DuL(duL);
+
+	// 测试按索引删除元素的方法
+	ElementType data = deleteByIndex_DuL(duL, 1);
+	printf("\n=====按索引删除元素=====\n");
+	traverseList_DuL(duL);
+	printf("\n删除的元素为：%d\n", data);
+
 }
 
 /* 01_双向循环链表——初始化_带头结点*/
@@ -139,4 +146,28 @@ Status batchInsertToTail_DuL(DuL& duL, ElementType* datas, int length)
 		tail = cur;
 	}
 	return OK;
+}
+
+/* 07_双向循环链表——删除指定索引的元素*/
+ElementType deleteByIndex_DuL(DuL& duL, int index)
+{
+	ElementType data;
+	DuL cur = duL->next;
+	// 直接找到该结点，不用找前置
+	for (int i = 0; i < index; i++)
+	{
+		if (cur->next == duL)
+		{
+			return NULL;
+		}
+		cur = cur->next;
+	}
+	// 保存返回值
+	data = cur->data;
+	// 将前置节点和后继结点连接起来
+	cur->prior->next = cur->next;
+	cur->next->prior = cur->prior;
+	// 释放空间
+	free(cur);
+	return data;
 }

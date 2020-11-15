@@ -39,3 +39,6 @@ void visit(DuNode duNode);
 
 // 06_双向循环链表——批量插入数据到表尾
 Status batchInsertToTail_DuL(DuL& duL, ElementType* datas, int length);
+
+// 07_双向循环链表——删除指定索引的元素
+ElementType deleteByIndex_DuL(DuL& duL, int index);
