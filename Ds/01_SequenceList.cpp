@@ -203,12 +203,12 @@ Status purgeList_Sq(SqList& sLa, SqList& sLb)
 	while (sLb.length > 0)
 	{
 		bElem = deleteElem_Sq(sLb, 0);
-		printf("B删除了：%d\n", bElem);
-		// A中如果找不到该元素，则加入该元素
+		printf("表B删除了：%d\n", bElem);
+		// 表A中如果找不到该元素，则加入该元素
 		if (locateElem_Sq(sLa, bElem) == -1)
 		{
 			insertElem_Sq(sLa, sLa.length, bElem);
-			printf("A加入了：%d\n", bElem);
+			printf("表A加入了：%d\n", bElem);
 		}
 	}
 	// 最后销毁B

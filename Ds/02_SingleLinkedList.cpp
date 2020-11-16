@@ -271,23 +271,23 @@ Status tailInsert_SLh(SL& head, ElementType *datas, int length)
 	// 指针p存放上一个结点
 	SL p = head;
 	// 用于新建的结点
-	SL q = NULL;
+	SL s = NULL;
 
 	for (int i = 0; i < length; i++)
 	{
 		// 指针p，每次循环在最后一个结点指针域，进行结点创建
-		q = (SL)malloc(sizeof(SL_Node));
-		if (!q)
+		s = (SL)malloc(sizeof(SL_Node));
+		if (!s)
 		{
 			return ERROR;
 		}
-		q->data = *(datas + i);
-		q->next = NULL;
+		s->data = *(datas + i);
+		s->next = NULL;
 		// 新结点连接到上一个结点
-		p->next = q;
+		p->next = s;
 		// 迭代
-		p = q;
-		q = q->next;
+		p = s;
+		s = s->next;
 	}
 	return OK;
 }
@@ -297,35 +297,35 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 {
 	// 指针p，用来保存上一个结点
 	SL p = sL;
-	// 指针q，用于创建新结点
-	SL q = NULL;
+	// 指针s，用于创建新结点
+	SL s = NULL;
 
 	for (int i = 0; i < length; i++)
 	{
 		// 指针p，每次循环在最后一个结点指针域，进行结点创建
-		q = (SL)malloc(sizeof(SL_Node));
-		if (!q)
+		s = (SL)malloc(sizeof(SL_Node));
+		if (!s)
 		{
 			return ERROR;
 		}
-		q->data = *(datas + i);
-		q->next = NULL;
+		s->data = *(datas + i);
+		s->next = NULL;
 		// 不为第一个结点时
 		if (i)
 		{
 			// 将新节点连到p后面
-			p->next = q;
-			// 新节点作为上一个结点
-			p = q;
+			p->next = s;
+			
 		}
-		// 为第一个结点时q新创建的地址赋值给链表标识sL，以及上一个结点标识p
+		// 为第一个结点时s新创建的地址赋值给链表标识sL，以及上一个结点标识p
 		else
 		{
-			sL = q;
-			p = q;
+			sL = s;
 		}
+		// 新节点作为上一个结点
+		p = s;
 		// 指针q，再移动到新结点创建位置
-		q = q->next;
+		s = s->next;
 	}
 	return OK;
 }
@@ -335,36 +335,36 @@ Status headInsert_SLh(SL& head, ElementType* datas, int length)
 {
 	// 指针p，用作保存上一个创建的结点，使得头节点指向的新创建结点指向上一个结点。
 	SL p = head;
-	// 指针q，用于创建新的结点
-	SL q = NULL;
+	// 指针s，用于创建新的结点
+	SL s = NULL;
 
 	for (int i = 0; i < length; i++)
 	{
 		// 每次通过头结点创建新结点
-		q = (SL)malloc(sizeof(SL_Node));
-		if (!q)
+		s = (SL)malloc(sizeof(SL_Node));
+		if (!s)
 		{
 			return ERROR;
 		}
-		q->data = *(datas + i);
+		s->data = *(datas + i);
 		// 元素接到头结点后
-		head->next = q;
+		head->next = s;
 		// 第一个结点插入
 		if (!i)
 		{
 			// 第一个结点即为表尾结点
-			q->next = NULL;
+			s->next = NULL;
 		}
 		// 非第一个结点
 		else
 		{
 			// 结点前置为头结点
-			head->next = q;
+			head->next = s;
 			// 结点后继为上一个结点
-			q->next = p;
+			s->next = p;
 		}
 		// 指针p保存当次插入的结点位置
-		p = q;
+		p = s;
 	}
 	return OK;
 }
@@ -374,32 +374,32 @@ Status headInsert_SL(SL& sL, ElementType* datas, int length)
 {
 	// 同上，指针p用来保存上一个创建的结点
 	SL p = sL;
-	// 指针q，用来创建新的节点
-	SL q = NULL;
+	// 指针s，用来创建新的节点
+	SL s = NULL;
 
 	for (int i = 0; i < length; i++)
 	{
-		q = (SL)malloc(sizeof(SL_Node));
-		if (!q)
+		s = (SL)malloc(sizeof(SL_Node));
+		if (!s)
 		{
 			return ERROR;
 		}
-		q->data = *(datas + i);
+		s->data = *(datas + i);
 		// 第一个结点
 		if (!i)
 		{
 			// 第一个结点作为表尾结点
-			q->next = NULL;
+			s->next = NULL;
 		}
 		else
 		{
 			// 连接到上一次插入的结点
-			q->next = p;
+			s->next = p;
 		}
 		// 连接到开始
-		sL = q;
+		sL = s;
 		// 保存为上一个结点
-		p = q;
+		p = s;
 	}
 	return OK;
 }
@@ -431,7 +431,7 @@ void traverseList_SL(SL sL)
 }
 
 /* 13_单链表——访问方法*/
-void visit(Hnode hnode)
+void visit(HNode hnode)
 {
 	printf("data -->> %d\n", hnode.data);
 }
@@ -540,4 +540,17 @@ void invertList_SL(SL& sL)
 		s->next = sL;
 		sL = s;
 	}
+}
+
+/* 18_单链表——初始化_带头结点2*/
+Status initList_SLh2(HNode** hNode)
+{
+	*hNode = (HNode*)malloc(sizeof(SL_Node));
+	if (!*hNode)
+	{
+		return ERROR;
+	}
+	(*hNode)->data = NULL;
+	(*hNode)->next = NULL;
+	return OK;
 }
