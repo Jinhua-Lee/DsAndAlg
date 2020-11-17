@@ -4,6 +4,7 @@
 #include".\Ds\01_SequenceList.h"
 #include ".\Ds\02_SingleLinkedList.h"
 #include ".\Ds\03_DoublyLinkedList.h"
+#include ".\Ds\04_SequenceStack.h"
 
 // 引用和指针的测试
 void testRefer();
@@ -19,7 +20,9 @@ int main()
 
 	//testSqList();
 	//testSingleLinkedList();
-	testDoublyLinkedList();
+	//testDoublyLinkedList();
+
+	testSequenceStack();
 
 	return 1;
 }

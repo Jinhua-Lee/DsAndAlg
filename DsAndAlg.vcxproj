@@ -146,11 +146,13 @@
     <ClCompile Include="Ds\01_SequenceList.cpp" />
     <ClCompile Include="Ds\02_SingleLinkedList.cpp" />
     <ClCompile Include="Ds\03_DoublyLinkedList.cpp" />
+    <ClCompile Include="Ds\04_SequenceStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h" />
     <ClInclude Include="Ds\02_SingleLinkedList.h" />
     <ClInclude Include="Ds\03_DoublyLinkedList.h" />
+    <ClInclude Include="Ds\04_SequenceStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,6 +39,9 @@
     <ClCompile Include="Ds\03_DoublyLinkedList.cpp">
       <Filter>源文件\Ds</Filter>
     </ClCompile>
+    <ClCompile Include="Ds\04_SequenceStack.cpp">
+      <Filter>源文件\Ds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h">
@@ -48,6 +51,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Ds\03_DoublyLinkedList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Ds\04_SequenceStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
