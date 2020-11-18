@@ -22,7 +22,7 @@ typedef struct SqStack
 	int stackSize;
 	// 每次扩容的大小
 	int incrementSize;
-};
+}SqStack;
 
 // 测试顺序栈的方法
 void testSequenceStack();
@@ -50,3 +50,6 @@ Status clearStack_Sq(SqStack& sS);
 
 // 08_顺序栈——扩容
 Status incrementStack_Sq(SqStack& sS);
+
+// 09_顺序栈——栈长度
+int stackLength_Sq(SqStack sS);

@@ -133,3 +133,10 @@ Status incrementStack_Sq(SqStack& sS)
 	sS.stackSize += sS.incrementSize;
 	return OK;
 }
+
+/* 09_顺序栈——栈长度*/
+int stackLength_Sq(SqStack sS)
+{
+	// 栈顶索引的长度+1 == 栈长度
+	return sS.top + 1;
+}
