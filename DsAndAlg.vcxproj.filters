@@ -45,6 +45,9 @@
     <ClCompile Include="Ds\05_LinkedStack.cpp">
       <Filter>源文件\Ds</Filter>
     </ClCompile>
+    <ClCompile Include="Ds\06_CircularQueue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h">
@@ -60,6 +63,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Ds\05_LinkedStack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Ds\06_CircularQueue.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

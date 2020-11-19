@@ -148,6 +148,7 @@
     <ClCompile Include="Ds\03_DoublyLinkedList.cpp" />
     <ClCompile Include="Ds\04_SequenceStack.cpp" />
     <ClCompile Include="Ds\05_LinkedStack.cpp" />
+    <ClCompile Include="Ds\06_CircularQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Ds\03_DoublyLinkedList.h" />
     <ClInclude Include="Ds\04_SequenceStack.h" />
     <ClInclude Include="Ds\05_LinkedStack.h" />
+    <ClInclude Include="Ds\06_CircularQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

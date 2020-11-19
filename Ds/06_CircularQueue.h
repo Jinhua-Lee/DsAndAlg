@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 // 定义初始大小和增量
-#define LIST_INIT_SIZE 150
-#define LIST_INCREMENT 20
+#define Queue_INIT_SIZE 150
+#define Queue_INCREMENT 20
 // 定义返回状态及返回码
 #define Status int
 #define OK 1
@@ -18,7 +18,7 @@ typedef struct CircularQueue
 	ElementType* elem;
 
 	// 队列的当前元素个数
-	int length;
+	int count;
 
 	// 队头的索引
 	int front;
@@ -28,6 +28,28 @@ typedef struct CircularQueue
 
 	// 队列容量
 	int queueSize;
-}CQueue, *Q;
+
+	// 循环队列扩容的增量
+	int incrementSize;
+}CQueue;
 
 // 01_循环队列——初始化
+Status initQueue_Cq(CQueue& cQ);
+
+// 02_循环队列——队列长度
+int queueLength_Cq(CQueue cQ);
+
+// 03_循环队列——入队列
+Status enqueue_Cq(CQueue& cQ, ElementType elem);
+
+// 04_循环队列——出队列
+Status dequeue_Cq(CQueue& cQ, ElementType& elem);
+
+// 05_循环队列——扩容
+Status incrementQueue_Cq(CQueue& cQ);
+
+// 06_循环队列——队满
+Status queueFull_Cq(CQueue cQ);
+
+// 07_循环队列——队空
+Status queueEmpty_Cq(CQueue cQ);
