@@ -1,4 +1,4 @@
-#include"01_SequenceList.h"
+#include "01_SequenceList.h"
 
 /* 01_顺序表——创建空表：没有元素，长度为0，默认容量和增量*/
 Status createList_Sq(SqList& sL, int initSize = LIST_INIT_SIZE, int incrementSize = LIST_INCREMENT)
