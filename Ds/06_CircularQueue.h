@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 // 定义初始大小和增量
-#define Queue_INIT_SIZE 150
-#define Queue_INCREMENT 20
+#define Queue_INIT_SIZE 7
+#define Queue_INCREMENT 3
 // 定义返回状态及返回码
 #define Status int
 #define OK 1
@@ -33,6 +33,12 @@ typedef struct CircularQueue
 	int incrementSize;
 }CQueue;
 
+// 测试循环队列的方法
+void testCircularQueue();
+
+// 以数组的方式来遍历，用于测试
+void testTraverse(CQueue cQ);
+
 // 01_循环队列——初始化
 Status initQueue_Cq(CQueue& cQ);
 
@@ -53,3 +59,6 @@ Status queueFull_Cq(CQueue cQ);
 
 // 07_循环队列——队空
 Status queueEmpty_Cq(CQueue cQ);
+
+// 08_循环队列——获取队首元素
+Status getFront_Cq(CQueue cQ, ElementType& elem);

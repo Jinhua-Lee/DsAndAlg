@@ -6,6 +6,7 @@
 #include ".\Ds\03_DoublyLinkedList.h"
 #include ".\Ds\04_SequenceStack.h"
 #include ".\Ds\05_LinkedStack.h"
+#include ".\Ds\06_CircularQueue.h"
 
 // 引用和指针的测试
 void testRefer();
@@ -24,7 +25,8 @@ int main()
 	//testDoublyLinkedList();
 
 	//testSequenceStack();
-	testLinkedStack();
+	//testLinkedStack();
+	testCircularQueue();
 
 	return 1;
 }
