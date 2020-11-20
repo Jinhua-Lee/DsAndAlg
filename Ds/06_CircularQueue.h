@@ -23,10 +23,10 @@ typedef struct CircularQueue
 	// 队头的索引
 	int front;
 
-	// 队尾索引
+	// 队尾索引，需要注意rear始终指向队尾元素的下一个位置
 	int rear;
 
-	// 队列容量
+	// 队列容量,需要注意【实际容量】是比这个值小1的，为了区别队满和队空的情况
 	int queueSize;
 
 	// 循环队列扩容的增量
