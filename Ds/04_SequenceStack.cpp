@@ -122,13 +122,15 @@ Status clearStack_Sq(SqStack& sS)
 /* 08_顺序栈——扩容*/
 Status incrementStack_Sq(SqStack& sS)
 {
+	ElementType* newElem;
 	// 进行扩容操作，当前容量加上增量
-	sS.elem = (ElementType*)malloc((sS.stackSize + (size_t)sS.incrementSize) * sizeof(ElementType));
+	newElem = (ElementType*)realloc(sS.elem, (sS.stackSize + (size_t)sS.incrementSize) * sizeof(ElementType));
 	// 扩容失败，返回错误
 	if (!sS.elem)
 	{
 		return ERROR;
 	}
+	sS.elem = newElem;
 	// 扩容不要忘记修改容量
 	sS.stackSize += sS.incrementSize;
 	return OK;

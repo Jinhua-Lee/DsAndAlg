@@ -20,15 +20,17 @@ Status createList_Sq(SqList& sL, int initSize = LIST_INIT_SIZE, int incrementSiz
 Status initList_Sq(SqList& sL, ElementType* elems, int targetLength)
 {
 	int srcLength = sL.length;
+	ElementType* newElem;
 	// 若空间不足，则分配空间
 	if (srcLength + targetLength > sL.listSize)
 	{
 		// 分配大小刚好为填入后总长度 +增量
-		sL.elem = (ElementType*)malloc((srcLength + (size_t)targetLength + LIST_INCREMENT) * sizeof(ElementType));
+		newElem = (ElementType*)realloc(sL.elem, (srcLength + (size_t)targetLength + LIST_INCREMENT) * sizeof(ElementType));
 		// 分配成功，设置顺序表容量
-		if (sL.elem)
+		if (newElem)
 		{
 			sL.listSize = sL.length + targetLength + LIST_INCREMENT;
+			sL.elem = newElem;
 		}
 		// 分配失败返回错误
 		else

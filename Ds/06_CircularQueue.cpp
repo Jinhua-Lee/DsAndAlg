@@ -129,17 +129,19 @@ Status dequeue_Cq(CQueue& cQ, ElementType& elem)
  * 2. 如果队列满时候 rear < front，即满队状态有元素越过 size - 1的索引，从0再存，
  *      那么此时直接使用malloc会导致获取队列元素，队列中会有很多空的位置。
  *      这种情况是需要处理的。
- *      a. 先进行malloc，再进行元素移动。本函数采用该方法实现
+ *      a. 先进行realloc，再进行元素移动。本函数采用该方法实现
  *      b. 创建新数组，依次出队列，入队到新数组，毁原数组。
  */
 Status incrementQueue_Cq(CQueue& cQ)
 {
-    cQ.elem = (ElementType*)malloc((cQ.queueSize + (size_t)cQ.incrementSize) * sizeof(ElementType));
+    ElementType* newElem;
+    newElem = (ElementType*)realloc(cQ.elem, (cQ.queueSize + (size_t)cQ.incrementSize) * sizeof(ElementType));
     // 扩容失败返回错误
-	if (!cQ.elem)
+	if (!newElem)
 	{
 		return ERROR;
 	}
+    cQ.elem = newElem;
     cQ.queueSize += cQ.incrementSize;
     printf("\n扩容后，移动前\n");
     testTraverse(cQ);
