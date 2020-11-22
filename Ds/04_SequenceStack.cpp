@@ -66,8 +66,6 @@ Status push_Sq(SqStack& sS, ElementType e)
 	}
 	// 压入栈顶
 	*(sS.elem + ++sS.top) = e;
-	// 栈大小 +1
-	sS.stackSize++;
 	// 成功
 	return OK;
 }
@@ -82,8 +80,6 @@ Status pop_Sq(SqStack& sS, ElementType& e)
 	}
 	// 赋值并移动栈顶索引
 	e = *(sS.elem + sS.top--);
-	// 栈大小 -1
-	sS.stackSize--;
 	return OK;
 }
 

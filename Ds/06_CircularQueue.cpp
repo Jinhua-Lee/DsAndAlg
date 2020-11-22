@@ -101,6 +101,7 @@ Status enqueue_Cq(CQueue& cQ, ElementType elem)
     // 入队列操作
     *(cQ.elem + cQ.rear) = elem;
     cQ.rear = (cQ.rear + 1) % cQ.queueSize;
+    // 别忘记队列长度
     cQ.count++;
     return OK;
 }
@@ -118,6 +119,7 @@ Status dequeue_Cq(CQueue& cQ, ElementType& elem)
     elem = *(cQ.elem + cQ.front);
     *(cQ.elem + cQ.front) = NULL;
     cQ.front = (cQ.front + 1) % cQ.queueSize;
+    // 别忘记队列长度
     cQ.count--;
     return OK;
 }
@@ -125,11 +127,11 @@ Status dequeue_Cq(CQueue& cQ, ElementType& elem)
 /* 05_循环队列——扩容*/
 /**
  * 循环队列扩容场景分析：
- * 1. 如果队列满时候 rear > front，即满队状态没有进行循环。则malloc可以直接使用。
+ * 1. 如果队列满时候 rear > front，即满队状态没有进行循环。则realloc可以直接使用。
  * 2. 如果队列满时候 rear < front，即满队状态有元素越过 size - 1的索引，从0再存，
- *      那么此时直接使用malloc会导致获取队列元素，队列中会有很多空的位置。
+ *      那么此时直接使用realloc会导致获取队列元素，队列中会有很多空的位置。
  *      这种情况是需要处理的。
- *      a. 先进行realloc，再进行元素移动。本函数采用该方法实现
+ *      a. 先进行realloc重新分配，再进行元素移动。本函数采用该方法实现
  *      b. 创建新数组，依次出队列，入队到新数组，毁原数组。
  */
 Status incrementQueue_Cq(CQueue& cQ)
@@ -199,7 +201,7 @@ Status queueFull_Cq(CQueue cQ)
 /* 07_循环队列——队空*/
 Status queueEmpty_Cq(CQueue cQ)
 {
-    // 重合即表示队列为空
+    // 队首指针与队尾指针重合即表示队列为空
     return cQ.front == cQ.rear;
 }
 

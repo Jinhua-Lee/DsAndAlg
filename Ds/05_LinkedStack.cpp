@@ -124,5 +124,6 @@ Status clearStack_LS(LS& Ls)
         // Ïú»ÙÕ»¶¥ÔªËØ
         delete p;
     }
+    delete Ls;
     return OK;
 }
