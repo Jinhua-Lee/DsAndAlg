@@ -7,6 +7,7 @@
 #include ".\Ds\04_SequenceStack.h"
 #include ".\Ds\05_LinkedStack.h"
 #include ".\Ds\06_CircularQueue.h"
+#include ".\Ds\07_LinkedQueue.h"
 
 // 引用和指针的测试
 void testRefer();
@@ -26,7 +27,8 @@ int main()
 
 	//testSequenceStack();
 	//testLinkedStack();
-	testCircularQueue();
+	//testCircularQueue();
+	testLinkedQueue();
 
 	return 1;
 }

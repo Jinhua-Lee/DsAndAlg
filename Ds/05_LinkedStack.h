@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "02_SingleLinkedList.h"
 
 // 定义返回状态及返回码
 #define Status int
@@ -10,13 +11,7 @@
 
 // 采用单链表的结点定义，由于操作简单，所以不带头结点即可
 // 定义指向该单链栈结点的指针类型
-typedef struct S_Node
-{
-	// 存储的元素
-	ElementType data;
-	// 指向下一个结点的指针
-	struct S_Node* next;
-}*LS;
+typedef SL_Node S_Node, *LS;
 
 // 测试单链栈的方法
 void testLinkedStack();

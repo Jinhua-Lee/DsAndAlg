@@ -19,6 +19,12 @@
     <Filter Include="源文件\Ds">
       <UniqueIdentifier>{053528b5-b82d-4247-ab2b-fd29a0a53ff6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Alg">
+      <UniqueIdentifier>{b8812209-d714-465e-87f7-f6072bed763e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Ds">
+      <UniqueIdentifier>{8a241af1-7d29-4335-afef-90c02e5c44dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="demo.cpp">
@@ -48,25 +54,31 @@
     <ClCompile Include="Ds\06_CircularQueue.cpp">
       <Filter>源文件\Ds</Filter>
     </ClCompile>
+    <ClCompile Include="Ds\07_LinkedQueue.cpp">
+      <Filter>源文件\Ds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Ds</Filter>
     </ClInclude>
     <ClInclude Include="Ds\02_SingleLinkedList.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Ds</Filter>
     </ClInclude>
     <ClInclude Include="Ds\03_DoublyLinkedList.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Ds</Filter>
     </ClInclude>
     <ClInclude Include="Ds\04_SequenceStack.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Ds</Filter>
     </ClInclude>
     <ClInclude Include="Ds\05_LinkedStack.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Ds</Filter>
     </ClInclude>
     <ClInclude Include="Ds\06_CircularQueue.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Ds</Filter>
+    </ClInclude>
+    <ClInclude Include="Ds\07_LinkedQueue.h">
+      <Filter>头文件\Ds</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

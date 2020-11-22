@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,7 +15,7 @@ typedef struct SL_Node
 	// 存储的元素
 	ElementType data;
 	// 指向下一个结点的指针
-	struct SL_Node* next;
+	SL_Node* next;
 }HNode, *SL;
 
 // 测试单链表的方法

@@ -92,10 +92,10 @@ void bubbleSort(int *arr, int length)
 				swap = true;
 				swapInt(arr, j, j + 1);
 			}
-			if (!swap)
-			{
-				break;
-			}
+		}
+		if (!swap)
+		{
+			break;
 		}
 	}
 }
@@ -136,7 +136,7 @@ void insertSort(int* arr, int length)
 	{
 		// 缓存当前值
 		value = arr[i];
-		// j是从后向前的，每次设置初始值为i的前一个
+		// 遍历索引j，是从后向前的，每次设置初始值为i的前一个
 		int j = i - 1;
 		// 大于当前待插入的值才移动
 		while (j >= 0 && arr[j] > value)
