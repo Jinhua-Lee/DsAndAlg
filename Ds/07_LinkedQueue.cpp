@@ -69,14 +69,14 @@ Status initQueue_Lqh(LinkedQueue& linkedQH)
 	{
 		return ERROR;
 	}
-	// 创建头节点
+	// 创建头结点
 	Queue head = (Queue)malloc(sizeof(QueueNode));
 	// 创建失败返回错误
 	if (!head)
 	{
 		return ERROR;
 	}
-	// 将头节点设置到队列维护结点中
+	// 将头结点设置到队列维护结点中
 	linkedQH->front = head;
 	linkedQH->rear = head;
 	linkedQH->count = 0;
@@ -92,7 +92,7 @@ Status initQueue_Lq(LinkedQueue& linkedQ)
 	{
 		return ERROR;
 	}
-	// 无头节点，则两个指向为NULL
+	// 无头结点，则两个指向为NULL
 	linkedQ->front = NULL;
 	linkedQ->rear = NULL;
 	linkedQ->count = 0;

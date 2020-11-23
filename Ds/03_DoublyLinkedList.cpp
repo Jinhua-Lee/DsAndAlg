@@ -71,7 +71,7 @@ Status insertByIndex_DuL(DuL& duL, int index, ElementType data)
 			beforeInsert = beforeInsert->next;
 		}
 	}
-	// 插入后的后继节点
+	// 插入后的后继结点
 	DuL afterInsert = beforeInsert->next;
 	// 建立插入结点
 	DuL curInsert = (DuL)malloc(sizeof(DuL_Node));
@@ -164,7 +164,7 @@ ElementType deleteByIndex_DuL(DuL& duL, int index)
 	}
 	// 保存返回值
 	data = cur->data;
-	// 将前置节点和后继结点连接起来
+	// 将前置结点和后继结点连接起来
 	cur->prior->next = cur->next;
 	cur->next->prior = cur->prior;
 	// 释放空间

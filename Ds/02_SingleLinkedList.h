@@ -45,16 +45,16 @@ int listLength_SLh(SL head);
 // 04_单链表——长度_无头结点
 int listLength_SL(SL sL);
 
-// 05_单链表——销毁_带头节点
+// 05_单链表——销毁_带头结点
 void destroy_SLh(SL& head);
 
-// 06_单链表——销毁_无头节点
+// 06_单链表——销毁_无头结点
 void destroy_SL(SL& sL);
 
-// 07_单链表——尾插法建立_带头节点
+// 07_单链表——尾插法建立_带头结点
 Status tailInsert_SLh(SL& head, ElementType* datas, int length);
 
-// 08_单链表——尾插法建立_不带头节点
+// 08_单链表——尾插法建立_不带头结点
 Status tailInsert_SL(SL& sL, ElementType* datas, int length);
 
 // 09_单链表——头插法建立_带头结点
@@ -78,10 +78,10 @@ void deleteElem_SLh(SL& head, ElementType data);
 // 15_单链表——删除结点_不带头结点
 void deleteElem_SL(SL& sL, ElementType data);
 
-// 16_单链表——原地逆置_带头节点
+// 16_单链表——原地逆置_带头结点
 void invertList_SLh(SL& head);
 
-// 17_单链表——原地逆置_不带头节点
+// 17_单链表——原地逆置_不带头结点
 void invertList_SL(SL& sL);
 
 // 18_单链表——初始化_带头结点2

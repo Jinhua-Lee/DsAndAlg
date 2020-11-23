@@ -30,7 +30,7 @@ void testSingleLinkedList()
 void testWithHead(ElementType* datas, int length)
 {
 	// =====带头结点=====
-	// 指向头节点的指针：头指针
+	// 指向头结点的指针：头指针
 	SL head = NULL;
 
 	// 初始化
@@ -134,7 +134,7 @@ SL mergeTwoList(SL headA, SL headB)
 		s = head->next;
 		if (p->data <= q->data)
 		{
-			// 目标链表头节点，直接指向待插入的元素
+			// 目标链表头结点，直接指向待插入的元素
 			head->next = p;
 			// 被选取元素的链表，头结点指向被选元素的后继
 			headA->next = p->next;
@@ -178,7 +178,7 @@ SL mergeTwoList(SL headA, SL headB)
 */
 Status initList_SLh(SL& head)
 {
-	// 指向头节点的指针
+	// 指向头结点的指针
 	head = (SL)malloc(sizeof(SL_Node));
 	if (!head)
 	{
@@ -225,10 +225,10 @@ int listLength_SL(SL sL)
 	return length;
 }
 
-/* 05_单链表——销毁_带头节点*/
+/* 05_单链表——销毁_带头结点*/
 void destroy_SLh(SL& head)
 {
-	// 定义p指针，指向头节点后的待删除结点
+	// 定义p指针，指向头结点后的待删除结点
 	SL_Node* p;
 	// 当前存在待删除结点
 	while (head->next)
@@ -244,7 +244,7 @@ void destroy_SLh(SL& head)
 	}
 }
 
-/* 06_单链表——销毁_无头节点*/
+/* 06_单链表——销毁_无头结点*/
 void destroy_SL(SL& sL)
 {
 	// 指针p，指向当前待删除结点
@@ -253,7 +253,7 @@ void destroy_SL(SL& sL)
 	{
 		// 每次先指向待删除结点
 		p = sL;
-		// 头指针指向后继节点
+		// 头指针指向后继结点
 		if (p->next)
 		{
 			sL = p->next;
@@ -265,7 +265,7 @@ void destroy_SL(SL& sL)
 	}
 }
 
-/* 07_单链表——尾插法建立_带头节点*/
+/* 07_单链表——尾插法建立_带头结点*/
 Status tailInsert_SLh(SL& head, ElementType *datas, int length)
 {
 	// 指针p存放上一个结点
@@ -292,7 +292,7 @@ Status tailInsert_SLh(SL& head, ElementType *datas, int length)
 	return OK;
 }
 
-/* 08_单链表——尾插法建立_不带头节点*/
+/* 08_单链表——尾插法建立_不带头结点*/
 Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 {
 	// 指针p，用来保存上一个结点
@@ -313,7 +313,7 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 		// 不为第一个结点时
 		if (i)
 		{
-			// 将新节点连到p后面
+			// 将新结点连到p后面
 			p->next = s;
 			
 		}
@@ -322,7 +322,7 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 		{
 			sL = s;
 		}
-		// 新节点作为上一个结点
+		// 新结点作为上一个结点
 		p = s;
 		// 指针q，再移动到新结点创建位置
 		s = s->next;
@@ -333,7 +333,7 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 /* 09_单链表——头插法建立_带头结点*/
 Status headInsert_SLh(SL& head, ElementType* datas, int length)
 {
-	// 指针p，用作保存上一个创建的结点，使得头节点指向的新创建结点指向上一个结点。
+	// 指针p，用作保存上一个创建的结点，使得头结点指向的新创建结点指向上一个结点。
 	SL p = head;
 	// 指针s，用于创建新的结点
 	SL s = NULL;
@@ -374,7 +374,7 @@ Status headInsert_SL(SL& sL, ElementType* datas, int length)
 {
 	// 同上，指针p用来保存上一个创建的结点
 	SL p = sL;
-	// 指针s，用来创建新的节点
+	// 指针s，用来创建新的结点
 	SL s = NULL;
 
 	for (int i = 0; i < length; i++)
@@ -404,7 +404,7 @@ Status headInsert_SL(SL& sL, ElementType* datas, int length)
 	return OK;
 }
 
-/* 11_单链表——遍历_带头节点*/
+/* 11_单链表——遍历_带头结点*/
 void traveseList_SLh(SL head)
 {
 	SL p = head->next;
@@ -493,7 +493,7 @@ void deleteElem_SL(SL& sL, ElementType data)
 	}
 }
 
-/* 16_单链表——原地逆置_带头节点*/
+/* 16_单链表——原地逆置_带头结点*/
 /* 『单链表原地逆置』个人理解。
 1. 大思路是将所有结点分为两种状态，『已完成逆置』和『待逆置』；
 2. 刚开始的状态，所有结点都是待逆置状态。
@@ -524,7 +524,7 @@ void invertList_SLh(SL& head)
 	}
 }
 
-/* 17_单链表——原地逆置_不带头节点*/
+/* 17_单链表——原地逆置_不带头结点*/
 /* 过程同上，原理无不同，只有head->next替换为sL头指针*/
 void invertList_SL(SL& sL)
 {

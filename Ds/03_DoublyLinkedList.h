@@ -12,11 +12,11 @@
 /* 双向链循环表存储结点*/
 typedef struct DuL_Node
 {
-	// 指向前驱节点指针
+	// 指向前驱结点指针
 	DuL_Node* prior;
 	// 存储元素
 	ElementType data;
-	// 指向后继节点指针
+	// 指向后继结点指针
 	DuL_Node* next;
 }DuNode, *DuL;
 
