@@ -52,3 +52,15 @@ Status rootBiNode_L(BinaryTree biTree);
 
 // 07_二叉树——求父节点
 Status parentBiNode_L(BinaryTree current, BinaryTree& parent);
+
+// 访问二叉树结点的方法
+void visit(BinaryTree biTree);
+
+// 08_二叉树——先序遍历
+void preOrderTraverse(BinaryTree biTree);
+
+// 09_二叉树——中序遍历
+void inOrderTraverse(BinaryTree biTree);
+
+// 10_二叉树——后序遍历
+void postOrderTraverse(BinaryTree biTree);

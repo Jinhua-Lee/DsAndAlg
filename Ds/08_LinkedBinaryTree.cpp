@@ -86,3 +86,45 @@ Status parentBiNode_L(BinaryTree current, BinaryTree& parent)
     parent = current->parent;
     return OK;
 }
+
+/* 访问二叉树结点的方法*/
+void visit(BinaryTree biTree)
+{
+    printf("%d", biTree->data);
+}
+
+/* 08_二叉树——先序遍历*/
+void preOrderTraverse(BinaryTree biTree)
+{
+    if (!biTree)
+    {
+        return;
+    }
+    visit(biTree);
+    preOrderTraverse(biTree->left);
+    preOrderTraverse(biTree->right);
+}
+
+/* 09_二叉树——中序遍历*/
+void inOrderTraverse(BinaryTree biTree)
+{
+	if (!biTree)
+	{
+		return;
+	}
+    inOrderTraverse(biTree->left);
+    visit(biTree);
+    inOrderTraverse(biTree->right);
+}
+
+/* 10_二叉树——后序遍历*/
+void postOrderTraverse(BinaryTree biTree)
+{
+	if (!biTree)
+	{
+		return;
+	}
+    postOrderTraverse(biTree->left);
+    postOrderTraverse(biTree->right);
+    visit(biTree);
+}
