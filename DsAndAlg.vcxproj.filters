@@ -57,6 +57,9 @@
     <ClCompile Include="Ds\07_LinkedQueue.cpp">
       <Filter>源文件\Ds</Filter>
     </ClCompile>
+    <ClCompile Include="Ds\08_LinkedBinaryTree.cpp">
+      <Filter>源文件\Ds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h">
@@ -78,6 +81,9 @@
       <Filter>头文件\Ds</Filter>
     </ClInclude>
     <ClInclude Include="Ds\07_LinkedQueue.h">
+      <Filter>头文件\Ds</Filter>
+    </ClInclude>
+    <ClInclude Include="Ds\08_LinkedBinaryTree.h">
       <Filter>头文件\Ds</Filter>
     </ClInclude>
   </ItemGroup>

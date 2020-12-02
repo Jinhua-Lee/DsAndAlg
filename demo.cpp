@@ -8,6 +8,7 @@
 #include ".\Ds\05_LinkedStack.h"
 #include ".\Ds\06_CircularQueue.h"
 #include ".\Ds\07_LinkedQueue.h"
+#include ".\DS\08_LinkedBinaryTree.h"
 
 // 引用和指针的测试
 void testRefer();
@@ -28,7 +29,8 @@ int main()
 	//testSequenceStack();
 	//testLinkedStack();
 	//testCircularQueue();
-	testLinkedQueue();
+	//testLinkedQueue();
+	testBinaryTree();
 
 	return 1;
 }

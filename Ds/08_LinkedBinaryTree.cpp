@@ -3,7 +3,18 @@
 /* 测试二叉树的方法*/
 void testBinaryTree()
 {
+    BinaryTree bt;
+    initBiTree_L(bt);
+    createByPreOrderTraverse_L(bt);
 
+    printf("\n先序遍历：\n");
+    preOrderTraverse_L(bt);
+
+    printf("\n中序遍历：\n");
+    inOrderTraverse_L(bt);
+
+    printf("\n后序遍历：\n");
+    postOrderTraverse_L(bt);
 }
 
 /* 01_二叉树——初始化*/
@@ -90,41 +101,67 @@ Status parentBiNode_L(BinaryTree current, BinaryTree& parent)
 /* 访问二叉树结点的方法*/
 void visit(BinaryTree biTree)
 {
-    printf("%d", biTree->data);
+    if (biTree)
+    {
+        printf("%-4d", biTree->data);
+    }
 }
 
 /* 08_二叉树——先序遍历*/
-void preOrderTraverse(BinaryTree biTree)
+void preOrderTraverse_L(BinaryTree biTree)
 {
     if (!biTree)
     {
         return;
     }
     visit(biTree);
-    preOrderTraverse(biTree->left);
-    preOrderTraverse(biTree->right);
+    preOrderTraverse_L(biTree->left);
+    preOrderTraverse_L(biTree->right);
 }
 
 /* 09_二叉树——中序遍历*/
-void inOrderTraverse(BinaryTree biTree)
+void inOrderTraverse_L(BinaryTree biTree)
 {
 	if (!biTree)
 	{
 		return;
 	}
-    inOrderTraverse(biTree->left);
+    inOrderTraverse_L(biTree->left);
     visit(biTree);
-    inOrderTraverse(biTree->right);
+    inOrderTraverse_L(biTree->right);
 }
 
 /* 10_二叉树——后序遍历*/
-void postOrderTraverse(BinaryTree biTree)
+void postOrderTraverse_L(BinaryTree biTree)
 {
 	if (!biTree)
 	{
 		return;
 	}
-    postOrderTraverse(biTree->left);
-    postOrderTraverse(biTree->right);
+    postOrderTraverse_L(biTree->left);
+    postOrderTraverse_L(biTree->right);
     visit(biTree);
+}
+
+/* 11_二叉树——通过先序遍历方法创建*/
+void createByPreOrderTraverse_L(BinaryTree& biTree)
+{
+    ElementType elem;
+    scanf_s("%d", &elem);
+    // 规定将负值作为终止该子树的字符
+    if (elem < 0)
+    {
+        // 此处必须置空，否则将是不可控的内存区域
+        biTree = NULL;
+        return;
+    }
+    biTree = (BinaryTree)malloc(sizeof(BinaryTreeNode));
+    if (!biTree)
+    {
+        printf("结点创建失败");
+        exit(-1);
+    }
+    biTree->data = elem;
+	createByPreOrderTraverse_L(biTree->left);
+	createByPreOrderTraverse_L(biTree->right);
 }

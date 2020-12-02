@@ -57,10 +57,13 @@ Status parentBiNode_L(BinaryTree current, BinaryTree& parent);
 void visit(BinaryTree biTree);
 
 // 08_二叉树——先序遍历
-void preOrderTraverse(BinaryTree biTree);
+void preOrderTraverse_L(BinaryTree biTree);
 
 // 09_二叉树——中序遍历
-void inOrderTraverse(BinaryTree biTree);
+void inOrderTraverse_L(BinaryTree biTree);
 
 // 10_二叉树——后序遍历
-void postOrderTraverse(BinaryTree biTree);
+void postOrderTraverse_L(BinaryTree biTree);
+
+// 11_二叉树——通过先序遍历方法创建
+void createByPreOrderTraverse_L(BinaryTree& biTree);

@@ -150,6 +150,7 @@
     <ClCompile Include="Ds\05_LinkedStack.cpp" />
     <ClCompile Include="Ds\06_CircularQueue.cpp" />
     <ClCompile Include="Ds\07_LinkedQueue.cpp" />
+    <ClCompile Include="Ds\08_LinkedBinaryTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Ds\05_LinkedStack.h" />
     <ClInclude Include="Ds\06_CircularQueue.h" />
     <ClInclude Include="Ds\07_LinkedQueue.h" />
+    <ClInclude Include="Ds\08_LinkedBinaryTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
