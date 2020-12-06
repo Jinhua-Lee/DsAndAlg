@@ -10,13 +10,13 @@
 #define OK 1
 #define ERROR 0
 // 定义存储的元素类型
-#define ElementType int
+#define CQueueElementType int
 
 // 循环队列的存储结构
 typedef struct CircularQueue
 {
 	// 存储数据的数组
-	ElementType* elem;
+	CQueueElementType* elem;
 
 	// 队列的当前元素个数
 	int count;
@@ -47,10 +47,10 @@ Status initQueue_Cq(CQueue& cQ);
 int queueLength_Cq(CQueue cQ);
 
 // 03_循环队列——入队列
-Status enqueue_Cq(CQueue& cQ, ElementType elem);
+Status enqueue_Cq(CQueue& cQ, CQueueElementType elem);
 
 // 04_循环队列——出队列
-Status dequeue_Cq(CQueue& cQ, ElementType& elem);
+Status dequeue_Cq(CQueue& cQ, CQueueElementType& elem);
 
 // 05_循环队列——扩容
 Status incrementQueue_Cq(CQueue& cQ);
@@ -62,4 +62,4 @@ Status queueFull_Cq(CQueue cQ);
 Status queueEmpty_Cq(CQueue cQ);
 
 // 08_循环队列——获取队首元素
-Status getFront_Cq(CQueue cQ, ElementType& elem);
+Status getFront_Cq(CQueue cQ, CQueueElementType& elem);

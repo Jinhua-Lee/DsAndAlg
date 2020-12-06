@@ -7,13 +7,13 @@
 #define OK 1
 #define ERROR 0
 // 定义存储的元素类型
-#define ElementType int
+#define BiTreeNodeElementType int
 
 // 二叉树结点结构定义
 typedef struct BinaryTreeNode
 {
 	// 数据域
-	ElementType data;
+	BiTreeNodeElementType data;
 	// 指向左孩子的指针
 	BinaryTreeNode* left;
 	// 指向右孩子的指针
@@ -56,14 +56,14 @@ Status parentBiNode_L(BinaryTree current, BinaryTree& parent);
 // 访问二叉树结点的方法
 void visit(BinaryTree biTree);
 
-// 08_二叉树——先序遍历
-void preOrderTraverse_L(BinaryTree biTree);
+// 08_二叉树——先序遍历_递归
+void preOrderTraverse_Recur(BinaryTree biTree);
 
-// 09_二叉树——中序遍历
-void inOrderTraverse_L(BinaryTree biTree);
+// 09_二叉树——中序遍历_递归
+void inOrderTraverse_Recur(BinaryTree biTree);
 
-// 10_二叉树——后序遍历
-void postOrderTraverse_L(BinaryTree biTree);
+// 10_二叉树——后序遍历_递归
+void postOrderTraverse_Recur(BinaryTree biTree);
 
 // 11_二叉树——通过先序遍历方法创建
 void createByPreOrderTraverse_L(BinaryTree& biTree);

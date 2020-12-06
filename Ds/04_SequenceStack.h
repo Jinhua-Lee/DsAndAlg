@@ -10,13 +10,13 @@
 #define OK 1
 #define ERROR 0
 // 定义存储的元素类型
-#define ElementType int
+#define SqStackElemType int
 
 // 顺序栈的结构定义
 typedef struct SqStack
 {
 	// 存储元素的数组
-	ElementType* elem;
+	SqStackElemType* elem;
 	// 栈顶元素的索引（这里称为栈顶指针）
 	int top;
 	// 栈容量
@@ -32,13 +32,13 @@ void testSequenceStack();
 Status initStack_Sq(SqStack& sS);
 
 // 02_顺序栈——取栈顶元素
-Status getTop_Sq(SqStack sS, ElementType& e);
+Status getTop_Sq(SqStack sS, SqStackElemType& e);
 
 // 03_顺序栈——入栈
-Status push_Sq(SqStack& sS, ElementType e);
+Status push_Sq(SqStack& sS, SqStackElemType e);
 
 // 04_顺序栈——出栈
-Status pop_Sq(SqStack& sS, ElementType& e);
+Status pop_Sq(SqStack& sS, SqStackElemType& e);
 
 // 05_顺序栈——销毁
 Status destroyStack_Sq(SqStack& sS);

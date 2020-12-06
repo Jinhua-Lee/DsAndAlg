@@ -10,7 +10,7 @@ void testCircularQueue()
     printf("CQ init Status: %d\n", initStatus);
 
     // 针对扩容的测试用例，size = 7，6个元素为满
-    ElementType front;
+    CQueueElementType front;
     enqueue_Cq(cQ, 1);
 	enqueue_Cq(cQ, 2);
 	enqueue_Cq(cQ, 3);
@@ -25,7 +25,7 @@ void testCircularQueue()
     printf("队列满之前：\n");
     testTraverse(cQ);
 
-    ElementType elem = NULL;
+    CQueueElementType elem = NULL;
     // 出队4个，再入队
     for (int i = 0; i < cQ.incrementSize + 1; i++)
     {
@@ -57,7 +57,7 @@ void testTraverse(CQueue cQ)
 Status initQueue_Cq(CQueue& cQ)
 {
     // 数据部分的存储空间申请
-    cQ.elem = (ElementType*)malloc((Queue_INIT_SIZE) * sizeof(ElementType));
+    cQ.elem = (CQueueElementType*)malloc((Queue_INIT_SIZE) * sizeof(CQueueElementType));
     // 空间分配失败，返回错误
     if (!cQ.elem)
     {
@@ -88,7 +88,7 @@ int queueLength_Cq(CQueue cQ)
 }
 
 /* 03_循环队列——入队列*/
-Status enqueue_Cq(CQueue& cQ, ElementType elem)
+Status enqueue_Cq(CQueue& cQ, CQueueElementType elem)
 {
     // 如果队列满了进行扩容
     if (queueFull_Cq(cQ))
@@ -107,7 +107,7 @@ Status enqueue_Cq(CQueue& cQ, ElementType elem)
 }
 
 /* 04_循环队列——出队列*/
-Status dequeue_Cq(CQueue& cQ, ElementType& elem)
+Status dequeue_Cq(CQueue& cQ, CQueueElementType& elem)
 {
     // 如果队列为空，返回失败
     if (queueEmpty_Cq(cQ))
@@ -136,8 +136,8 @@ Status dequeue_Cq(CQueue& cQ, ElementType& elem)
  */
 Status incrementQueue_Cq(CQueue& cQ)
 {
-    ElementType* newElem;
-    newElem = (ElementType*)realloc(cQ.elem, (cQ.queueSize + (size_t)cQ.incrementSize) * sizeof(ElementType));
+    CQueueElementType* newElem;
+    newElem = (CQueueElementType*)realloc(cQ.elem, (cQ.queueSize + (size_t)cQ.incrementSize) * sizeof(CQueueElementType));
     // 扩容失败返回错误
 	if (!newElem)
 	{
@@ -206,7 +206,7 @@ Status queueEmpty_Cq(CQueue cQ)
 }
 
 /* 08_循环队列——获取队首元素*/
-Status getFront_Cq(CQueue cQ, ElementType& elem)
+Status getFront_Cq(CQueue cQ, CQueueElementType& elem)
 {
     // 如果为空，返回NULL
     if (queueEmpty_Cq(cQ))

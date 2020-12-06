@@ -18,7 +18,7 @@ void testSequenceStack()
 	printf("Pushed.\n");
 
 	// 出栈测试
-	ElementType top;
+	SqStackElemType top;
 	while (pop_Sq(sS, top))
 	{
 		printf("Pop:\ttop = %d\n", top);
@@ -28,7 +28,7 @@ void testSequenceStack()
 /* 01_顺序栈——初始化*/
 Status initStack_Sq(SqStack& sS)
 {
-	sS.elem = (ElementType*)malloc(STACK_INIT_SIZE * sizeof(ElementType));
+	sS.elem = (SqStackElemType*)malloc(STACK_INIT_SIZE * sizeof(SqStackElemType));
 	if (!sS.elem)
 	{
 		return ERROR;
@@ -40,7 +40,7 @@ Status initStack_Sq(SqStack& sS)
 }
 
 /* 02_顺序栈——取栈顶元素*/
-Status getTop_Sq(SqStack sS, ElementType& e)
+Status getTop_Sq(SqStack sS, SqStackElemType& e)
 {
 	// 如果栈空，返回错误
 	if (stackEmpty_Sq(sS))
@@ -53,7 +53,7 @@ Status getTop_Sq(SqStack sS, ElementType& e)
 }
 
 /* 03_顺序栈——入栈*/
-Status push_Sq(SqStack& sS, ElementType e)
+Status push_Sq(SqStack& sS, SqStackElemType e)
 {
 	// 达到栈大小，进行扩容
 	if (sS.top + 1 == sS.stackSize)
@@ -71,7 +71,7 @@ Status push_Sq(SqStack& sS, ElementType e)
 }
 
 /* 04_顺序栈——出栈*/
-Status pop_Sq(SqStack& sS, ElementType& e)
+Status pop_Sq(SqStack& sS, SqStackElemType& e)
 {
 	// 如果栈为空，返回结果
 	if (stackEmpty_Sq(sS))
@@ -118,9 +118,9 @@ Status clearStack_Sq(SqStack& sS)
 /* 08_顺序栈——扩容*/
 Status incrementStack_Sq(SqStack& sS)
 {
-	ElementType* newElem;
+	SqStackElemType* newElem;
 	// 进行扩容操作，当前容量加上增量
-	newElem = (ElementType*)realloc(sS.elem, (sS.stackSize + (size_t)sS.incrementSize) * sizeof(ElementType));
+	newElem = (SqStackElemType*)realloc(sS.elem, (sS.stackSize + (size_t)sS.incrementSize) * sizeof(SqStackElemType));
 	// 扩容失败，返回错误
 	if (!sS.elem)
 	{

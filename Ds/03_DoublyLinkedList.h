@@ -7,7 +7,7 @@
 #define OK 1
 #define ERROR 0
 // 定义存储的元素类型
-#define ElementType int
+#define DuLinkedListElementType int
 
 /* 双向链循环表存储结点*/
 typedef struct DuL_Node
@@ -15,7 +15,7 @@ typedef struct DuL_Node
 	// 指向前驱结点指针
 	DuL_Node* prior;
 	// 存储元素
-	ElementType data;
+	DuLinkedListElementType data;
 	// 指向后继结点指针
 	DuL_Node* next;
 }DuNode, *DuL;
@@ -27,7 +27,7 @@ void testDoublyLinkedList();
 Status initList_DuL(DuL& duL);
 
 // 02_双向循环链表——在指定索引位置前插入元素
-Status insertByIndex_DuL(DuL& duL, int index, ElementType data);
+Status insertByIndex_DuL(DuL& duL, int index, DuLinkedListElementType data);
 
 // 03_双向循环链表——正序遍历
 void traverseList_DuL(DuL duL);
@@ -39,7 +39,7 @@ void backTraverseList_DuL(DuL duL);
 void visit(DuNode duNode);
 
 // 06_双向循环链表——批量插入数据到表尾
-Status batchInsertToTail_DuL(DuL& duL, ElementType* datas, int length);
+Status batchInsertToTail_DuL(DuL& duL, DuLinkedListElementType* datas, int length);
 
 // 07_双向循环链表——删除指定索引的元素
-ElementType deleteByIndex_DuL(DuL& duL, int index);
+DuLinkedListElementType deleteByIndex_DuL(DuL& duL, int index);

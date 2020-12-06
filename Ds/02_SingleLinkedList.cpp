@@ -6,7 +6,7 @@ void testSingleLinkedList()
 	int length;
 	printf("请输入链表长度：\n");
 	scanf_s("%d", &length);
-	ElementType* datas = new ElementType[length];
+	LinkedListElementType* datas = new LinkedListElementType[length];
 	printf("请输入链表的 %d 个元素：\n", length);
 	for (int i = 0; i < length; i++)
 	{
@@ -27,7 +27,7 @@ void testSingleLinkedList()
 }
 
 /* 带头结点的测试方法*/
-void testWithHead(ElementType* datas, int length)
+void testWithHead(LinkedListElementType* datas, int length)
 {
 	// =====带头结点=====
 	// 指向头结点的指针：头指针
@@ -61,7 +61,7 @@ void testWithHead(ElementType* datas, int length)
 }
 
 /* 不带头结点的测试方法*/
-void testWithoutHead(ElementType* datas, int length)
+void testWithoutHead(LinkedListElementType* datas, int length)
 {
 	// =====不带头结点=====
 	SL sL;
@@ -102,8 +102,8 @@ void testMerge()
 	initList_SLh(headA);
 	initList_SLh(headB);
 
-	ElementType arrA[] = { 1, 3, 5, 7, 9 };
-	ElementType arrB[] = { 0, 2, 4, 6, 8 };
+	LinkedListElementType arrA[] = { 1, 3, 5, 7, 9 };
+	LinkedListElementType arrB[] = { 0, 2, 4, 6, 8 };
 
 	printf("=====进入尾插法=====\n");
 	tailInsert_SLh(headA, arrA, 5);
@@ -266,7 +266,7 @@ void destroy_SL(SL& sL)
 }
 
 /* 07_单链表——尾插法建立_带头结点*/
-Status tailInsert_SLh(SL& head, ElementType *datas, int length)
+Status tailInsert_SLh(SL& head, LinkedListElementType*datas, int length)
 {
 	// 指针p存放上一个结点
 	SL p = head;
@@ -293,7 +293,7 @@ Status tailInsert_SLh(SL& head, ElementType *datas, int length)
 }
 
 /* 08_单链表——尾插法建立_不带头结点*/
-Status tailInsert_SL(SL& sL, ElementType* datas, int length)
+Status tailInsert_SL(SL& sL, LinkedListElementType* datas, int length)
 {
 	// 指针p，用来保存上一个结点
 	SL p = sL;
@@ -331,7 +331,7 @@ Status tailInsert_SL(SL& sL, ElementType* datas, int length)
 }
 
 /* 09_单链表——头插法建立_带头结点*/
-Status headInsert_SLh(SL& head, ElementType* datas, int length)
+Status headInsert_SLh(SL& head, LinkedListElementType* datas, int length)
 {
 	// 指针p，用作保存上一个创建的结点，使得头结点指向的新创建结点指向上一个结点。
 	SL p = head;
@@ -370,7 +370,7 @@ Status headInsert_SLh(SL& head, ElementType* datas, int length)
 }
 
 /* 10_单链表——头插法建立_不带头结点*/
-Status headInsert_SL(SL& sL, ElementType* datas, int length)
+Status headInsert_SL(SL& sL, LinkedListElementType* datas, int length)
 {
 	// 同上，指针p用来保存上一个创建的结点
 	SL p = sL;
@@ -437,7 +437,7 @@ void visit(HNode hnode)
 }
 
 /* 14_单链表——删除结点_带头结点*/
-void deleteElem_SLh(SL& head, ElementType data)
+void deleteElem_SLh(SL& head, LinkedListElementType data)
 {
 	// 保存待删除结点的上一个结点
 	SL p = head;
@@ -460,7 +460,7 @@ void deleteElem_SLh(SL& head, ElementType data)
 }
 
 /* 15_单链表——删除结点_不带头结点*/
-void deleteElem_SL(SL& sL, ElementType data)
+void deleteElem_SL(SL& sL, LinkedListElementType data)
 {
 	// 指针p，保存待删除结点的前一个结点
 	SL p = sL;

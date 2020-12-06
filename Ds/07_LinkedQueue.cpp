@@ -29,7 +29,7 @@ void testQueueWithHead(LinkedQueue& lqh)
 	printf("enqueued.\n");
 
 	// 出队列
-	ElementType deq;
+	LinkedQueueElementType deq;
 	while (dequeue_Lqh(lqh, deq))
 	{
 		printf("dequeued elem: %-2d\n", deq);
@@ -52,7 +52,7 @@ void testQueueWithoutHead(LinkedQueue& lq)
 	printf("enqueued.\n");
 
 	// 出队列
-	ElementType deq;
+	LinkedQueueElementType deq;
 	while (dequeue_Lqh(lq, deq))
 	{
 		printf("dequeued elem: %-2d\n", deq);
@@ -121,7 +121,7 @@ Status queueEmpty_Lq(LinkedQueue linkedQ)
 }
 
 /* 06_链队列——入队列_带头结点*/
-Status enqueue_Lqh(LinkedQueue& linkedQH, ElementType elem)
+Status enqueue_Lqh(LinkedQueue& linkedQH, LinkedQueueElementType elem)
 {
 	// 对rear的修改需要取引用
 	Queue& rear = linkedQH->rear;
@@ -143,7 +143,7 @@ Status enqueue_Lqh(LinkedQueue& linkedQH, ElementType elem)
 }
 
 /* 07_链队列——入队列_不带头结点*/
-Status enqueue_Lq(LinkedQueue& linkedQ, ElementType elem)
+Status enqueue_Lq(LinkedQueue& linkedQ, LinkedQueueElementType elem)
 {
 	// 先建立结点
 	Queue enQueue = (Queue)malloc(sizeof(QueueNode));
@@ -170,7 +170,7 @@ Status enqueue_Lq(LinkedQueue& linkedQ, ElementType elem)
 }
 
 /* 08_链队列——出队列——带头结点*/
-Status dequeue_Lqh(LinkedQueue& linkedQH, ElementType& elem)
+Status dequeue_Lqh(LinkedQueue& linkedQH, LinkedQueueElementType& elem)
 {
 	// 队列为空，报错
 	if (queueEmpty_Lqh(linkedQH))
@@ -192,7 +192,7 @@ Status dequeue_Lqh(LinkedQueue& linkedQH, ElementType& elem)
 }
 
 /* 09_链队列——出队列_不带头结点*/
-Status dequeue_Lq(LinkedQueue& linkedQ, ElementType& elem)
+Status dequeue_Lq(LinkedQueue& linkedQ, LinkedQueueElementType& elem)
 {
 	// 队列为空，报错
 	if (queueEmpty_Lqh(linkedQ))

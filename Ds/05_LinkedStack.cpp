@@ -11,7 +11,7 @@ void testLinkedStack()
     initStack_LS(Ls);
 
     // 入栈
-    ElementType top;
+    LinkedStackElementType top;
     printf("LinkedStack push...\n");
 
     push_LS(Ls, 5);
@@ -27,7 +27,7 @@ void testLinkedStack()
 	printf("Top elem -> %d\n", top);
 
     // 出栈
-	ElementType poped;
+    LinkedStackElementType poped;
     while (pop_LS(Ls, poped))
 	{
 		printf("Pop:\ttop = %d\n", poped);
@@ -42,7 +42,7 @@ Status initStack_LS(LS& Ls)
 }
 
 /* 02_单链栈——取栈顶*/
-Status getTop_LS(LS& Ls, ElementType& elem)
+Status getTop_LS(LS& Ls, LinkedStackElementType& elem)
 {
     if (stackEmpty_LS(Ls))
     {
@@ -53,7 +53,7 @@ Status getTop_LS(LS& Ls, ElementType& elem)
 }
 
 /* 03_单链栈——入栈*/
-Status push_LS(LS& Ls, ElementType elem)
+Status push_LS(LS& Ls, LinkedStackElementType elem)
 {
     // 类似于单链表的头插法
     // 指针p用于新创建结点
@@ -73,7 +73,7 @@ Status push_LS(LS& Ls, ElementType elem)
 }
 
 /* 04_单链栈——出栈*/
-Status pop_LS(LS& Ls, ElementType& elem)
+Status pop_LS(LS& Ls, LinkedStackElementType& elem)
 {
     // 栈为空，返回错误
     if (stackEmpty_LS(Ls))

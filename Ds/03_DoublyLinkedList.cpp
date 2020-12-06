@@ -6,7 +6,7 @@ void testDoublyLinkedList()
 	int length;
 	printf("请输入链表长度：\n");
 	scanf_s("%d", &length);
-	ElementType* datas = new ElementType[length];
+	DuLinkedListElementType* datas = new DuLinkedListElementType[length];
 	printf("请输入链表的 %d 个元素：\n", length);
 	for (int i = 0; i < length; i++)
 	{
@@ -35,7 +35,7 @@ void testDoublyLinkedList()
 	traverseList_DuL(duL);
 
 	// 测试按索引删除元素的方法
-	ElementType data = deleteByIndex_DuL(duL, 1);
+	DuLinkedListElementType data = deleteByIndex_DuL(duL, 1);
 	printf("\n=====按索引删除元素=====\n");
 	traverseList_DuL(duL);
 	printf("\n删除的元素为：%d\n", data);
@@ -58,7 +58,7 @@ Status initList_DuL(DuL& duL)
 }
 
 /* 02_双向循环链表——在指定索引位置前插入元素*/
-Status insertByIndex_DuL(DuL& duL, int index, ElementType data)
+Status insertByIndex_DuL(DuL& duL, int index, DuLinkedListElementType data)
 {
 	// 定义：插入之前的元素结点
 	DuL beforeInsert = duL;
@@ -120,7 +120,7 @@ void visit(DuNode duNode)
 }
 
 /* 06_双向循环链表——批量插入数据到表尾*/
-Status batchInsertToTail_DuL(DuL& duL, ElementType* datas, int length)
+Status batchInsertToTail_DuL(DuL& duL, DuLinkedListElementType* datas, int length)
 {
 	// 待插入的位置
 	DuL tail = duL->prior;
@@ -149,9 +149,9 @@ Status batchInsertToTail_DuL(DuL& duL, ElementType* datas, int length)
 }
 
 /* 07_双向循环链表——删除指定索引的元素*/
-ElementType deleteByIndex_DuL(DuL& duL, int index)
+DuLinkedListElementType deleteByIndex_DuL(DuL& duL, int index)
 {
-	ElementType data;
+	DuLinkedListElementType data;
 	DuL cur = duL->next;
 	// 直接找到该结点，不用找前置
 	for (int i = 0; i < index; i++)

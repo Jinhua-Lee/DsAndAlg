@@ -4,7 +4,7 @@
 Status createList_Sq(SqList& sL, int initSize = LIST_INIT_SIZE, int incrementSize = LIST_INCREMENT)
 {
 	// 开辟顺序表存储空间
-	sL.elem = (ElementType*)malloc(initSize * sizeof(ElementType));
+	sL.elem = (SqListElemType*)malloc(initSize * sizeof(SqListElemType));
 	// 创建失败，返回错误码
 	if (!sL.elem)
 	{
@@ -17,15 +17,15 @@ Status createList_Sq(SqList& sL, int initSize = LIST_INIT_SIZE, int incrementSiz
 }
 
 /* 02_顺序表——初始化：向顺序表的末尾加入数组的所有元素*/
-Status initList_Sq(SqList& sL, ElementType* elems, int targetLength)
+Status initList_Sq(SqList& sL, SqListElemType* elems, int targetLength)
 {
 	int srcLength = sL.length;
-	ElementType* newElem;
+	SqListElemType* newElem;
 	// 若空间不足，则分配空间
 	if (srcLength + targetLength > sL.listSize)
 	{
 		// 分配大小刚好为填入后总长度 +增量
-		newElem = (ElementType*)realloc(sL.elem, (srcLength + (size_t)targetLength + LIST_INCREMENT) * sizeof(ElementType));
+		newElem = (SqListElemType*)realloc(sL.elem, (srcLength + (size_t)targetLength + LIST_INCREMENT) * sizeof(SqListElemType));
 		// 分配成功，设置顺序表容量
 		if (newElem)
 		{
@@ -57,13 +57,13 @@ void traverseList_Sq(SqList& sL)
 }
 
 /* 访问元素*/
-void visit(ElementType elem)
+void visit(SqListElemType elem)
 {
 	printf("%-4d ", elem);
 }
 
 /* 比较元素*/
-int compareElem(ElementType a, ElementType b)
+int compareElem(SqListElemType a, SqListElemType b)
 {
 	// 相等返回1，不相等返回0
 	if (a == b)
@@ -77,7 +77,7 @@ int compareElem(ElementType a, ElementType b)
 }
 
 /* 04_顺序表——查找元素：并且返回第一个匹配到的元素索引*/
-int locateElem_Sq(SqList& sL, ElementType elem)
+int locateElem_Sq(SqList& sL, SqListElemType elem)
 {
 	// 拿到顺序表的指针
 	int* p = sL.elem;
@@ -94,7 +94,7 @@ int locateElem_Sq(SqList& sL, ElementType elem)
 }
 
 /* 05_顺序表——插入元素：在指定索引 index 之前插入一个元素*/
-Status insertElem_Sq(SqList& sL, int index, ElementType elem)
+Status insertElem_Sq(SqList& sL, int index, SqListElemType elem)
 {
 	// 索引不合法
 	if (index < 0)
@@ -104,7 +104,7 @@ Status insertElem_Sq(SqList& sL, int index, ElementType elem)
 	// 是否进行扩容
 	if (sL.length + 1 >= sL.listSize)
 	{
-		sL.elem = (ElementType*)malloc((sL.listSize + (size_t)sL.incrementSize) * sizeof(ElementType));
+		sL.elem = (SqListElemType*)malloc((sL.listSize + (size_t)sL.incrementSize) * sizeof(SqListElemType));
 		// 扩容失败
 		if (!sL.elem)
 		{
@@ -125,7 +125,7 @@ Status insertElem_Sq(SqList& sL, int index, ElementType elem)
 		{
 			sL.elem[i + 1] = sL.elem[i];
 		}*/
-		for (ElementType* p = sL.elem + sL.length + 1; p >= sL.elem + index; p--)
+		for (SqListElemType* p = sL.elem + sL.length + 1; p >= sL.elem + index; p--)
 		{
 			*(p + 1) = *p;
 		}
@@ -144,7 +144,7 @@ Status clearList_Sq(SqList& sL)
 	// 先清空数组中的值
 	delete[] sL.elem;
 	// 重新分配
-	sL.elem = (ElementType*)malloc(LIST_INIT_SIZE * sizeof(ElementType));
+	sL.elem = (SqListElemType*)malloc(LIST_INIT_SIZE * sizeof(SqListElemType));
 	if (!sL.elem)
 	{
 		return ERROR;
@@ -170,7 +170,7 @@ Status destroyList_Sq(SqList& sL)
 }
 
 /*  08_顺序表——删除：删除指定索引的元素*/
-ElementType deleteElem_Sq(SqList& sL, int index)
+SqListElemType deleteElem_Sq(SqList& sL, int index)
 {
 	// 如果不在元素索引范围内
 	if (index < 0 || index >= sL.length)
@@ -178,15 +178,15 @@ ElementType deleteElem_Sq(SqList& sL, int index)
 		return -1;
 	}
 	
-	ElementType toDelete = *(sL.elem + index);
+	SqListElemType toDelete = *(sL.elem + index);
 	// 数组方式
 	/*for (int i = index; i < sL.length - 1; i++)
 	{
 		sL.elem[i] = sL.elem[i + 1];
 	}*/
 	// 指针方式
-	ElementType* p = sL.elem + index;
-	ElementType* q = sL.elem + sL.length - 1;
+	SqListElemType* p = sL.elem + index;
+	SqListElemType* q = sL.elem + sL.length - 1;
 	while (p < q)
 	{
 		*p = *(p + 1);
@@ -200,7 +200,7 @@ ElementType deleteElem_Sq(SqList& sL, int index)
 /* 09_顺序表——合并：向A中加入B中特有的元素，最后删除B*/
 Status purgeList_Sq(SqList& sLa, SqList& sLb)
 {
-	ElementType bElem;
+	SqListElemType bElem;
 	// 每次从B中取出该元素在A中定位，如果没找到，则插入
 	while (sLb.length > 0)
 	{
@@ -225,7 +225,7 @@ void testSqList()
 
 	int aLength = 200;
 	// 批量初始化元素
-	ElementType* elems = new ElementType[aLength];
+	SqListElemType* elems = new SqListElemType[aLength];
 	for (int i = 0; i < aLength; i++)
 	{
 		elems[i] = i * 2;
@@ -248,7 +248,7 @@ void testSqList()
 
 	printf("\n删除指定索引元素后：\n");
 	// 删除指定索引元素
-	ElementType toDelete = deleteElem_Sq(sLa, 5);
+	SqListElemType toDelete = deleteElem_Sq(sLa, 5);
 	traverseList_Sq(sLa);
 	printf("\n被删除元素为：%d\n", toDelete);
 
@@ -257,7 +257,7 @@ void testSqList()
 	// 第二个顺序表加入
 	SqList sLb;
 	int bLength = 20;
-	ElementType* elems2 = new ElementType[bLength];
+	SqListElemType* elems2 = new SqListElemType[bLength];
 	for (int i = 0; i < bLength; i++)
 	{
 		elems2[i] = -i;

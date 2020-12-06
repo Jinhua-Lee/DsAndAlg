@@ -8,13 +8,13 @@ void testBinaryTree()
     createByPreOrderTraverse_L(bt);
 
     printf("\n先序遍历：\n");
-    preOrderTraverse_L(bt);
+    preOrderTraverse_Recur(bt);
 
     printf("\n中序遍历：\n");
-    inOrderTraverse_L(bt);
+    inOrderTraverse_Recur(bt);
 
     printf("\n后序遍历：\n");
-    postOrderTraverse_L(bt);
+    postOrderTraverse_Recur(bt);
 }
 
 /* 01_二叉树——初始化*/
@@ -107,46 +107,46 @@ void visit(BinaryTree biTree)
     }
 }
 
-/* 08_二叉树——先序遍历*/
-void preOrderTraverse_L(BinaryTree biTree)
+/* 08_二叉树——先序遍历_递归*/
+void preOrderTraverse_Recur(BinaryTree biTree)
 {
     if (!biTree)
     {
         return;
     }
     visit(biTree);
-    preOrderTraverse_L(biTree->left);
-    preOrderTraverse_L(biTree->right);
+    preOrderTraverse_Recur(biTree->left);
+    preOrderTraverse_Recur(biTree->right);
 }
 
-/* 09_二叉树——中序遍历*/
-void inOrderTraverse_L(BinaryTree biTree)
+/* 09_二叉树——中序遍历_递归*/
+void inOrderTraverse_Recur(BinaryTree biTree)
 {
 	if (!biTree)
 	{
 		return;
 	}
-    inOrderTraverse_L(biTree->left);
+    inOrderTraverse_Recur(biTree->left);
     visit(biTree);
-    inOrderTraverse_L(biTree->right);
+    inOrderTraverse_Recur(biTree->right);
 }
 
-/* 10_二叉树——后序遍历*/
-void postOrderTraverse_L(BinaryTree biTree)
+/* 10_二叉树——后序遍历_递归*/
+void postOrderTraverse_Recur(BinaryTree biTree)
 {
 	if (!biTree)
 	{
 		return;
 	}
-    postOrderTraverse_L(biTree->left);
-    postOrderTraverse_L(biTree->right);
+    postOrderTraverse_Recur(biTree->left);
+    postOrderTraverse_Recur(biTree->right);
     visit(biTree);
 }
 
 /* 11_二叉树——通过先序遍历方法创建*/
 void createByPreOrderTraverse_L(BinaryTree& biTree)
 {
-    ElementType elem;
+    BiTreeNodeElementType elem;
     scanf_s("%d", &elem);
     // 规定将负值作为终止该子树的字符
     if (elem < 0)

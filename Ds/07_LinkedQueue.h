@@ -8,7 +8,7 @@
 #define OK 1
 #define ERROR 0
 // 定义存储的元素类型
-#define ElementType int
+#define LinkedQueueElementType int
 
 // 引用单链表结点，一个数据域，一个指针域
 typedef SL_Node QueueNode, *Queue;
@@ -49,13 +49,13 @@ Status queueEmpty_Lqh(LinkedQueue linkedQH);
 Status queueEmpty_Lq(LinkedQueue linkedQ);
 
 // 06_链队列——入队列_带头结点
-Status enqueue_Lqh(LinkedQueue& linkedQH, ElementType elem);
+Status enqueue_Lqh(LinkedQueue& linkedQH, LinkedQueueElementType elem);
 
 // 07_链队列——入队列_不带头结点
-Status enqueue_Lq(LinkedQueue& linkedQ, ElementType elem);
+Status enqueue_Lq(LinkedQueue& linkedQ, LinkedQueueElementType elem);
 
 // 08_链队列——出队列——带头结点
-Status dequeue_Lqh(LinkedQueue& linkedQH, ElementType& elem);
+Status dequeue_Lqh(LinkedQueue& linkedQH, LinkedQueueElementType& elem);
 
 // 09_链队列——出队列_不带头结点
-Status dequeue_Lq(LinkedQueue& linkedQ, ElementType& elem);
+Status dequeue_Lq(LinkedQueue& linkedQ, LinkedQueueElementType& elem);
