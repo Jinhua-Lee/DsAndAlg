@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
+#include "08_LinkedBinaryTree.h"
 
 // 定义初始大小和增量
 #define STACK_INIT_SIZE 150
@@ -10,7 +11,7 @@
 #define OK 1
 #define ERROR 0
 // 定义存储的元素类型
-#define SqStackElemType int
+#define SqStackElemType BinaryTree
 
 // 顺序栈的结构定义
 typedef struct SqStack

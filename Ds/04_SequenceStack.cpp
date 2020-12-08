@@ -5,24 +5,24 @@ void testSequenceStack()
 {
 	SqStack sS;
 
-	// 初始化
-	printf("Stack initializing: ...\n");
-	int initStatus = initStack_Sq(sS);
-	printf("init status: %d\n", initStatus);
+	//// 初始化
+	//printf("Stack initializing: ...\n");
+	//int initStatus = initStack_Sq(sS);
+	//printf("init status: %d\n", initStatus);
 
-	// 入栈
-	printf("Pushing...\n");
-	push_Sq(sS, 5);
-	push_Sq(sS, 6);
-	push_Sq(sS, 7);
-	printf("Pushed.\n");
+	//// 入栈
+	//printf("Pushing...\n");
+	//push_Sq(sS, 5);
+	//push_Sq(sS, 6);
+	//push_Sq(sS, 7);
+	//printf("Pushed.\n");
 
-	// 出栈测试
-	SqStackElemType top;
-	while (pop_Sq(sS, top))
-	{
-		printf("Pop:\ttop = %d\n", top);
-	}
+	//// 出栈测试
+	//SqStackElemType top;
+	//while (pop_Sq(sS, top))
+	//{
+	//	printf("Pop:\ttop = %d\n", top);
+	//}
 }
 
 /* 01_顺序栈——初始化*/
