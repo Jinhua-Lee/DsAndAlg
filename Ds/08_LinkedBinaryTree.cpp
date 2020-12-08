@@ -22,6 +22,10 @@ void testBinaryTree()
 
 	printf("\n中序遍历_非递归：\n");
 	inOrderTraverse_NonRecur(bt);
+
+	printf("\n后序遍历_非递归：\n");
+	postOrderTraverse_Recur(bt);
+
 }
 
 /* 01_二叉树——初始化*/
@@ -180,32 +184,32 @@ void preOrderTraverse_NonRecur(BinaryTree biTree)
 	{
 		return;
 	}
-	// 采用栈存放右分支，取决于先序遍历的特性，只要有左结点，那么就优先访问左结点
+	// 采用栈存放当前结点的引用，用于左子树遍历完成，找到其右子树
 	SqStack nodeStack;
 	initStack_Sq(nodeStack);
-	BinaryTree cur = biTree;
 	BinaryTree popped = NULL;
 
-	// 节点不为空或者栈不为空时执行，对单次左分支的迭代
-	while (!stackEmpty_Sq(nodeStack) || cur)
+	// 外层：每一次循环完成一次左分支
+	while (!stackEmpty_Sq(nodeStack) || biTree)
 	{
 		
 		// 对左分支的迭代，是一个访问和压栈的过程
-		while (cur)
+		while (biTree)
 		{
 			// 先序遍历的关键，优先访问根结点
-			visit(cur);
-			push_Sq(nodeStack, cur);
+			visit(biTree);
+			push_Sq(nodeStack, biTree);
 			// 对左结点的迭代
-			cur = cur->left;
+			biTree = biTree->left;
 		}
+		// 一次左分支完成
 		if (!stackEmpty_Sq(nodeStack))
 		{
 			// 左分支结束，则将其父结点出栈
 			popped = (BinaryTree)malloc(sizeof(BinaryTreeNode));
 			pop_Sq(nodeStack, popped);
 			// 迭代到待访问的右孩子，下次循环执行访问
-			cur = popped->right;
+			biTree = popped->right;
 		}
 	}
 	destroyStack_Sq(nodeStack);
@@ -220,16 +224,15 @@ void inOrderTraverse_NonRecur(BinaryTree biTree)
 	}
 	SqStack nodeStack;
 	initStack_Sq(nodeStack);
-	BinaryTree cur = biTree;
 	BinaryTree popped = NULL;
 
-	while (!stackEmpty_Sq(nodeStack) || cur)
+	while (!stackEmpty_Sq(nodeStack) || biTree)
 	{
 		// 遇到左孩子即压栈
-		while (cur)
+		while (biTree)
 		{
-			push_Sq(nodeStack, cur);
-			cur = cur->left;
+			push_Sq(nodeStack, biTree);
+			biTree = biTree->left;
 		}
 		if (!stackEmpty_Sq(nodeStack))
 		{
@@ -238,7 +241,7 @@ void inOrderTraverse_NonRecur(BinaryTree biTree)
 			pop_Sq(nodeStack, popped);
 			visit(popped);
 			// 继续迭代右子树的左孩子
-			cur = popped->right;
+			biTree = popped->right;
 		}
 	}
 	destroyStack_Sq(nodeStack);
@@ -251,24 +254,44 @@ void postOrderTraverse_NonRecur(BinaryTree biTree)
 	{
 		return;
 	}
-	// 存父结点的栈
+	// 存任意非空结点的栈
 	SqStack nodeStack;
 	initStack_Sq(nodeStack);
 	push_Sq(nodeStack, biTree);
+	// 标记前一次访问的结点
+	BinaryTree pre = NULL;
 
 	while (!stackEmpty_Sq(nodeStack))
 	{
+		// 获取栈顶元素，不出栈，分两种情况讨论
 		getTop_Sq(nodeStack, biTree);
-		while (biTree->left)
+		/**
+		 * 第一大类：
+		 * 1. 不存在左右结点；
+		 * 2. 前一次访问的结点不为空，且前一次访问的结点【等于当前结点的左孩子】或【右孩子】
+		 */
+		if ((!biTree->left && !biTree->right)
+			|| (pre != NULL
+				&& (pre == biTree->left || biTree == biTree->right)
+				))
 		{
-			push_Sq(nodeStack, biTree);
-			biTree = biTree->left;
+			visit(biTree);
+			BinaryTree bt = NULL;
+			pop_Sq(nodeStack, bt);
+			pre = biTree;
+		}
+		// 第二大类情况，有孩子未被访问，先右后左的优先级入栈其孩子
+		else
+		{
+			// 优先入栈右结点
 			if (biTree->right)
 			{
-				push_Sq(nodeStack, biTree);
-				biTree = biTree->right;
+				push_Sq(nodeStack, biTree->right);
+			}
+			if (biTree->left)
+			{
+				push_Sq(nodeStack, biTree->left);
 			}
 		}
 	}
-
 }

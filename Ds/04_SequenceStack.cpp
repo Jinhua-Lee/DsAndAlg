@@ -5,6 +5,7 @@ void testSequenceStack()
 {
 	SqStack sS;
 
+	// 暂时注释，为了给二叉树非递归遍历用。
 	//// 初始化
 	//printf("Stack initializing: ...\n");
 	//int initStatus = initStack_Sq(sS);
