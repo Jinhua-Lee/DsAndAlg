@@ -30,6 +30,14 @@ void testBinaryTree()
 	printf("\n层次遍历：\n");
 	breadthTraverse(bt);
 
+	printf("\n叶子结点个数：%-2d\n", leafCount_T(bt));
+	
+	printf("\n请输入层数（以根结点为第1层）：\n");
+	int level;
+	scanf_s("%d", &level);
+
+	printf("\n第 %d 层结点数：%-2d\n", level, getKLevel_T(bt, level));
+
 }
 
 /* 01_二叉树——初始化*/
@@ -328,4 +336,40 @@ void breadthTraverse(BinaryTree biTree)
 			enqueue_Cq(cq, deQueued->right);
 		}
 	}
+}
+
+/* 16_二叉树——叶子个数*/
+int leafCount_T(BinaryTree biTree)
+{
+	// 遇到空结点，则个数不变
+	if (!biTree)
+	{
+		return 0;
+	}
+	// 没有左右孩子，则它是叶子结点
+	else if (!biTree->left && !biTree->right)
+	{
+		return 1;
+	}
+	// 否则，求它的子树的叶子结点个数
+	else
+	{
+		return leafCount_T(biTree->left) + leafCount_T(biTree->right);
+	}
+}
+
+/* 17_二叉树——第k层结点数目*/
+int getKLevel_T(BinaryTree biTree, int k)
+{
+	// 以根结点开始的第 k 层 => 以根结点的子孩子开始的第 k-1 层
+	if (!biTree)
+	{
+		return 0;
+	}
+	// 递归结束条件：1即为当前层级，以当前结点为开始的第一层，即当前根结点，只有1个
+	if (k == 1)
+	{
+		return 1;
+	}
+	return getKLevel_T(biTree->left, k - 1) + getKLevel_T(biTree->right, k - 1);
 }

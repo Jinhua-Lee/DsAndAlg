@@ -79,3 +79,9 @@ void postOrderTraverse_NonRecur(BinaryTree biTree);
 
 // 15_二叉树——层次遍历
 void breadthTraverse(BinaryTree biTree);
+
+// 16_二叉树——叶子个数
+int leafCount_T(BinaryTree biTree);
+
+// 17_二叉树——第k层结点数目
+int getKLevel_T(BinaryTree biTree, int k);
