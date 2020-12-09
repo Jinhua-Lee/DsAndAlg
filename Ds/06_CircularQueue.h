@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
+#include "08_LinkedBinaryTree.h"
 
 // 定义初始大小和增量
 #define Queue_INIT_SIZE 7
@@ -10,7 +11,7 @@
 #define OK 1
 #define ERROR 0
 // 定义存储的元素类型
-#define CQueueElementType int
+#define CQueueElementType BinaryTree
 
 // 循环队列的存储结构
 typedef struct CircularQueue

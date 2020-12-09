@@ -1,12 +1,13 @@
 #include "08_LinkedBinaryTree.h"
 #include "04_SequenceStack.h"
+#include "06_CircularQueue.h"
 
 /* 测试二叉树的方法*/
 void testBinaryTree()
 {
 	BinaryTree bt;
-	initBiTree_L(bt);
-	createByPreOrderTraverse_L(bt);
+	initBiTree_T(bt);
+	createByPreOrderTraverse_T(bt);
 
 	printf("\n先序遍历_递归：\n");
 	preOrderTraverse_Recur(bt);
@@ -26,24 +27,27 @@ void testBinaryTree()
 	printf("\n后序遍历_非递归：\n");
 	postOrderTraverse_Recur(bt);
 
+	printf("\n层次遍历：\n");
+	breadthTraverse(bt);
+
 }
 
 /* 01_二叉树——初始化*/
-Status initBiTree_L(BinaryTree& biTree)
+Status initBiTree_T(BinaryTree& biTree)
 {
 	biTree = NULL;
 	return OK;
 }
 
 /* 02_二叉树——销毁*/
-Status destroyBiTree_L(BinaryTree& biTree)
+Status destroyBiTree_T(BinaryTree& biTree)
 {
 	// 如果结点不为空
 	if (biTree)
 	{
 		biTree->parent = NULL;
 		// 先删除左右子树
-		if (destroyBiTree_L(biTree->left) && destroyBiTree_L(biTree->right))
+		if (destroyBiTree_T(biTree->left) && destroyBiTree_T(biTree->right))
 		{
 			return OK;
 		}
@@ -54,13 +58,13 @@ Status destroyBiTree_L(BinaryTree& biTree)
 }
 
 /* 03_二叉树——判空*/
-Status emptyBiTree_L(BinaryTree biTree)
+Status emptyBiTree_T(BinaryTree biTree)
 {
 	return biTree == NULL ? OK : ERROR;
 }
 
 /* 04_二叉树——深度*/
-int treeDepth_L(BinaryTree biTree)
+int treeDepth_T(BinaryTree biTree)
 {
 	// 该结点为空，则该层深度为0
 	if (!biTree)
@@ -70,8 +74,8 @@ int treeDepth_L(BinaryTree biTree)
 	// 否则，该层深度有1，要向上累加
 	else
 	{
-		int leftDepth = treeDepth_L(biTree->left);
-		int rightDepth = treeDepth_L(biTree->right);
+		int leftDepth = treeDepth_T(biTree->left);
+		int rightDepth = treeDepth_T(biTree->right);
 		// 左右子树的深度，加上本层的深度1，即是该结点的深度
 		return 1 + max(leftDepth, rightDepth);
 	}
@@ -84,23 +88,23 @@ int max(int a, int b)
 }
 
 /* 05_二叉树——是否是叶子结点*/
-Status leafBiNode_L(BinaryTree biTree)
+Status leafBiNode_T(BinaryTree biTree)
 {
 	// 左右孩子都不存在，即为叶子结点
 	return (biTree->left == NULL && biTree->right == NULL) ? OK : ERROR;
 }
 
 /* 06_二叉树——是否根结点*/
-Status rootBiNode_L(BinaryTree biTree)
+Status rootBiNode_T(BinaryTree biTree)
 {
 	return biTree->parent == NULL ? OK : ERROR;
 }
 
 /* 06_二叉树——求父结点*/
-Status parentBiNode_L(BinaryTree current, BinaryTree& parent)
+Status parentBiNode_T(BinaryTree current, BinaryTree& parent)
 {
 	// 如果当前结点为空，或当前结点为根结点
-	if (emptyBiTree_L(current) || rootBiNode_L(current))
+	if (emptyBiTree_T(current) || rootBiNode_T(current))
 	{
 		parent = NULL;
 		return ERROR;
@@ -155,7 +159,7 @@ void postOrderTraverse_Recur(BinaryTree biTree)
 }
 
 /* 11_二叉树——通过先序遍历方法创建*/
-void createByPreOrderTraverse_L(BinaryTree& biTree)
+void createByPreOrderTraverse_T(BinaryTree& biTree)
 {
 	BiTreeNodeElementType elem;
 	scanf_s("%d", &elem);
@@ -173,8 +177,8 @@ void createByPreOrderTraverse_L(BinaryTree& biTree)
 		exit(-1);
 	}
 	biTree->data = elem;
-	createByPreOrderTraverse_L(biTree->left);
-	createByPreOrderTraverse_L(biTree->right);
+	createByPreOrderTraverse_T(biTree->left);
+	createByPreOrderTraverse_T(biTree->right);
 }
 
 /* 12_二叉树——先序遍历_非递归*/
@@ -292,6 +296,36 @@ void postOrderTraverse_NonRecur(BinaryTree biTree)
 			{
 				push_Sq(nodeStack, biTree->left);
 			}
+		}
+	}
+}
+
+/* 15_二叉树——层次遍历*/
+void breadthTraverse(BinaryTree biTree)
+{
+	if (!biTree)
+	{
+		return;
+	}
+	// 存放子树根结点的队列
+	CircularQueue cq;
+	initQueue_Cq(cq);
+	enqueue_Cq(cq, biTree);
+	// 保存出队列的元素
+	BinaryTree deQueued = NULL;
+
+	while (!queueEmpty_Cq(cq))
+	{
+		// 任何结点都在出队列时候进行访问。
+		dequeue_Cq(cq, deQueued);
+		visit(deQueued);
+		if (deQueued->left)
+		{
+			enqueue_Cq(cq, deQueued->left);
+		}
+		if (deQueued->right)
+		{
+			enqueue_Cq(cq, deQueued->right);
 		}
 	}
 }

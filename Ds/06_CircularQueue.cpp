@@ -5,52 +5,52 @@ void testCircularQueue()
 {
     CQueue cQ;
 
-    // 初始化
-    int initStatus = initQueue_Cq(cQ);
-    printf("CQ init Status: %d\n", initStatus);
+ //   // 初始化
+ //   int initStatus = initQueue_Cq(cQ);
+ //   printf("CQ init Status: %d\n", initStatus);
 
-    // 针对扩容的测试用例，size = 7，6个元素为满
-    CQueueElementType front;
-    enqueue_Cq(cQ, 1);
-	enqueue_Cq(cQ, 2);
-	enqueue_Cq(cQ, 3);
-	enqueue_Cq(cQ, 4);
-	enqueue_Cq(cQ, 5);
-	enqueue_Cq(cQ, 6);
+ //   // 针对扩容的测试用例，size = 7，6个元素为满
+ //   CQueueElementType front;
+ //   enqueue_Cq(cQ, 1);
+	//enqueue_Cq(cQ, 2);
+	//enqueue_Cq(cQ, 3);
+	//enqueue_Cq(cQ, 4);
+	//enqueue_Cq(cQ, 5);
+	//enqueue_Cq(cQ, 6);
 
-    getFront_Cq(cQ, front);
-    printf("获取队首元素：%-4d\n", front);
-    printf("count: %-4d\n", cQ.count);
+ //   getFront_Cq(cQ, front);
+ //   printf("获取队首元素：%-4d\n", front);
+ //   printf("count: %-4d\n", cQ.count);
 
-    printf("队列满之前：\n");
-    testTraverse(cQ);
+ //   printf("队列满之前：\n");
+ //   testTraverse(cQ);
 
-    CQueueElementType elem = NULL;
-    // 出队4个，再入队
-    for (int i = 0; i < cQ.incrementSize + 1; i++)
-    {
-        dequeue_Cq(cQ, elem);
-        printf("\n再入队元素： %-2d", elem);
-        enqueue_Cq(cQ, elem);
-    }
+ //   CQueueElementType elem = NULL;
+ //   // 出队4个，再入队
+ //   for (int i = 0; i < cQ.incrementSize + 1; i++)
+ //   {
+ //       dequeue_Cq(cQ, elem);
+ //       printf("\n再入队元素： %-2d", elem);
+ //       enqueue_Cq(cQ, elem);
+ //   }
 
-	printf("\n重新入队后：\n");
-	testTraverse(cQ);
+	//printf("\n重新入队后：\n");
+	//testTraverse(cQ);
 
-    // 此时进行扩容，并移动了元素
-    enqueue_Cq(cQ, 11);
-    printf("\n遍历扩容后：\n");
-    testTraverse(cQ);
+ //   // 此时进行扩容，并移动了元素
+ //   enqueue_Cq(cQ, 11);
+ //   printf("\n遍历扩容后：\n");
+ //   testTraverse(cQ);
 
 }
 
 /* 以数组的方式来遍历，用于测试*/
 void testTraverse(CQueue cQ)
 {
-	for (int i = 0; i < cQ.queueSize; i++)
-	{
-		printf("%-4d  ", *(cQ.elem + i));
-	}
+	//for (int i = 0; i < cQ.queueSize; i++)
+	//{
+	//	printf("%-4d  ", *(cQ.elem + i));
+	//}
 }
 
 /* 01_循环队列——初始化*/

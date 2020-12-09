@@ -30,28 +30,28 @@ void testBinaryTree();
 /*=====================================*/
 
 // 01_二叉树——初始化，拿到一个指向根结点的指针，即确定一个二叉树
-Status initBiTree_L(BinaryTree& biTree);
+Status initBiTree_T(BinaryTree& biTree);
 
 // 02_二叉树——销毁
-Status destroyBiTree_L(BinaryTree& biTree);
+Status destroyBiTree_T(BinaryTree& biTree);
 
 // 03_二叉树——判空
-Status emptyBiTree_L(BinaryTree biTree);
+Status emptyBiTree_T(BinaryTree biTree);
 
 // 04_二叉树——深度
-int treeDepth_L(BinaryTree biTree);
+int treeDepth_T(BinaryTree biTree);
 
 // 返回两个数较大的一个
 int max(int a, int b);
 
 // 05_二叉树——是否是叶子结点
-Status leafBiNode_L(BinaryTree biTree);
+Status leafBiNode_T(BinaryTree biTree);
 
 // 06_二叉树——是否根结点
-Status rootBiNode_L(BinaryTree biTree);
+Status rootBiNode_T(BinaryTree biTree);
 
 // 07_二叉树——求父结点
-Status parentBiNode_L(BinaryTree current, BinaryTree& parent);
+Status parentBiNode_T(BinaryTree current, BinaryTree& parent);
 
 // 访问二叉树结点的方法
 void visit(BinaryTree biTree);
@@ -66,7 +66,7 @@ void inOrderTraverse_Recur(BinaryTree biTree);
 void postOrderTraverse_Recur(BinaryTree biTree);
 
 // 11_二叉树——通过先序遍历方法创建
-void createByPreOrderTraverse_L(BinaryTree& biTree);
+void createByPreOrderTraverse_T(BinaryTree& biTree);
 
 // 12_二叉树——先序遍历_非递归
 void preOrderTraverse_NonRecur(BinaryTree biTree);
@@ -76,3 +76,6 @@ void inOrderTraverse_NonRecur(BinaryTree biTree);
 
 // 14_二叉树——后序遍历_非递归
 void postOrderTraverse_NonRecur(BinaryTree biTree);
+
+// 15_二叉树——层次遍历
+void breadthTraverse(BinaryTree biTree);
