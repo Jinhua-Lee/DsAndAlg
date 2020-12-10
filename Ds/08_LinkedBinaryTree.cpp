@@ -12,18 +12,25 @@ void testBinaryTree()
 	traverseRecur(bt);
 	traverseNonRecur(bt);
 	
-	printf("\n请输入层数（以根结点为第1层）：\n");
-	int level;
-	scanf_s("%d", &level);
+	//printf("\n 请输入层数（以根结点为第1层）：\n");
+	//int level;
+	//scanf_s("%d", &level);
 
-	printf("\n第 %d 层结点数：%-2d\n", level, getKLevel_T(bt, level));
+	//printf("\n 第 %d 层结点数：%-2d\n", level, getKLevel_T(bt, level));
 
-	BinaryTree bt2;
-	initBiTree_T(bt2);
-	createByPreOrderTraverse_T(bt2);
-	traverseRecur(bt2);
-	traverseNonRecur(bt2);
-	printf("\n比较两个二叉树结构：%d\n", structureCompare_T(bt, bt2));
+	//BinaryTree bt2;
+	//initBiTree_T(bt2);
+	//createByPreOrderTraverse_T(bt2);
+	//traverseRecur(bt2);
+	//traverseNonRecur(bt2);
+	//printf("\n 比较两个二叉树结构：%d\n", structureCompare_T(bt, bt2));
+
+	// 镜像
+	treeMirror_T(bt);
+	traverseRecur(bt);
+	// 找最低公共祖先
+	BinaryTree lca = findLCA_T(bt, findKey_T(bt, 3), findKey_T(bt, 7));
+	printf("\n最低公共祖先：%d\n", lca->data);
 
 }
 
@@ -429,4 +436,60 @@ void treeMirror_T(BinaryTree biTree)
 	// 再对左右孩子分别进行互换
 	treeMirror_T(biTree->left);
 	treeMirror_T(biTree->right);
+}
+
+/* 20_二叉树——找到关键字所在结点*/
+BinaryTree findKey_T(BinaryTree biTree, BiTreeNodeElementType btValue)
+{
+
+	if (!biTree)
+	{
+		return NULL;
+	}
+	// 存放子树根结点的队列
+	CircularQueue cq;
+	initQueue_Cq(cq);
+	enqueue_Cq(cq, biTree);
+	// 保存出队列的元素
+	BinaryTree deQueued = NULL;
+
+	while (!queueEmpty_Cq(cq))
+	{
+		// 任何结点都在出队列时候进行访问。
+		dequeue_Cq(cq, deQueued);
+		if (deQueued->data == btValue)
+		{
+			return deQueued;
+		}
+		if (deQueued->left)
+		{
+			enqueue_Cq(cq, deQueued->left);
+		}
+		if (deQueued->right)
+		{
+			enqueue_Cq(cq, deQueued->right);
+		}
+	}
+	return NULL;
+}
+
+/* 21_二叉树——找最低公共祖先*/
+BinaryTree findLCA_T(BinaryTree biTree, BinaryTree bt1, BinaryTree bt2)
+{
+	if (!biTree)
+	{
+		return NULL;
+	}
+	if (biTree == bt1 || biTree == bt2)
+	{
+		return biTree;
+	}
+
+	BinaryTree left = findLCA_T(biTree->left, bt1, bt2);
+	BinaryTree right = findLCA_T(biTree->right, bt1, bt2);
+	if (left && right)
+	{
+		return biTree;
+	}
+	return left ? left : right;
 }

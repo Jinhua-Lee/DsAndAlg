@@ -97,3 +97,9 @@ bool structureCompare_T(BinaryTree bt1, BinaryTree bt2);
 
 // 19_二叉树——求镜像
 void treeMirror_T(BinaryTree biTree);
+
+// 20_二叉树——找到关键字所在结点
+BinaryTree findKey_T(BinaryTree biTree, BiTreeNodeElementType btValue);
+
+// 21_二叉树——找最低公共祖先
+BinaryTree findLCA_T(BinaryTree biTree, BinaryTree bt1, BinaryTree bt2);
