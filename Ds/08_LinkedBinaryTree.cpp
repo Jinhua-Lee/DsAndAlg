@@ -8,7 +8,28 @@ void testBinaryTree()
 	BinaryTree bt;
 	initBiTree_T(bt);
 	createByPreOrderTraverse_T(bt);
+	// 遍历
+	traverseRecur(bt);
+	traverseNonRecur(bt);
+	
+	printf("\n请输入层数（以根结点为第1层）：\n");
+	int level;
+	scanf_s("%d", &level);
 
+	printf("\n第 %d 层结点数：%-2d\n", level, getKLevel_T(bt, level));
+
+	BinaryTree bt2;
+	initBiTree_T(bt2);
+	createByPreOrderTraverse_T(bt2);
+	traverseRecur(bt2);
+	traverseNonRecur(bt2);
+	printf("\n比较两个二叉树结构：%d\n", structureCompare_T(bt, bt2));
+
+}
+
+/* 递归遍历*/ 
+void traverseRecur(BinaryTree bt)
+{
 	printf("\n先序遍历_递归：\n");
 	preOrderTraverse_Recur(bt);
 
@@ -17,7 +38,11 @@ void testBinaryTree()
 
 	printf("\n后序遍历_递归：\n");
 	postOrderTraverse_Recur(bt);
+}
 
+/* 非递归遍历*/
+void traverseNonRecur(BinaryTree bt)
+{
 	printf("\n先序遍历_非递归：\n");
 	preOrderTraverse_NonRecur(bt);
 
@@ -29,15 +54,6 @@ void testBinaryTree()
 
 	printf("\n层次遍历：\n");
 	breadthTraverse(bt);
-
-	printf("\n叶子结点个数：%-2d\n", leafCount_T(bt));
-	
-	printf("\n请输入层数（以根结点为第1层）：\n");
-	int level;
-	scanf_s("%d", &level);
-
-	printf("\n第 %d 层结点数：%-2d\n", level, getKLevel_T(bt, level));
-
 }
 
 /* 01_二叉树——初始化*/
@@ -372,4 +388,45 @@ int getKLevel_T(BinaryTree biTree, int k)
 		return 1;
 	}
 	return getKLevel_T(biTree->left, k - 1) + getKLevel_T(biTree->right, k - 1);
+}
+
+/* 18_二叉树——结构是否相同*/
+bool structureCompare_T(BinaryTree bt1, BinaryTree bt2)
+{
+	/**
+	 * 总的思路是，遇到不同的即返回false，否则一直比较，比较完成返回true
+	 */
+	// 到最终两个一样为空
+	if (!bt1 && !bt2)
+	{
+		return true;
+	}
+	// 当一个为空，另一个不为空的时候
+	else if (
+		(!bt1 && bt2) || (!bt2 && bt1)
+		)
+	{
+		return false;
+	}
+	// 都不为空，则比较其孩子
+	bool same = structureCompare_T(bt1->left, bt2->left);
+	same = same && structureCompare_T(bt1->right, bt2->right);
+	return same;
+}
+
+/* 19_二叉树——求镜像*/
+void treeMirror_T(BinaryTree biTree)
+{
+	// 左右孩子互换，从上到下
+	if (!biTree)
+	{
+		return;
+	}
+	// 先交换左右孩子根结点
+	BinaryTree temp = biTree->left;
+	biTree->left = biTree->right;
+	biTree->right = temp;
+	// 再对左右孩子分别进行互换
+	treeMirror_T(biTree->left);
+	treeMirror_T(biTree->right);
 }

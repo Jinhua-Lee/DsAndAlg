@@ -25,6 +25,12 @@ typedef struct BinaryTreeNode
 // 测试二叉树的方法
 void testBinaryTree();
 
+// 递归遍历
+void traverseRecur(BinaryTree bt);
+
+// 非递归遍历
+void traverseNonRecur(BinaryTree bt);
+
 /*=====================================*/
 /*一个指向根结点的指针，可以确定一个二叉树*/
 /*=====================================*/
@@ -85,3 +91,9 @@ int leafCount_T(BinaryTree biTree);
 
 // 17_二叉树——第k层结点数目
 int getKLevel_T(BinaryTree biTree, int k);
+
+// 18_二叉树——结构是否相同
+bool structureCompare_T(BinaryTree bt1, BinaryTree bt2);
+
+// 19_二叉树——求镜像
+void treeMirror_T(BinaryTree biTree);
