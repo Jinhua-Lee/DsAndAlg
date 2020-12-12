@@ -476,20 +476,25 @@ BinaryTree findKey_T(BinaryTree biTree, BiTreeNodeElementType btValue)
 /* 21_二叉树——找最低公共祖先*/
 BinaryTree findLCA_T(BinaryTree biTree, BinaryTree bt1, BinaryTree bt2)
 {
+	// 首先对当前根结点进行判断
+	// 如果当前根结点为空，或是等于两个待判断结点中的任意一个，则当前根结点即是最低公共祖先
 	if (!biTree)
 	{
+		// 这个空结果，影响下面递归的判断
 		return NULL;
 	}
 	if (biTree == bt1 || biTree == bt2)
 	{
 		return biTree;
 	}
-
+	// 否则分别在根结点的左右子树进行查找，两边都有一个结果，可能为空
 	BinaryTree left = findLCA_T(biTree->left, bt1, bt2);
 	BinaryTree right = findLCA_T(biTree->right, bt1, bt2);
+	// 分别在当前根结点结点两边
 	if (left && right)
 	{
 		return biTree;
 	}
+	// 在其中一边，取非空的一边
 	return left ? left : right;
 }
