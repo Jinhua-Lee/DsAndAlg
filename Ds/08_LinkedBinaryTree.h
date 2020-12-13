@@ -16,10 +16,12 @@ typedef struct BinaryTreeNode
 	BiTreeNodeElementType data;
 	// 指向左孩子的指针
 	BinaryTreeNode* left;
+	// 左指针功能标记，为true则指向前驱
+	bool ltag = false;
 	// 指向右孩子的指针
 	BinaryTreeNode* right;
-	// 指向父结点的指针
-	BinaryTreeNode* parent;
+	// 右指针功能标记，为true则指向后继
+	bool rtag = false;
 }BTNode, *BinaryTree;
 
 // 测试二叉树的方法
@@ -53,11 +55,8 @@ int max(int a, int b);
 // 05_二叉树——是否是叶子结点
 Status leafBiNode_T(BinaryTree biTree);
 
-// 06_二叉树——是否根结点
-Status rootBiNode_T(BinaryTree biTree);
-
-// 07_二叉树——求父结点
-Status parentBiNode_T(BinaryTree current, BinaryTree& parent);
+// 06_二叉树——求父结点
+BinaryTree parentBiNode_T(BinaryTree biTree, BinaryTree target);
 
 // 访问二叉树结点的方法
 void visit(BinaryTree biTree);

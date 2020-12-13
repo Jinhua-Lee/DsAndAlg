@@ -35,6 +35,13 @@ void testBinaryTree()
 	printf("\n 两个结点距离%-2d\n", dist);
 	// 访问所有祖先
 	allAncestors_T(bt, findKey_T(bt, 6));
+
+	BinaryTree parent = parentBiNode_T(bt, findKey_T(bt, 6));
+	if (parent)
+	{
+		printf("\n父结点： %-2d\n", parent->data);
+	}
+
 }
 
 /* 递归遍历*/ 
@@ -79,7 +86,6 @@ Status destroyBiTree_T(BinaryTree& biTree)
 	// 如果结点不为空
 	if (biTree)
 	{
-		biTree->parent = NULL;
 		// 先删除左右子树
 		if (destroyBiTree_T(biTree->left) && destroyBiTree_T(biTree->right))
 		{
@@ -128,23 +134,25 @@ Status leafBiNode_T(BinaryTree biTree)
 	return (biTree->left == NULL && biTree->right == NULL) ? OK : ERROR;
 }
 
-/* 06_二叉树——是否根结点*/
-Status rootBiNode_T(BinaryTree biTree)
-{
-	return biTree->parent == NULL ? OK : ERROR;
-}
-
 /* 06_二叉树——求父结点*/
-Status parentBiNode_T(BinaryTree current, BinaryTree& parent)
+BinaryTree parentBiNode_T(BinaryTree biTree, BinaryTree target)
 {
-	// 如果当前结点为空，或当前结点为根结点
-	if (emptyBiTree_T(current) || rootBiNode_T(current))
+	if (!biTree)
 	{
-		parent = NULL;
-		return ERROR;
+		return NULL;
 	}
-	parent = current->parent;
-	return OK;
+	if (biTree->left == target || biTree->right == target)
+	{
+		return biTree;
+	}
+	// 若左子树未找到，则找右子树
+	BinaryTree parent = parentBiNode_T(biTree->left, target);
+	if (!parent)
+	{
+		parent = parentBiNode_T(biTree->right, target);
+	}
+	// 将结果回溯上去
+	return parent;
 }
 
 /* 访问二叉树结点的方法*/
