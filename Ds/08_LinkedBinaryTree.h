@@ -103,3 +103,12 @@ BinaryTree findKey_T(BinaryTree biTree, BiTreeNodeElementType btValue);
 
 // 21_二叉树——找最低公共祖先
 BinaryTree findLCA_T(BinaryTree biTree, BinaryTree bt1, BinaryTree bt2);
+
+// 22_二叉树——结点距离
+int nodeDistance_T(BinaryTree biTree, BinaryTree bt1, BinaryTree bt2);
+
+// 23_二叉树——结点相隔层数
+int levelDist_T(BinaryTree biTree, BinaryTree bt);
+
+// 24_二叉树——结点所有祖先
+bool allAncestors_T(BinaryTree biTree, BinaryTree bt);

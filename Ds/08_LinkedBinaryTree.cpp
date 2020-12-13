@@ -29,9 +29,12 @@ void testBinaryTree()
 	treeMirror_T(bt);
 	traverseRecur(bt);
 	// 找最低公共祖先
-	BinaryTree lca = findLCA_T(bt, findKey_T(bt, 3), findKey_T(bt, 7));
-	printf("\n最低公共祖先：%d\n", lca->data);
-
+	//BinaryTree lca = findLCA_T(bt, findKey_T(bt, 3), findKey_T(bt, 7));
+	//printf("\n 最低公共祖先：%d\n", lca->data);
+	int dist = nodeDistance_T(bt, findKey_T(bt, 3), findKey_T(bt, 6));
+	printf("\n 两个结点距离%-2d\n", dist);
+	// 访问所有祖先
+	allAncestors_T(bt, findKey_T(bt, 6));
 }
 
 /* 递归遍历*/ 
@@ -497,4 +500,71 @@ BinaryTree findLCA_T(BinaryTree biTree, BinaryTree bt1, BinaryTree bt2)
 	}
 	// 在其中一边，取非空的一边
 	return left ? left : right;
+}
+
+/* 22_二叉树——结点距离*/
+int nodeDistance_T(BinaryTree biTree, BinaryTree bt1, BinaryTree bt2)
+{
+	// 先找到最低公共父结点
+	BinaryTree lca =  findLCA_T(biTree, bt1, bt2);
+
+	// 再求出LCA结点到两个结点距离，求和
+	int left = levelDist_T(lca, bt1);
+	int right = levelDist_T(lca, bt2);
+
+	return left + right;
+}
+
+/* 23_二叉树——结点相隔层数*/
+int levelDist_T(BinaryTree biTree, BinaryTree bt)
+{
+	// 用 -1 标识没找到
+	if (!biTree)
+	{
+		return -1;
+	}
+	// 找到了，当前层，层数不变
+	if (biTree == bt)
+	{
+		return 0;
+	}
+
+	// LCA结点和目标结点是直系关系。从LCA结点往下找
+	int levelDist = levelDist_T(biTree->left, bt);
+	// 若左子树没有找到，则找右子树
+	if (levelDist == -1)
+	{
+		levelDist = levelDist_T(biTree->right, bt);
+	}
+	// 找到了，则回溯
+	if (levelDist != -1)
+	{
+		return levelDist + 1;
+	}
+	// 左右子树都没找到
+	return -1;
+}
+
+/* 24_二叉树——结点所有祖先*/
+bool allAncestors_T(BinaryTree biTree, BinaryTree bt)
+{
+	// 利用求两个直系结点距离的思路
+	// 如果到最叶子结点都没有找到，则返回false，找到则返回true
+	if (!biTree)
+	{
+		return false;
+	}
+	if (biTree == bt)
+	{
+		return true;
+	}
+	// 从左右子树找
+	if (allAncestors_T(biTree->left, bt) || allAncestors_T(biTree->right, bt))
+	{
+		// 找到时候访问，并进行回溯
+		visit(biTree);
+		return true;
+	}
+	// 左右子树都每找到
+	return false;
 }
