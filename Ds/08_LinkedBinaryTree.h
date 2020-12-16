@@ -111,3 +111,21 @@ int levelDist_T(BinaryTree biTree, BinaryTree bt);
 
 // 24_二叉树——结点所有祖先
 bool allAncestors_T(BinaryTree biTree, BinaryTree bt);
+
+// 25_二叉树——前序线索化
+void preThreading_T(BinaryTree bt, BinaryTree pre);
+
+// 26_二叉树——中序线索化
+void inThreading_T(BinaryTree bt, BinaryTree pre);
+
+// 27_二叉树——后序线索化
+void postThreading_T(BinaryTree bt, BinaryTree pre);
+
+// 28_二叉树——前序线索遍历
+void preThreadTraverse_T(BinaryTree biTree);
+
+// 29_二叉树——中序线索遍历
+void inThreadTraverse_T(BinaryTree biTree);
+
+// 30_二叉树——后序线索遍历
+void postThreadTraverse_T(BinaryTree biTree);

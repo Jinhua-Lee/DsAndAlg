@@ -219,6 +219,8 @@ void createByPreOrderTraverse_T(BinaryTree& biTree)
 		exit(-1);
 	}
 	biTree->data = elem;
+	biTree->ltag = false;
+	biTree->rtag = false;
 	createByPreOrderTraverse_T(biTree->left);
 	createByPreOrderTraverse_T(biTree->right);
 }
@@ -576,3 +578,116 @@ bool allAncestors_T(BinaryTree biTree, BinaryTree bt)
 	// 左右子树都每找到
 	return false;
 }
+
+/* 25_二叉树——前序线索化*/
+void preThreading_T(BinaryTree bt, BinaryTree pre)
+{
+	if (!bt)
+	{
+		return;
+	}
+	// 进行前序线索化
+	if (!bt->left)
+	{
+		bt->ltag = true;
+		bt->left = pre;
+	}
+	if (!pre->right)
+	{
+		pre->rtag = true;
+		pre->right = bt;
+	}
+	pre = bt;
+
+	preThreading_T(bt->left, pre);
+	preThreading_T(bt->right, pre);
+}
+
+/* 26_二叉树——中序线索化*/
+void inThreading_T(BinaryTree bt, BinaryTree pre)
+{
+	if (!bt)
+	{
+		return;
+	}
+	inThreading_T(bt->left, pre);
+
+	// 进行中序的线索化操作
+	// 遇到左孩子为空，即赋值为前置
+	if (!bt->left)
+	{
+		bt->ltag = true;
+		bt->left = pre;
+	}
+	// 若前置结点，没有右孩子
+	if (!pre->right)
+	{
+		pre->rtag = true;
+		pre->right = bt;
+	}
+	// 当前结点 => 下一次迭代的前置结点
+	pre = bt;
+
+	inThreading_T(bt->right, pre);
+}
+
+/* 27_二叉树——后序线索化*/
+void postThreading_T(BinaryTree bt, BinaryTree pre)
+{
+	if (!bt)
+	{
+		return;
+	}
+	postThreading_T(bt->left, pre);
+	postThreading_T(bt->right, pre);
+
+	// 后续线索化的操作
+	if (!bt->left)
+	{
+		bt->ltag = true;
+		bt->left = pre;
+	}
+	if (!pre->right)
+	{
+		pre->rtag = true;
+		pre->right = bt;
+	}
+	pre = bt;
+}
+
+/* 28_二叉树——前序线索遍历*/
+void preThreadTraverse_T(BinaryTree biTree)
+{
+
+}
+
+/* 29_二叉树——中序线索遍历*/
+void inThreadTraverse_T(BinaryTree biTree)
+{
+	if (!biTree)
+	{
+		return;
+	}
+	// 迭代的变量，保存当前及其上一次的结点
+	BinaryTree cur = biTree;
+	BinaryTree pre = NULL;
+	// 先找到最叶子的结点
+	while (cur)
+	{
+		if (!cur->left)
+		{
+			visit(cur);
+			cur = cur->right;
+		}
+		
+	}
+
+}
+
+/* 30_二叉树——后序线索遍历*/
+void postThreadTraverse_T(BinaryTree biTree)
+{
+
+}
+
+
