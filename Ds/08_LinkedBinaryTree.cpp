@@ -48,6 +48,10 @@ void testBinaryTree()
 	printf("\n 中序线索化及遍历：\n");
 	// 存放前一个被访问结点
 	BinaryTree pre = NULL;
+	// 前序线索及遍历
+	preThreading_T(bt, pre);
+	preThreadTraverse_T(bt);
+	// 中序线索及遍历
 	inThreading_T(bt, pre);
 	inThreadTraverse_T(bt);
 
@@ -596,12 +600,12 @@ void preThreading_T(BinaryTree& bt, BinaryTree& pre)
 		return;
 	}
 	// 进行前序线索化
-	if (!bt->left)
+	if (!bt->left || bt->ltag)
 	{
 		bt->ltag = true;
 		bt->left = pre;
 	}
-	if (!pre->right)
+	if (pre && (!pre->right || pre->rtag))
 	{
 		pre->rtag = true;
 		pre->right = bt;
@@ -623,13 +627,13 @@ void inThreading_T(BinaryTree& bt, BinaryTree& pre)
 
 	// 进行中序的线索化操作
 	// 遇到左孩子为空，即赋值为前置
-	if (!bt->left)
+	if (!bt->left || bt->ltag)
 	{
 		bt->ltag = true;
 		bt->left = pre;
 	}
 	// 若前置结点非空，且没有右孩子
-	if (pre && !pre->right)
+	if (pre && (!pre->right || pre->rtag))
 	{
 		pre->rtag = true;
 		pre->right = bt;
@@ -667,7 +671,31 @@ void postThreading_T(BinaryTree& bt, BinaryTree& pre)
 /* 28_二叉树——前序线索遍历*/
 void preThreadTraverse_T(BinaryTree biTree)
 {
+	if (!biTree)
+	{
+		return;
+	}
+	// 迭代的变量
+	BinaryTree cur = biTree;
 
+	// 结点为空则代表结束
+	while (cur)
+	{
+		// 优先访问当前结点
+		while (cur->left && !cur->ltag)
+		{
+			visit(cur);
+			cur = cur->left;
+		}
+		// 作为线索的后继结点
+		while (cur->rtag)
+		{
+			visit(cur->right);
+			cur = cur->right;
+		}
+		// 作为子树的后继结点，迭代到其子树
+		cur = cur->right;
+	}
 }
 
 /* 29_二叉树——中序线索遍历*/
