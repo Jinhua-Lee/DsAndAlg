@@ -26,50 +26,59 @@ void testBinaryTree()
 	//printf("\n 比较两个二叉树结构：%d\n", structureCompare_T(bt, bt2));
 
 	// 镜像
+	printf("\n 测试镜像并还原\n");
 	treeMirror_T(bt);
 	traverseRecur(bt);
+	treeMirror_T(bt);
 	// 找最低公共祖先
 	//BinaryTree lca = findLCA_T(bt, findKey_T(bt, 3), findKey_T(bt, 7));
 	//printf("\n 最低公共祖先：%d\n", lca->data);
 	int dist = nodeDistance_T(bt, findKey_T(bt, 3), findKey_T(bt, 6));
-	printf("\n 两个结点距离%-2d\n", dist);
+	printf("\n 两个结点距离：%-2d\n", dist);
 	// 访问所有祖先
 	allAncestors_T(bt, findKey_T(bt, 6));
 
 	BinaryTree parent = parentBiNode_T(bt, findKey_T(bt, 6));
 	if (parent)
 	{
-		printf("\n父结点： %-2d\n", parent->data);
+		printf("\n 父结点： %-2d\n", parent->data);
 	}
+
+	// 线索化及线索化遍历
+	printf("\n 中序线索化及遍历：\n");
+	// 存放前一个被访问结点
+	BinaryTree pre = NULL;
+	inThreading_T(bt, pre);
+	inThreadTraverse_T(bt);
 
 }
 
 /* 递归遍历*/ 
 void traverseRecur(BinaryTree bt)
 {
-	printf("\n先序遍历_递归：\n");
+	printf("\n 先序遍历_递归：\n");
 	preOrderTraverse_Recur(bt);
 
-	printf("\n中序遍历_递归：\n");
+	printf("\n 中序遍历_递归：\n");
 	inOrderTraverse_Recur(bt);
 
-	printf("\n后序遍历_递归：\n");
+	printf("\n 后序遍历_递归：\n");
 	postOrderTraverse_Recur(bt);
 }
 
 /* 非递归遍历*/
 void traverseNonRecur(BinaryTree bt)
 {
-	printf("\n先序遍历_非递归：\n");
+	printf("\n 先序遍历_非递归：\n");
 	preOrderTraverse_NonRecur(bt);
 
-	printf("\n中序遍历_非递归：\n");
+	printf("\n 中序遍历_非递归：\n");
 	inOrderTraverse_NonRecur(bt);
 
-	printf("\n后序遍历_非递归：\n");
+	printf("\n 后序遍历_非递归：\n");
 	postOrderTraverse_Recur(bt);
 
-	printf("\n层次遍历：\n");
+	printf("\n 层次遍历：\n");
 	breadthTraverse(bt);
 }
 
@@ -580,7 +589,7 @@ bool allAncestors_T(BinaryTree biTree, BinaryTree bt)
 }
 
 /* 25_二叉树——前序线索化*/
-void preThreading_T(BinaryTree bt, BinaryTree pre)
+void preThreading_T(BinaryTree& bt, BinaryTree& pre)
 {
 	if (!bt)
 	{
@@ -604,7 +613,7 @@ void preThreading_T(BinaryTree bt, BinaryTree pre)
 }
 
 /* 26_二叉树——中序线索化*/
-void inThreading_T(BinaryTree bt, BinaryTree pre)
+void inThreading_T(BinaryTree& bt, BinaryTree& pre)
 {
 	if (!bt)
 	{
@@ -619,8 +628,8 @@ void inThreading_T(BinaryTree bt, BinaryTree pre)
 		bt->ltag = true;
 		bt->left = pre;
 	}
-	// 若前置结点，没有右孩子
-	if (!pre->right)
+	// 若前置结点非空，且没有右孩子
+	if (pre && !pre->right)
 	{
 		pre->rtag = true;
 		pre->right = bt;
@@ -632,7 +641,7 @@ void inThreading_T(BinaryTree bt, BinaryTree pre)
 }
 
 /* 27_二叉树——后序线索化*/
-void postThreading_T(BinaryTree bt, BinaryTree pre)
+void postThreading_T(BinaryTree& bt, BinaryTree& pre)
 {
 	if (!bt)
 	{
@@ -670,18 +679,26 @@ void inThreadTraverse_T(BinaryTree biTree)
 	}
 	// 迭代的变量，保存当前及其上一次的结点
 	BinaryTree cur = biTree;
-	BinaryTree pre = NULL;
-	// 先找到最叶子的结点
+	
+	// 结点为空则迭代结束（线索作用）
 	while (cur)
 	{
-		if (!cur->left)
+		// 找到从根节点开始的左子树的叶子结点【中序第一个结点】
+		while (cur->left && !cur->ltag)
 		{
-			visit(cur);
+			cur = cur->left;
+		}
+		visit(cur);
+		// 若结点没有右子树，只有后继，则直接输出它
+		while (cur->rtag)
+		{
+			visit(cur->right);
 			cur = cur->right;
 		}
-		
+		// 有右子树，则按照中序遍历规则，必须先访问完成【右子树根结点的左子树 cur->right-> left】才能访问【右子树的根结点 cur->right】
+		// 迭代其右子树，重新进入上面的逻辑
+		cur = cur->right;
 	}
-
 }
 
 /* 30_二叉树——后序线索遍历*/
