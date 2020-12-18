@@ -44,14 +44,15 @@ void testBinaryTree()
 		printf("\n 父结点： %-2d\n", parent->data);
 	}
 
-	// 线索化及线索化遍历
-	printf("\n 中序线索化及遍历：\n");
 	// 存放前一个被访问结点
 	BinaryTree pre = NULL;
 	// 前序线索及遍历
+	printf("\n 前序线索化及遍历：\n");
 	preThreading_T(bt, pre);
 	preThreadTraverse_T(bt);
 	// 中序线索及遍历
+	printf("\n 中序线索化及遍历：\n");
+	pre = NULL;
 	inThreading_T(bt, pre);
 	inThreadTraverse_T(bt);
 
@@ -612,8 +613,15 @@ void preThreading_T(BinaryTree& bt, BinaryTree& pre)
 	}
 	pre = bt;
 
-	preThreading_T(bt->left, pre);
-	preThreading_T(bt->right, pre);
+	// 孩子不作为线索，才执行
+	if (!bt->ltag)
+	{
+		preThreading_T(bt->left, pre);
+	}
+	if (!bt->rtag)
+	{
+		preThreading_T(bt->right, pre);
+	}
 }
 
 /* 26_二叉树——中序线索化*/
@@ -623,8 +631,11 @@ void inThreading_T(BinaryTree& bt, BinaryTree& pre)
 	{
 		return;
 	}
-	inThreading_T(bt->left, pre);
-
+	if (!bt->ltag)
+	{
+		inThreading_T(bt->left, pre);
+	}
+	
 	// 进行中序的线索化操作
 	// 遇到左孩子为空，即赋值为前置
 	if (!bt->left || bt->ltag)
@@ -641,7 +652,10 @@ void inThreading_T(BinaryTree& bt, BinaryTree& pre)
 	// 当前结点 => 下一次迭代的前置结点
 	pre = bt;
 
-	inThreading_T(bt->right, pre);
+	if (!bt->rtag)
+	{
+		inThreading_T(bt->right, pre);
+	}
 }
 
 /* 27_二叉树——后序线索化*/
@@ -681,19 +695,13 @@ void preThreadTraverse_T(BinaryTree biTree)
 	// 结点为空则代表结束
 	while (cur)
 	{
+		visit(cur);
 		// 优先访问当前结点
 		while (cur->left && !cur->ltag)
 		{
-			visit(cur);
 			cur = cur->left;
+			visit(cur);
 		}
-		// 作为线索的后继结点
-		while (cur->rtag)
-		{
-			visit(cur->right);
-			cur = cur->right;
-		}
-		// 作为子树的后继结点，迭代到其子树
 		cur = cur->right;
 	}
 }
