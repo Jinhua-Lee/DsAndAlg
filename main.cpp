@@ -1,4 +1,4 @@
-#include<math.h>
+#include <math.h>
 #include ".\Alg\sort.h"
 #include ".\Alg\divideFunction.cpp"
 #include ".\Ds\01_SequenceList.h"

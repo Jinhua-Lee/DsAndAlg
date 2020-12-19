@@ -142,7 +142,6 @@
   <ItemGroup>
     <ClCompile Include="Alg\divideFunction.cpp" />
     <ClCompile Include="Alg\sort.cpp" />
-    <ClCompile Include="demo.cpp" />
     <ClCompile Include="Ds\01_SequenceList.cpp" />
     <ClCompile Include="Ds\02_SingleLinkedList.cpp" />
     <ClCompile Include="Ds\03_DoublyLinkedList.cpp" />
@@ -151,6 +150,7 @@
     <ClCompile Include="Ds\06_CircularQueue.cpp" />
     <ClCompile Include="Ds\07_LinkedQueue.cpp" />
     <ClCompile Include="Ds\08_LinkedBinaryTree.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alg\sort.h" />
