@@ -153,6 +153,7 @@
     <ClCompile Include="Ds\08_LinkedBinaryTree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alg\sort.h" />
     <ClInclude Include="Ds\01_SequenceList.h" />
     <ClInclude Include="Ds\02_SingleLinkedList.h" />
     <ClInclude Include="Ds\03_DoublyLinkedList.h" />

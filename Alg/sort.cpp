@@ -1,27 +1,8 @@
-#include<stdio.h>
-#include<stdlib.h>
-
-inline void inputArray(int* arr, int length);
-inline void traverseArray(int* arr, int length);
-inline void swapInt(int* arr, int index1, int index2);
-
-inline void bubbleSort(int* arr, int length);
-inline void selectSort(int* arr, int length);
-inline void insertSort(int* arr, int length);
-inline void shellSort(int* arr, int length);
-inline void quickSort(int* arr, int start, int end);
-// 对排序的建堆与主循环体定义
-inline void heapSort(int* arr, int length);
-inline void buildTopMaxHeap(int* arr, int lastIndex);
-// 归并排序的递归与合并定义
-inline void mergeSort(int* arr, int length, int left, int right, int* tempArr);
-inline void merge(int* arr, int left, int middle, int right, int* tempArr);
-
-inline void testSort();
+#include "sort.h"
 
 void testSort()
 {
-	printf("请输入数组长度 length：\n");
+	printf("请输入数组长度 \n");
 	int length;
 	scanf_s("%d", &length);
 	int* arr = new int[length];

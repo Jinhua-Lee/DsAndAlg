@@ -1,7 +1,7 @@
 #include<math.h>
-#include".\Alg\sort.cpp"
-#include".\Alg\divideFunction.cpp"
-#include".\Ds\01_SequenceList.h"
+#include ".\Alg\sort.h"
+#include ".\Alg\divideFunction.cpp"
+#include ".\Ds\01_SequenceList.h"
 #include ".\Ds\02_SingleLinkedList.h"
 #include ".\Ds\03_DoublyLinkedList.h"
 #include ".\Ds\04_SequenceStack.h"
