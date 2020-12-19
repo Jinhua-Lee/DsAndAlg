@@ -665,8 +665,15 @@ void postThreading_T(BinaryTree& bt, BinaryTree& pre)
 	{
 		return;
 	}
-	postThreading_T(bt->left, pre);
-	postThreading_T(bt->right, pre);
+	// 仅对非线索指向的孩子结点执行
+	if (!bt->ltag)
+	{
+		postThreading_T(bt->left, pre);
+	}
+	if (!bt->rtag)
+	{
+		postThreading_T(bt->right, pre);
+	}
 
 	// 后续线索化的操作
 	if (!bt->left)
@@ -735,12 +742,6 @@ void inThreadTraverse_T(BinaryTree biTree)
 		// 迭代其右子树，重新进入上面的逻辑
 		cur = cur->right;
 	}
-}
-
-/* 30_二叉树——后序线索遍历*/
-void postThreadTraverse_T(BinaryTree biTree)
-{
-
 }
 
 

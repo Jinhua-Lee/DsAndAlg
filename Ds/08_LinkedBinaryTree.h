@@ -126,6 +126,3 @@ void preThreadTraverse_T(BinaryTree biTree);
 
 // 29_二叉树——中序线索遍历
 void inThreadTraverse_T(BinaryTree biTree);
-
-// 30_二叉树——后序线索遍历
-void postThreadTraverse_T(BinaryTree biTree);
