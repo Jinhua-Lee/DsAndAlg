@@ -33,6 +33,12 @@ void traverseRecur(BinaryTree bt);
 // 非递归遍历
 void traverseNonRecur(BinaryTree bt);
 
+// 测试线索遍历方式
+void threadTraverse(BinaryTree bt);
+
+// 测试镜像
+void testMirror(BinaryTree bt);
+
 /*=====================================*/
 /*一个指向根结点的指针，可以确定一个二叉树*/
 /*=====================================*/
@@ -126,3 +132,6 @@ void preThreadTraverse_T(BinaryTree biTree);
 
 // 29_二叉树——中序线索遍历
 void inThreadTraverse_T(BinaryTree biTree);
+
+// 30_二叉树——是否完全二叉树
+bool isCompleteBinary_T(BinaryTree biTree);

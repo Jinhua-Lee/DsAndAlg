@@ -11,51 +11,24 @@ void testBinaryTree()
 	// 遍历
 	traverseRecur(bt);
 	traverseNonRecur(bt);
-	
-	//printf("\n 请输入层数（以根结点为第1层）：\n");
-	//int level;
-	//scanf_s("%d", &level);
-
-	//printf("\n 第 %d 层结点数：%-2d\n", level, getKLevel_T(bt, level));
-
-	//BinaryTree bt2;
-	//initBiTree_T(bt2);
-	//createByPreOrderTraverse_T(bt2);
-	//traverseRecur(bt2);
-	//traverseNonRecur(bt2);
-	//printf("\n 比较两个二叉树结构：%d\n", structureCompare_T(bt, bt2));
 
 	// 镜像
-	printf("\n 测试镜像并还原\n");
-	treeMirror_T(bt);
-	traverseRecur(bt);
-	treeMirror_T(bt);
-	// 找最低公共祖先
-	//BinaryTree lca = findLCA_T(bt, findKey_T(bt, 3), findKey_T(bt, 7));
-	//printf("\n 最低公共祖先：%d\n", lca->data);
-	int dist = nodeDistance_T(bt, findKey_T(bt, 3), findKey_T(bt, 6));
-	printf("\n 两个结点距离：%-2d\n", dist);
-	// 访问所有祖先
-	allAncestors_T(bt, findKey_T(bt, 6));
+	//testMirror(bt);
+	//int dist = nodeDistance_T(bt, findKey_T(bt, 3), findKey_T(bt, 6));
+	//printf("\n 两个结点距离：%-2d\n", dist);
+	//// 访问所有祖先
+	//allAncestors_T(bt, findKey_T(bt, 6));
+	//BinaryTree parent = parentBiNode_T(bt, findKey_T(bt, 6));
+	//if (parent)
+	//{
+	//	printf("\n 父结点： %-2d\n", parent->data);
+	//}
 
-	BinaryTree parent = parentBiNode_T(bt, findKey_T(bt, 6));
-	if (parent)
-	{
-		printf("\n 父结点： %-2d\n", parent->data);
-	}
+	// 线索遍历
+	threadTraverse(bt);
 
-	// 存放前一个被访问结点
-	BinaryTree pre = NULL;
-	// 前序线索及遍历
-	printf("\n 前序线索化及遍历：\n");
-	preThreading_T(bt, pre);
-	preThreadTraverse_T(bt);
-	// 中序线索及遍历
-	printf("\n 中序线索化及遍历：\n");
-	pre = NULL;
-	inThreading_T(bt, pre);
-	inThreadTraverse_T(bt);
-
+	// 是否完全二叉树
+	printf("\n 完全二叉树： %d \n", isCompleteBinary_T(bt));
 }
 
 /* 递归遍历*/ 
@@ -85,6 +58,29 @@ void traverseNonRecur(BinaryTree bt)
 
 	printf("\n 层次遍历：\n");
 	breadthTraverse(bt);
+}
+
+void threadTraverse(BinaryTree bt)
+{
+	// 存放前一个被访问结点
+	BinaryTree pre = NULL;
+	// 前序线索及遍历
+	printf("\n 前序线索化及遍历：\n");
+	preThreading_T(bt, pre);
+	preThreadTraverse_T(bt);
+	// 中序线索及遍历
+	printf("\n 中序线索化及遍历：\n");
+	pre = NULL;
+	inThreading_T(bt, pre);
+	inThreadTraverse_T(bt);
+}
+
+void testMirror(BinaryTree bt)
+{
+	printf("\n 测试镜像并还原\n");
+	treeMirror_T(bt);
+	traverseRecur(bt);
+	treeMirror_T(bt);
 }
 
 /* 01_二叉树——初始化*/
@@ -744,4 +740,61 @@ void inThreadTraverse_T(BinaryTree biTree)
 	}
 }
 
+/* 30_二叉树——是否完全二叉树*/
+bool isCompleteBinary_T(BinaryTree biTree)
+{
+	// 用来标记判断到【最后一层】
+	bool flag = false;
+	// 空树，直接返回是
+	if (!biTree)
+	{
+		return true;
+	}
+	// 保存当前判断结点
+	BinaryTree cur = NULL;
+	// 用循环队列保存下一层待访问结点
+	CQueue cq;
+	initQueue_Cq(cq);
+	enqueue_Cq(cq, biTree);
+	// 队列非空则表示还有结点未被访问
+	while (!queueEmpty_Cq(cq))
+	{
+		dequeue_Cq(cq, cur);
+		// 按完全二叉树定义的判断做出的标记，达到【最后一层】
+		if (flag)
+		{
+			// 若存在孩子，则非完全
+			if ((!cur->rtag && cur->right) || (!cur->ltag && !cur->left))
+			{
+				return false;
+			}
+		}
+		else
+		{
+			// 左右结点都存在
+			if ((!cur->ltag && cur->left) && (!cur->rtag && cur->right))
+			{
+				enqueue_Cq(cq, cur->left);
+				enqueue_Cq(cq, cur->right);
+			}
+			// 只存在右结点，则非完全
+			else if (!cur->rtag && cur->right)
+			{
+				return false;
+			}
+			// 对【只有左孩子】，【无孩子】情况，做标记
+			else if (!cur->ltag && cur->left)
+			{
+				enqueue_Cq(cq, cur->left);
+				flag = true;
+			}
+			else
+			{
+				flag = true;
+			}
+		}
+	}
+	// 判断到最后都没有中间返回，则它是完全二叉树
+	return true;
+}
 
