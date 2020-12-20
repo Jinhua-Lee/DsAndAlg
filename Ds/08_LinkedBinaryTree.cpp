@@ -5,12 +5,12 @@
 /* 测试二叉树的方法*/
 void testBinaryTree()
 {
-	BinaryTree bt;
-	initBiTree_T(bt);
-	createByPreOrderTraverse_T(bt);
-	// 遍历
-	traverseRecur(bt);
-	traverseNonRecur(bt);
+	//BinaryTree bt;
+	//initBiTree_T(bt);
+	//createByPreOrderTraverse_T(bt);
+	//// 遍历
+	//traverseRecur(bt);
+	//traverseNonRecur(bt);
 
 	// 镜像
 	//testMirror(bt);
@@ -25,10 +25,14 @@ void testBinaryTree()
 	//}
 
 	// 线索遍历
-	threadTraverse(bt);
+	//threadTraverse(bt);
 
 	// 是否完全二叉树
-	printf("\n 完全二叉树： %d \n", isCompleteBinary_T(bt));
+	//printf("\n 完全二叉树： %d \n", isCompleteBinary_T(bt));
+
+	// 二叉查找树测试
+	testBST();
+
 }
 
 /* 递归遍历*/ 
@@ -81,6 +85,20 @@ void testMirror(BinaryTree bt)
 	treeMirror_T(bt);
 	traverseRecur(bt);
 	treeMirror_T(bt);
+}
+
+/* 测试二叉查找树*/ 
+void testBST()
+{
+	BinaryTree bst = NULL;
+	int length;
+	printf("\n 请输入数组长度： \n");
+	scanf_s("%d", &length);
+	BiTreeNodeElementType* arr = new BiTreeNodeElementType[length];
+	inputArray(arr, length);
+	buildBinarySearchTree(bst, arr, length);
+	printf("\n 中序遍历二叉查找树： \n");
+	inOrderTraverse_Recur(bst);
 }
 
 /* 01_二叉树——初始化*/
@@ -798,3 +816,52 @@ bool isCompleteBinary_T(BinaryTree biTree)
 	return true;
 }
 
+/* 31_二叉树——构建二叉查找树*/
+Status binSerchAddElem_T(BinaryTree& cur, BiTreeNodeElementType elem)
+{
+	// 方法是向已有二叉搜索树中加入元素，若当前二叉树为空，则构建新的二叉树
+	// 结点为空时创建结点并设置值，从父节点迭代到左孩子或右孩子时执行
+	if (!cur)
+	{
+		cur = (BinaryTree)malloc(sizeof(BinaryTreeNode));
+		if (!cur)
+		{
+			printf("构建失败！");
+			return ERROR;
+		}
+		cur->data = elem;
+		cur->left = NULL;
+		cur->right = NULL;
+		cur->ltag = false;
+		cur->rtag = false;
+		return OK;
+	}
+	// 元素小于当前结点值，创建左结点
+	if (elem < cur->data)
+	{
+		if (!binSerchAddElem_T(cur->left, elem))
+		{
+			return ERROR;
+		}
+	}
+	// 元素大于等于当前结点值，创建右结点
+	else
+	{
+		if (!binSerchAddElem_T(cur->right, elem))
+		{
+			return ERROR;
+		}
+	}
+
+	return OK;
+}
+
+/* 32_二叉树——构建二叉查找树*/
+void buildBinarySearchTree(BinaryTree& bst, BiTreeNodeElementType* arr, int length)
+{
+	// 批量加元素即可
+	for (int i = 0; i < length; i++)
+	{
+		binSerchAddElem_T(bst, *(arr + i));
+	}
+}

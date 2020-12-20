@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
+#include "..\Alg\sort.h"
 
 // 定义返回状态及返回码
 #define Status int
@@ -38,6 +39,9 @@ void threadTraverse(BinaryTree bt);
 
 // 测试镜像
 void testMirror(BinaryTree bt);
+
+// 测试二叉查找树
+void testBST();
 
 /*=====================================*/
 /*一个指向根结点的指针，可以确定一个二叉树*/
@@ -135,3 +139,9 @@ void inThreadTraverse_T(BinaryTree biTree);
 
 // 30_二叉树——是否完全二叉树
 bool isCompleteBinary_T(BinaryTree biTree);
+
+// 31_二叉树——二叉查找树加入元素
+Status binSerchAddElem_T(BinaryTree& cur, BiTreeNodeElementType elem);
+
+// 32_二叉树——构建二叉查找树
+void buildBinarySearchTree(BinaryTree& bst, BiTreeNodeElementType* arr, int length);
