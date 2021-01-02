@@ -984,6 +984,14 @@ BinaryTree inorderPost_T(BinaryTree bt, BinaryTree cur)
 		return post;
 	}
 	// 2. 无右子树
-	return NULL;
+	BinaryTree parent = NULL;
+	BinaryTree p = cur;
+	// 找到当前为父结点左孩子的结点
+	do
+	{
+		parent = parentBiNode_T(bt, p);
+		p = parent;
+	} while (parent && parent->left != p);
+	return parent;
 }
 
