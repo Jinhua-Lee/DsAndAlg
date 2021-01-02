@@ -918,7 +918,7 @@ Status deleteBiSearchElem_T(BinaryTree& bst, BinaryTree& toDel)
 	else
 	{
 		// 待删除结点的后继
-		BinaryTree post = inorderPost_T(toDel);
+		BinaryTree post = inorderPost_T(bst, toDel);
 		// 无左孩子，右子树根结点即是后继
 		if (post == toDel->right)
 		{
@@ -968,21 +968,22 @@ Status deleteBiSearchElem_T(BinaryTree& bst, BinaryTree& toDel)
 /* 34_二叉树——查找二叉树中某个结点中序后继，找不到返回NULL*/
 BinaryTree inorderPost_T(BinaryTree bt, BinaryTree cur)
 {
-	if (!cur)
+	if (!bt || !cur)
 	{
 		return NULL;
 	}
-	// 无左子树，返回右子树根结点
-	if (!cur->left)
+
+	// 1. 有右子树，后继在其右子树中
+	BinaryTree post = cur->right;
+	if (post)
 	{
-		return cur->right;
+		while (post->left)
+		{
+			post = post->left;
+		}
+		return post;
 	}
-	// 否则返回左子树最左边结点
-	BinaryTree post = cur;
-	while (post->left)
-	{
-		post = post->left;
-	}
-	return post;
+	// 2. 无右子树
+	return NULL;
 }
 
