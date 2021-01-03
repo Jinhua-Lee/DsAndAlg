@@ -92,6 +92,7 @@ void testBST()
 {
 	BinaryTree bst = NULL;
 	int length;
+	// 测试用例：长度 length = 12, 数组为 {12 5 2 9 19 15 20 13 17 14 16 18}, 删除结点为 15
 	printf("\n 请输入数组长度： \n");
 	scanf_s("%d", &length);
 	BiTreeNodeElementType* arr = new BiTreeNodeElementType[length];
@@ -994,4 +995,3 @@ BinaryTree inorderPost_T(BinaryTree bt, BinaryTree cur)
 	} while (parent && parent->left != p);
 	return parent;
 }
-
