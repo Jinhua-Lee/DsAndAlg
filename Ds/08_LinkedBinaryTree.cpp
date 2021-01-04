@@ -92,13 +92,20 @@ void testBST()
 {
 	BinaryTree bst = NULL;
 	int length;
+	// 测试用例：长度 length = 12, 数组为 {12 5 2 9 19 15 20 13 17 14 16 18}, 删除结点为 15
 	printf("\n 请输入数组长度： \n");
 	scanf_s("%d", &length);
 	BiTreeNodeElementType* arr = new BiTreeNodeElementType[length];
 	inputArray(arr, length);
 	buildBinarySearchTree(bst, arr, length);
+
 	printf("\n 中序遍历二叉查找树： \n");
-	inOrderTraverse_Recur(bst);
+	traverseRecur(bst);
+
+	printf("\n 删除结点后：\n");
+	BinaryTree toDel = findKey_T(bst, 15);
+	deleteBiSearchElem_T(bst, toDel);
+	traverseRecur(bst);
 }
 
 /* 01_二叉树——初始化*/
@@ -816,7 +823,7 @@ bool isCompleteBinary_T(BinaryTree biTree)
 	return true;
 }
 
-/* 31_二叉树——构建二叉查找树*/
+/* 31_二叉树——构建二叉查找树（插入）*/
 Status binSerchAddElem_T(BinaryTree& cur, BiTreeNodeElementType elem)
 {
 	// 方法是向已有二叉搜索树中加入元素，若当前二叉树为空，则构建新的二叉树
@@ -864,4 +871,127 @@ void buildBinarySearchTree(BinaryTree& bst, BiTreeNodeElementType* arr, int leng
 	{
 		binSerchAddElem_T(bst, *(arr + i));
 	}
+}
+
+/* 33_二叉树——二叉搜索树删除指定结点*/
+Status deleteBiSearchElem_T(BinaryTree& bst, BinaryTree& toDel)
+{
+	// 先找到其父结点
+	BinaryTree parent = parentBiNode_T(bst, toDel);
+	// 若父结点不存在，则当前即为根结点，直接删除结点并置空
+	if (!parent)
+	{
+		bst = NULL;
+		delete toDel;
+		toDel = NULL;
+		return OK;
+	}
+	// 四种情况
+	// 1. 待删除结点z无左孩子，用右孩子替换
+	if (!toDel->left)
+	{
+		// 当前结点与父节点的关系
+		if (parent->left == toDel) {
+			parent->left = toDel->right;
+		}
+		else
+		{
+			parent->right = toDel->right;
+		}
+		delete toDel;
+		toDel = NULL;
+		return OK;
+	}
+	// 2. 待删除结点z仅有左孩子
+	else if (toDel->left && !toDel->right)
+	{
+		if (parent->left == toDel)
+		{
+			parent->left = toDel->left;
+		}
+		else
+		{
+			parent->right = toDel->left;
+		}
+		return OK;
+	}
+	// 3. 待删除结点z有两个孩子
+	else
+	{
+		// 待删除结点的后继
+		BinaryTree post = inorderPost_T(bst, toDel);
+		// 无左孩子，右子树根结点即是后继
+		if (post == toDel->right)
+		{
+			// 左孩子先替换为待删除结点的左孩子
+			post->left = toDel->left;
+			// 将后继替换待删除
+			if (parent->left == toDel)
+			{
+				parent->left = post;
+			}
+			else
+			{
+				parent->right = post;
+			}
+		}
+		// 否则后继在其z->right的左子树中
+		else
+		{			
+			// 后继的父结点p
+			BinaryTree pParent = parentBiNode_T(bst, post);
+			if (pParent->left == post)
+			{
+				pParent->left = post->right;
+			}
+			else
+			{
+				pParent->right = post->right;
+			}
+			// 将后继替换待删除结点，并连接待删除的右子树
+			if (parent->left == toDel)
+			{
+				parent->left = post;
+			}
+			else
+			{
+				parent->right = post;
+			}
+			post->left = toDel->left;
+			post->right = toDel->right;
+			delete toDel;
+			toDel = NULL;
+		}
+		return OK;
+	}
+}
+
+/* 34_二叉树——查找二叉树中某个结点中序后继，找不到返回NULL*/
+BinaryTree inorderPost_T(BinaryTree bt, BinaryTree cur)
+{
+	if (!bt || !cur)
+	{
+		return NULL;
+	}
+
+	// 1. 有右子树，后继在其右子树中
+	BinaryTree post = cur->right;
+	if (post)
+	{
+		while (post->left)
+		{
+			post = post->left;
+		}
+		return post;
+	}
+	// 2. 无右子树
+	BinaryTree parent = NULL;
+	BinaryTree p = cur;
+	// 找到当前为父结点左孩子的结点
+	do
+	{
+		parent = parentBiNode_T(bt, p);
+		p = parent;
+	} while (parent && parent->left != p);
+	return parent;
 }

@@ -145,3 +145,9 @@ Status binSerchAddElem_T(BinaryTree& cur, BiTreeNodeElementType elem);
 
 // 32_二叉树——构建二叉查找树
 void buildBinarySearchTree(BinaryTree& bst, BiTreeNodeElementType* arr, int length);
+
+// 33_二叉树——二叉搜索树删除指定结点
+Status deleteBiSearchElem_T(BinaryTree& bst, BinaryTree& toDel);
+
+// 34_二叉树——查找二叉树中某个结点中序后继，找不到返回NULL
+BinaryTree inorderPost_T(BinaryTree bt, BinaryTree cur);
