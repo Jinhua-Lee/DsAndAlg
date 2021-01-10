@@ -21,7 +21,7 @@ void shellSort(int* arr, int length);
 // 05_快速排序
 void quickSort(int* arr, int start, int end);
 
-// 对排序的建堆与主循环体定义
+// 堆排序的建堆与主循环体定义
 void heapSort(int* arr, int length);
 void buildTopMaxHeap(int* arr, int lastIndex);
 

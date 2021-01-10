@@ -1,7 +1,6 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
-#include "..\Alg\sort.h"
 
 // 定义返回状态及返回码
 #define Status int
