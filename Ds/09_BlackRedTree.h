@@ -54,11 +54,17 @@ void rightRotate_BrT(BrTree& root, BrTree& y);
 /*存取操作*/
 /*********/
 
+// 根据颜色和数据，构建结点
+Status buildBrNode_BrT(BrTree& brT, bool black, BrTreeNodeElementType data);
+
+// 红黑树基础二叉搜索插入(注意parent指针)
+void brSearchAddElem(BrTree& brT, BrTree& toAdd);
+
 // 04_红黑树_插入元素（插入完成，根据情况执行保持平衡的基本操作）
-void insertElem_BrT(BrTree& root, BrTreeNodeElementType data);
+Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data);
 
 // 05_红黑树_删除元素（删除完成，根据情况执行保持平衡的基本操作）
-void deleteElem_BrT(BrTree& root, BrTreeNodeElementType key);
+Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key);
 
 
 /****************************/

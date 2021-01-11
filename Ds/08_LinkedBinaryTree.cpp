@@ -1,6 +1,7 @@
 #include "08_LinkedBinaryTree.h"
 #include "04_SequenceStack.h"
 #include "06_CircularQueue.h"
+#include "../Alg/sort.h"
 
 /* 测试二叉树的方法*/
 void testBinaryTree()
