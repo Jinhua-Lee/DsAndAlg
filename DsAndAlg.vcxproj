@@ -150,6 +150,7 @@
     <ClCompile Include="Ds\06_CircularQueue.cpp" />
     <ClCompile Include="Ds\07_LinkedQueue.cpp" />
     <ClCompile Include="Ds\08_LinkedBinaryTree.cpp" />
+    <ClCompile Include="Ds\09_BlackRedTree.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="Ds\06_CircularQueue.h" />
     <ClInclude Include="Ds\07_LinkedQueue.h" />
     <ClInclude Include="Ds\08_LinkedBinaryTree.h" />
+    <ClInclude Include="Ds\09_BlackRedTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

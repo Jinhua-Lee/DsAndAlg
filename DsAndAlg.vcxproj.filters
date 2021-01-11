@@ -60,6 +60,9 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Ds\09_BlackRedTree.cpp">
+      <Filter>源文件\Ds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ds\01_SequenceList.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Alg\sort.h">
       <Filter>头文件\Alg</Filter>
+    </ClInclude>
+    <ClInclude Include="Ds\09_BlackRedTree.h">
+      <Filter>头文件\Ds</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
