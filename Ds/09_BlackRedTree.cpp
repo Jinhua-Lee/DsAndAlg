@@ -168,21 +168,65 @@ Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data)
 	// 3. 判断红黑特性，决定自平衡操作
 	BrTree parent = toAdd->parent;
 	// 父亲为红色结点，则需要进行自平衡操作
-	if (parent->black == false)
+	insertFixUp_BrT(root, toAdd);
+	return OK;
+}
+
+// 10_红黑树_插入自平衡处理
+void insertFixUp_BrT(BrTree& root, BrTree cur)
+{
+	BrTree& parent = cur->parent;
+	BrTree& pp = parent->parent;
+	// 退出条件：1. 父亲为黑色；2. 或爷爷不存在
+	if (parent->black || pp == &nil)
 	{
-		// 3.1 叔叔结点存在且为红色
-
-		// 3.2 叔叔结点不存在且为黑色，并且父亲结点是祖父的左孩子
-		// 3.2.1 插入结点是父结点的左孩子
-		// 3.2.2 插入结点是父结点的右孩子
-
-		// 3.3 叔叔结点不存在且为黑色结点，并且父亲是祖父的右孩子
-		// 3.3.1 插入结点是父亲的右孩子
-		// 3.3.2 插入结点是父亲的左孩子
-
-		return OK;
+		return;
+	}
+	BrTree& uncle = parent == pp->left ? pp->right : pp->left;
+	// 3.1 叔叔结点存在且为红色
+	if (!uncle->black)
+	{
+		parent->black = true;
+		uncle->black = true;
+		pp->black = false;
+		insertFixUp_BrT(root, pp);
+		return;
 	}
 
+	// 3.2 叔叔结点为黑色（包括Null），并且父亲是祖父的左孩子
+	if (parent == pp->left)
+	{
+		// 3.2.1 插入结点是父结点的左孩子
+		if (cur == pp->left)
+		{
+			parent->black = true;
+			pp->black = false;
+			rightRotate_BrT(root, pp);
+		}
+		// 3.2.2 插入结点是父结点的右孩子
+		else
+		{
+			leftRotate_BrT(root, parent);
+			insertFixUp_BrT(root, parent);
+		}
+	}
+	// 3.3 叔叔结点为黑色（包括Null），并且父亲是祖父的右孩子
+	else
+	{
+		// 3.3.1 插入结点是父亲的右孩子
+		if (cur == pp->right)
+		{
+			parent->black = true;
+			pp->black = false;
+			leftRotate_BrT(root, pp);
+		}
+		// 3.3.2 插入结点是父亲的左孩子
+		else
+		{
+			rightRotate_BrT(root, parent);
+			insertFixUp_BrT(root, parent);
+		}
+	}
 }
 
 /* 05_红黑树_删除元素（删除完成，根据情况执行保持平衡的基本操作）*/
