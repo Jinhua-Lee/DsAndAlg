@@ -9,6 +9,7 @@
 #include ".\Ds\06_CircularQueue.h"
 #include ".\Ds\07_LinkedQueue.h"
 #include ".\DS\08_LinkedBinaryTree.h"
+#include ".\Ds\09_BlackRedTree.h"
 
 // 引用和指针的测试
 void testRefer();
@@ -30,7 +31,8 @@ int main()
 	//testLinkedStack();
 	//testCircularQueue();
 	//testLinkedQueue();
-	testBinaryTree();
+	//testBinaryTree();
+	testBrTree();
 
 	return 1;
 }

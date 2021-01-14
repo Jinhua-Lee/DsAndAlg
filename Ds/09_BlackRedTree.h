@@ -25,10 +25,10 @@ typedef struct BrTreeNode
 }BrNode, * BrTree;
 
 /*替代所有NULL的结点*/
-BrTreeNode nil = {NULL, &nil, &nil, &nil, true};
+extern BrTreeNode nil;
 
 /*根结点指针*/
-BrTree root = &nil;
+extern BrTree root;
 
 /**********/
 /*测试方法*/

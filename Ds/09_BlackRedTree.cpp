@@ -1,5 +1,11 @@
 #include "09_BlackRedTree.h"
 
+// Null结点定义
+BrTreeNode nil = { NULL, &nil, &nil, &nil, true };
+
+// 根结点定义
+BrTree root = &nil;
+
 /**********/
 /*保持平衡的基本操作*/
 /*********/
@@ -7,6 +13,19 @@
 /* 测试红黑树的方法*/
 void testBrTree()
 {
+	insertElem_BrT(root, 3);
+	insertElem_BrT(root, 4);
+	insertElem_BrT(root, 5);
+	insertElem_BrT(root, 6);
+	insertElem_BrT(root, 7);
+	insertElem_BrT(root, 8);
+
+	printf("\n前序：\n");
+	preOrderTraverse_BrT(root);
+	printf("\n中序：\n");
+	inOrderTraverse_BrT(root);
+	printf("\n后序：\n");
+	postOrderTraverse_BrT(root);
 
 }
 
@@ -39,6 +58,7 @@ void leftRotate_BrT(BrTree& root, BrTree& x)
 	if (x->parent == &nil)
 	{
 		root = y;
+		y->parent = &nil;
 	}
 	// 为其左孩子
 	else if (x == x->parent->left)
@@ -75,6 +95,7 @@ void rightRotate_BrT(BrTree& root, BrTree& y)
 	if (y->parent == &nil)
 	{
 		root = x;
+		x->parent = &nil;
 	}
 	// y为父的左
 	else if (y == y->parent->left)
@@ -96,22 +117,22 @@ void rightRotate_BrT(BrTree& root, BrTree& y)
 /*存取操作*/
 /*********/
 
-/* 根据颜色和数据，构建结点*/ 
+/* 根据颜色和数据，构建结点*/
 Status buildBrNode_BrT(BrTree& brT, bool black, BrTreeNodeElementType data)
 {
 	brT = (BrTree)malloc(sizeof(BrTreeNode));
-	if (!root)
+	if (!brT)
 	{
 		printf("构建结点失败！\n");
 		return ERROR;
 	}
 	// 颜色、数据
-	root->black = black;
-	root->data = data;
+	brT->black = black;
+	brT->data = data;
 	// 处理Null
-	root->left = &nil;
-	root->right = &nil;
-	root->parent = &nil;
+	brT->left = &nil;
+	brT->right = &nil;
+	brT->parent = &nil;
 
 	return OK;
 }
@@ -127,6 +148,7 @@ void brSearchAddElem(BrTree& brT, BrTree& toAdd)
 		{
 			brT->left = toAdd;
 			toAdd->parent = brT;
+			return;
 		}
 		// 递归其左子树
 		else
@@ -141,11 +163,12 @@ void brSearchAddElem(BrTree& brT, BrTree& toAdd)
 		{
 			brT->right = toAdd;
 			toAdd->parent = brT;
+			return;
 		}
 		// 递归其右子树
 		else
 		{
-			brSearchAddElem(brT->left, toAdd);
+			brSearchAddElem(brT->right, toAdd);
 		}
 	}
 }
@@ -154,7 +177,7 @@ void brSearchAddElem(BrTree& brT, BrTree& toAdd)
 Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data)
 {
 	// 1. 根结点为空，直接插入，并返回
-	if (!root)
+	if (root == &nil)
 	{
 		return buildBrNode_BrT(root, true, data) ? OK : ERROR;
 	}
@@ -175,14 +198,14 @@ Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data)
 // 10_红黑树_插入自平衡处理
 void insertFixUp_BrT(BrTree& root, BrTree cur)
 {
-	BrTree& parent = cur->parent;
-	BrTree& pp = parent->parent;
+	BrTree parent = cur->parent;
+	BrTree pp = parent->parent;
 	// 退出条件：1. 父亲为黑色；2. 或爷爷不存在
 	if (parent->black || pp == &nil)
 	{
 		return;
 	}
-	BrTree& uncle = parent == pp->left ? pp->right : pp->left;
+	BrTree uncle = parent == pp->left ? pp->right : pp->left;
 	// 3.1 叔叔结点存在且为红色
 	if (!uncle->black)
 	{
@@ -197,7 +220,7 @@ void insertFixUp_BrT(BrTree& root, BrTree cur)
 	if (parent == pp->left)
 	{
 		// 3.2.1 插入结点是父结点的左孩子
-		if (cur == pp->left)
+		if (cur == parent->left)
 		{
 			parent->black = true;
 			pp->black = false;
@@ -214,7 +237,7 @@ void insertFixUp_BrT(BrTree& root, BrTree cur)
 	else
 	{
 		// 3.3.1 插入结点是父亲的右孩子
-		if (cur == pp->right)
+		if (cur == parent->right)
 		{
 			parent->black = true;
 			pp->black = false;
@@ -243,6 +266,10 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 /* 06_红黑树_先序遍历*/
 void preOrderTraverse_BrT(BrTree brTree)
 {
+	if (!brTree || brTree == &nil)
+	{
+		return;
+	}
 	visitBrNode_BrT(brTree);
 	preOrderTraverse_BrT(brTree->left);
 	preOrderTraverse_BrT(brTree->right);
@@ -251,6 +278,10 @@ void preOrderTraverse_BrT(BrTree brTree)
 /* 07_红黑树_中序遍历*/
 void inOrderTraverse_BrT(BrTree brTree)
 {
+	if (!brTree || brTree == &nil)
+	{
+		return;
+	}
 	inOrderTraverse_BrT(brTree->left);
 	visitBrNode_BrT(brTree);
 	inOrderTraverse_BrT(brTree->right);
@@ -259,6 +290,10 @@ void inOrderTraverse_BrT(BrTree brTree)
 /* 08_红黑树_后序遍历*/
 void postOrderTraverse_BrT(BrTree brTree)
 {
+	if (!brTree || brTree == &nil)
+	{
+		return;
+	}
 	postOrderTraverse_BrT(brTree->left);
 	postOrderTraverse_BrT(brTree->right);
 	visitBrNode_BrT(brTree);
