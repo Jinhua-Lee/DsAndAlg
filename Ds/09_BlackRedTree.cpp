@@ -261,27 +261,16 @@ void insertFixUp_BrT(BrTree& root, BrTree cur)
 /* 05_红黑树_删除元素（删除完成，根据情况执行保持平衡的基本操作）*/
 Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 {
-	// 1. 先找到结点
+	// 1. 先找到结点，找不到则退出
 	BrTree toDel = findKey_BrT(root, key);
+	if (!toDel || toDel == &nil)
+	{
+		return OK;
+	}
 	BrTree parent = toDel->parent;
 	
-	// 2. 确定待删除结点与父结点的关系
-	int withParent;
-	// 2.1 待删除为根结点
-	if (parent == &nil)
-	{
-		withParent = 0;
-	}
-	// 2.2 待删除的是父亲的左孩子
-	else if (parent->left == toDel)
-	{
-		withParent = 1;
-	}
-	// 2.3 待删除的是父亲的右孩子
-	else if (parent->right == toDel)
-	{
-		withParent = 2;
-	}
+	// 2. 确定待删除结点与父结点的关系：0—自己为根结点；1-为左孩子；2-为右孩子
+	int withParent = relateParent_BrT(toDel);
 
 	// 3.1 无左右孩子
 	if (toDel->left == &nil && toDel->right == &nil)
@@ -295,7 +284,7 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 				delete toDel;
 				toDel = NULL;
 				// 直接返回，不需要自平衡
-				return;
+				return OK;
 			}
 			// 否则将该结点与父亲关系置空
 			case 1:
@@ -317,11 +306,10 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 		}
 	}
 	// 3.2 有两个孩子，中序后继的值替换自己，删除中序后继
-	if (toDel->left != &nil && toDel->right != &nil)
+	else if (toDel->left != &nil && toDel->right != &nil)
 	{
-		// 中序后继不可能为空
+		// 中序后继不可能为空，替换当前结点的值
 		BrTree post = inOrderPost_BrT(root, toDel);
-		// 替换当前结点的值
 		toDel->data = post->data;
 		// 处理中序后继
 
@@ -331,7 +319,7 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 	else
 	{
 		// 3.3.1 有左孩子
-		if (toDel->left != &nil && toDel->right == &nil)
+		if (toDel->left != &nil)
 		{
 			switch (withParent)
 			{
@@ -345,16 +333,16 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 				}
 				case 1:
 				{
-					toDel->left->parent = parent;
 					parent->left = toDel->left;
+					toDel->left->parent = parent;
 					delete toDel;
 					toDel = NULL;
 					break;
 				}
 				case 2:
 				{
-					toDel->left->parent = parent;
 					parent->right = toDel->left;
+					toDel->left->parent = parent;
 					delete toDel;
 					toDel = NULL;
 					break;
@@ -364,7 +352,7 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 			}
 		}
 		// 3.3.2 有右孩子
-		else if (toDel->left == &nil && toDel->right != &nil)
+		else if (toDel->right != &nil)
 		{
 			switch (withParent)
 			{
@@ -378,16 +366,16 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 				}
 				case 1:
 				{
-					toDel->right->parent = parent;
 					parent->left = toDel->left;
+					toDel->right->parent = parent;
 					delete toDel;
 					toDel = NULL;
 					break;
 				}
 				case 2:
 				{
-					toDel->right->parent = parent;
 					parent->right = toDel->left;
+					toDel->right->parent = parent;
 					delete toDel;
 					toDel = NULL;
 					break;
@@ -404,27 +392,27 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 }
 
 /* 10_红黑树_找到等值的结点*/
-BrTree findKey_BrT(BrTree cur, BrTreeNodeElementType key)
+BrTree findKey_BrT(BrTree brTree, BrTreeNodeElementType key)
 {
 	// 为空，直接返回自定义空结点
-	if (cur == &nil)
+	if (brTree == &nil)
 	{
 		return &nil;
 	}
 	// 找到，则返回当前结点
-	if (cur->data == key)
+	if (brTree->data == key)
 	{
-		return cur;
+		return brTree;
 	}
 	// 小于，则递归其左子树
-	if (cur->data < key)
+	if (brTree->data < key)
 	{
-		return findKey_BrT(cur->left, key);
+		return findKey_BrT(brTree->left, key);
 	}
 	// 大于，则递归其右子树
 	else
 	{
-		return findKey_BrT(cur->right, key);
+		return findKey_BrT(brTree->right, key);
 	}
 }
 
@@ -470,6 +458,27 @@ void preOrderTraverse_BrT(BrTree brTree)
 	visitBrNode_BrT(brTree);
 	preOrderTraverse_BrT(brTree->left);
 	preOrderTraverse_BrT(brTree->right);
+}
+
+/* 12_红黑树_确定与父结点的关系*/
+int relateParent_BrT(BrTree brTree)
+{
+	BrTree parent = brTree->parent;
+	// 2.1 待删除为根结点
+	if (parent == &nil)
+	{
+		return 0;
+	}
+	// 2.2 待删除的是父亲的左孩子
+	else if (parent->left == brTree)
+	{
+		return 1;
+	}
+	// 2.3 待删除的是父亲的右孩子
+	else
+	{
+		return 2;
+	}
 }
 
 /* 07_红黑树_中序遍历*/

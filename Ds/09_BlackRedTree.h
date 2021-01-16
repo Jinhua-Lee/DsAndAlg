@@ -70,10 +70,13 @@ void insertFixUp_BrT(BrTree& root, BrTree cur);
 Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key);
 
 // 10_红黑树_找到等值的结点
-BrTree findKey_BrT(BrTree cur, BrTreeNodeElementType key);
+BrTree findKey_BrT(BrTree brTree, BrTreeNodeElementType key);
 
 // 11_红黑树_中序后继
 BrTree inOrderPost_BrT(BrTree root, BrTree cur);
+
+// 12_红黑树_确定与父结点的关系
+int relateParent_BrT(BrTree brTree);
 
 /****************************/
 /*遍历操作（用于检查树的结构）*/
