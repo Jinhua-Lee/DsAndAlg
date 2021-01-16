@@ -14,11 +14,11 @@ BrTree root = &nil;
 void testBrTree()
 {
 	insertElem_BrT(root, 3);
-	insertElem_BrT(root, 4);
+	insertElem_BrT(root, 8);
 	insertElem_BrT(root, 5);
+	insertElem_BrT(root, 4);
 	insertElem_BrT(root, 6);
 	insertElem_BrT(root, 7);
-	insertElem_BrT(root, 8);
 
 	printf("\n前序：\n");
 	preOrderTraverse_BrT(root);
@@ -230,7 +230,10 @@ void insertFixUp_BrT(BrTree& root, BrTree cur)
 		else
 		{
 			leftRotate_BrT(root, parent);
-			insertFixUp_BrT(root, parent);
+			cur->black = true;
+			pp->black = false;
+			rightRotate_BrT(root, pp);
+			insertFixUp_BrT(root, cur);
 		}
 	}
 	// 3.3 叔叔结点为黑色（包括Null），并且父亲是祖父的右孩子
@@ -247,7 +250,10 @@ void insertFixUp_BrT(BrTree& root, BrTree cur)
 		else
 		{
 			rightRotate_BrT(root, parent);
-			insertFixUp_BrT(root, parent);
+			pp->black = false;
+			cur->black = true;
+			leftRotate_BrT(root, pp);
+			insertFixUp_BrT(root, cur);
 		}
 	}
 }
