@@ -69,6 +69,11 @@ void insertFixUp_BrT(BrTree& root, BrTree cur);
 // 05_红黑树_删除元素（删除完成，根据情况执行保持平衡的基本操作）
 Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key);
 
+// 10_红黑树_找到等值的结点
+BrTree findKey_BrT(BrTree cur, BrTreeNodeElementType key);
+
+// 11_红黑树_中序后继
+BrTree inOrderPost_BrT(BrTree root, BrTree cur);
 
 /****************************/
 /*遍历操作（用于检查树的结构）*/
