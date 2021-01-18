@@ -416,6 +416,33 @@ BrTree findKey_BrT(BrTree brTree, BrTreeNodeElementType key)
 	}
 }
 
+// 13_红黑树_中序前驱
+BrTree inOrderPre_BrT(BrTree root, BrTree cur)
+{
+	// 1. 为空，返回自定义Null结点
+	if (!root || !cur || root == &nil || cur == &nil)
+	{
+		return &nil;
+	}
+	// 2. 有左子树，中序前驱在其左子树中
+	BrTree pre = cur->left;
+	if (pre && pre != &nil)
+	{
+		while (pre->right && pre->right != &nil)
+		{
+			pre = pre->right;
+		}
+		return pre;
+	}
+	// 3. 无左子树，找到以当前结点为右孩子的结点，即是其前驱
+	BrTree parent = cur->parent;
+	while (parent && parent != &nil && parent->right != cur)
+	{
+		cur = cur->parent;
+	}
+	return parent;
+}
+
 /* 11_红黑树_中序后继*/
 BrTree inOrderPost_BrT(BrTree root, BrTree cur)
 {

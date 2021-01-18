@@ -72,6 +72,9 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key);
 // 10_红黑树_找到等值的结点
 BrTree findKey_BrT(BrTree brTree, BrTreeNodeElementType key);
 
+// 13_红黑树_中序前驱
+BrTree inOrderPre_BrT(BrTree root, BrTree cur);
+
 // 11_红黑树_中序后继
 BrTree inOrderPost_BrT(BrTree root, BrTree cur);
 
