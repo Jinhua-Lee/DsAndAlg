@@ -81,6 +81,9 @@ BrTree inOrderPost_BrT(BrTree root, BrTree cur);
 // 12_红黑树_确定与父结点的关系
 int relateParent_BrT(BrTree brTree);
 
+// 14_红黑树_删除自平衡
+void deleteFixUp_BrT(BrTree& root, BrTree cur);
+
 /****************************/
 /*遍历操作（用于检查树的结构）*/
 /***************************/

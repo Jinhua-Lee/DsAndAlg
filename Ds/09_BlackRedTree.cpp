@@ -271,124 +271,103 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 	
 	// 2. 确定待删除结点与父结点的关系：0—自己为根结点；1-为左孩子；2-为右孩子
 	int withParent = relateParent_BrT(toDel);
-
-	// 3.1 无左右孩子
-	if (toDel->left == &nil && toDel->right == &nil)
+	// 3. 删除情况
+	// 3.1 为 0——根结点时候，删除并返回，不用自平衡
+	if (!withParent)
 	{
+		delete toDel;
+		toDel = NULL;
+		root = &nil;
+		return OK;
+	}
+	// 3.2 当前结点无左孩子，用右孩子替换
+	if (toDel->left == &nil)
+	{
+		toDel->right->parent = parent;
+		toDel->right->black = toDel->black;
 		switch (withParent)
 		{
-			// 删除的是根结点，则删除后变为空树
-			case 0:
-			{
-				root = &nil;
-				delete toDel;
-				toDel = NULL;
-				// 直接返回，不需要自平衡
-				return OK;
-			}
-			// 否则将该结点与父亲关系置空
 			case 1:
 			{
-				parent->left = &nil;
-				delete toDel;
-				toDel = NULL;
-				break;
-			}
-			case 2:
-			{
-				parent->right = &nil;
-				delete toDel;
-				toDel = NULL;
+				parent->left = toDel->right;
 				break;
 			}
 			default:
+			{
+				parent->right = toDel->right;
 				break;
+			}
 		}
+		// 删除自平衡
+		deleteFixUp_BrT(root, toDel->right);
+		delete toDel;
+		toDel = NULL;
+		return OK;
 	}
-	// 3.2 有两个孩子，中序后继的值替换自己，删除中序后继
-	else if (toDel->left != &nil && toDel->right != &nil)
+	// 3.3 仅有左孩子
+	else if (toDel->right == &nil)
 	{
-		// 中序后继不可能为空，替换当前结点的值
-		BrTree post = inOrderPost_BrT(root, toDel);
-		toDel->data = post->data;
-		// 处理中序后继
-
-
+		toDel->left->parent = parent;
+		toDel->left->black = parent->black;
+		switch (withParent)
+		{
+			case 1:
+			{
+				parent->left = toDel->left;
+				break;
+			}
+			default:
+			{
+				parent->right = toDel->left;
+				break;
+			}
+		}
+		// 删除自平衡
+		deleteFixUp_BrT(root, toDel->left);
+		delete toDel;
+		toDel = NULL;
+		return OK;
 	}
-	// 3.3 有单个孩子，孩子替换自己的位置
+	// 有两个孩子，需要找后继
 	else
 	{
-		// 3.3.1 有左孩子
-		if (toDel->left != &nil)
+		// 中序后继，一定无左孩子
+		BrTree post = inOrderPost_BrT(root, toDel);
+		toDel->data = post->data;
+		int postWithParent = relateParent_BrT(post);
+		// 后继的情况
+		switch (postWithParent)
 		{
-			switch (withParent)
+			// 3.4 后继为其右孩子
+			case 1:
 			{
-				// 待删除的父结点为空
-				case 0:
-				{
-					toDel->left->parent = parent;
-					delete toDel;
-					toDel = NULL;
-					break;
-				}
-				case 1:
-				{
-					parent->left = toDel->left;
-					toDel->left->parent = parent;
-					delete toDel;
-					toDel = NULL;
-					break;
-				}
-				case 2:
-				{
-					parent->right = toDel->left;
-					toDel->left->parent = parent;
-					delete toDel;
-					toDel = NULL;
-					break;
-				}
-				default:
-					break;
+				post->right->parent = toDel;
+				toDel->right = post->right;
+				delete post;
+				post = NULL;
+				deleteFixUp_BrT(root, toDel->right);
+				return OK;
 			}
-		}
-		// 3.3.2 有右孩子
-		else if (toDel->right != &nil)
-		{
-			switch (withParent)
+			// 3.5 后继为右孩子的左子树最左
+			default:
 			{
-				// 待删除的父结点为空
-				case 0:
-				{
-					toDel->right->parent = parent;
-					delete toDel;
-					toDel = NULL;
-					break;
-				}
-				case 1:
-				{
-					parent->left = toDel->left;
-					toDel->right->parent = parent;
-					delete toDel;
-					toDel = NULL;
-					break;
-				}
-				case 2:
-				{
-					parent->right = toDel->left;
-					toDel->right->parent = parent;
-					delete toDel;
-					toDel = NULL;
-					break;
-				}
-				default:
-					break;
+				BrTree bt = post->right;
+				post->parent->left = post->right;
+				post->right->parent = post->parent;
+				delete post;
+				post = NULL;
+				deleteFixUp_BrT(root, bt);
+				break;
 			}
 		}
 	}
-
-	// 4. 自平衡
-
 	return OK;
+}
+
+/* 14_红黑树_删除自平衡*/ 
+void deleteFixUp_BrT(BrTree& root, BrTree cur)
+{
+
 }
 
 /* 10_红黑树_找到等值的结点*/

@@ -93,7 +93,7 @@ void testBST()
 {
 	BinaryTree bst = NULL;
 	int length;
-	// 测试用例：长度 length = 12, 数组为 {12 5 2 9 19 15 20 13 17 14 16 18}, 删除结点为 15
+	// 测试用例：长度 length = 12, 数组为 {12 5 2 9 19 15 20 13 17 14 16 18}, 删除结点为 13
 	printf("\n 请输入数组长度： \n");
 	scanf_s("%d", &length);
 	BiTreeNodeElementType* arr = new BiTreeNodeElementType[length];
@@ -104,7 +104,7 @@ void testBST()
 	traverseRecur(bst);
 
 	printf("\n 删除结点后：\n");
-	BinaryTree toDel = findKey_T(bst, 15);
+	BinaryTree toDel = findKey_T(bst, 13);
 	deleteBiSearchElem_T(bst, toDel);
 	traverseRecur(bst);
 }
@@ -921,7 +921,7 @@ Status deleteBiSearchElem_T(BinaryTree& bst, BinaryTree& toDel)
 	{
 		// 待删除结点的后继
 		BinaryTree post = inorderPost_T(bst, toDel);
-		// 无左孩子，右子树根结点即是后继
+		// 右子树无左孩子，右子树根结点即是后继
 		if (post == toDel->right)
 		{
 			// 左孩子先替换为待删除结点的左孩子
@@ -941,14 +941,7 @@ Status deleteBiSearchElem_T(BinaryTree& bst, BinaryTree& toDel)
 		{			
 			// 后继的父结点p
 			BinaryTree pParent = parentBiNode_T(bst, post);
-			if (pParent->left == post)
-			{
-				pParent->left = post->right;
-			}
-			else
-			{
-				pParent->right = post->right;
-			}
+			pParent->left = post->right;
 			// 将后继替换待删除结点，并连接待删除的右子树
 			if (parent->left == toDel)
 			{
