@@ -267,105 +267,55 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 	{
 		return OK;
 	}
-	BrTree parent = toDel->parent;
-	
-	// 2. 确定待删除结点与父结点的关系：0—自己为根结点；1-为左孩子；2-为右孩子
-	int withParent = relateParent_BrT(toDel);
-	// 3. 删除情况
-	// 3.1 为 0——根结点时候，删除并返回，不用自平衡
-	if (!withParent)
-	{
-		delete toDel;
-		toDel = NULL;
-		root = &nil;
-		return OK;
-	}
-	// 3.2 当前结点无左孩子，用右孩子替换
+	// 保存实际删除的结点和颜色
+	BrTree y = toDel;
+	bool originColor = y->black;
+	// 后继结点，自平衡的修复从它向上
+	BrTree x;
 	if (toDel->left == &nil)
 	{
-		toDel->right->parent = parent;
-		toDel->right->black = toDel->black;
-		switch (withParent)
-		{
-			case 1:
-			{
-				parent->left = toDel->right;
-				break;
-			}
-			default:
-			{
-				parent->right = toDel->right;
-				break;
-			}
-		}
-		// 删除自平衡
-		deleteFixUp_BrT(root, toDel->right);
-		delete toDel;
-		toDel = NULL;
-		return OK;
+		x = toDel->right;
+		transparent(root, toDel, toDel->right);
 	}
-	// 3.3 仅有左孩子
 	else if (toDel->right == &nil)
 	{
-		toDel->left->parent = parent;
-		toDel->left->black = parent->black;
-		switch (withParent)
-		{
-			case 1:
-			{
-				parent->left = toDel->left;
-				break;
-			}
-			default:
-			{
-				parent->right = toDel->left;
-				break;
-			}
-		}
-		// 删除自平衡
-		deleteFixUp_BrT(root, toDel->left);
-		delete toDel;
-		toDel = NULL;
-		return OK;
+		x = toDel->left;
+		transparent(root, toDel, toDel->left);
 	}
-	// 有两个孩子，需要找后继
-	else
-	{
-		// 中序后继，一定无左孩子
-		BrTree post = inOrderPost_BrT(root, toDel);
-		toDel->data = post->data;
-		int postWithParent = relateParent_BrT(post);
-		// 后继的情况
-		switch (postWithParent)
+	// 两个孩子，需要求后继
+	else {
+		y = inOrderPost_BrT(root, toDel);
+		originColor = y->black;
+		x = y->right;
+		// 待删除右孩子无左子树
+		if (x->parent == toDel)
 		{
-			// 3.4 后继为其右孩子
-			case 1:
-			{
-				post->right->parent = toDel;
-				toDel->right = post->right;
-				delete post;
-				post = NULL;
-				deleteFixUp_BrT(root, toDel->right);
-				return OK;
-			}
-			// 3.5 后继为右孩子的左子树最左
-			default:
-			{
-				BrTree bt = post->right;
-				post->parent->left = post->right;
-				post->right->parent = post->parent;
-				delete post;
-				post = NULL;
-				deleteFixUp_BrT(root, bt);
-				break;
-			}
+			x->parent = y;
 		}
+		// 待删除的后继在右孩子的左子树最左
+		else
+		{
+			transparent(root, y, y->right);
+			// 替换结点父子关系设置
+			y->right = toDel->right;
+			y->right->parent = y;
+		}
+		// 待删除(替换为y)及其父亲
+		transparent(root, toDel, y);
+		// 待删除及其左子树
+		y->left = toDel->left;
+		y->left->parent = y;
+		y->black = toDel->black;
+	}
+	if (y->black)
+	{
+		deleteFixUp_BrT(root, x);
 	}
 	return OK;
 }
 
-/*移植，将一个结点的位置移植给另一个结点*/
-void transplant(BrTree& root, BrTree& src, BrTree& target)
+/*移植，将一个结点的与父亲的关系移植给另一个结点*/
+void transparent(BrTree& root, BrTree& src, BrTree& target)
 {
 	// 【源结点】空，则根直接给目标结点
 	if (src->parent == &nil)
