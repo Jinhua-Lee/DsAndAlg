@@ -364,6 +364,28 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 	return OK;
 }
 
+/*移植，将一个结点的位置移植给另一个结点*/
+void transplant(BrTree& root, BrTree& src, BrTree& target)
+{
+	// 【源结点】空，则根直接给目标结点
+	if (src->parent == &nil)
+	{
+		root = target;
+	}
+	// 【源结点】是父亲的左指针，则父左 -> 目标结点
+	else if (src == src->parent->left)
+	{
+		src->parent->left = target;
+	}
+	// 父右 -> 目标结点
+	else
+	{
+		src->parent->right = target;
+	}
+	// 目标 -> 父
+	target->parent = src->parent;
+}
+
 /* 14_红黑树_删除自平衡*/ 
 void deleteFixUp_BrT(BrTree& root, BrTree cur)
 {

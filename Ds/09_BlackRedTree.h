@@ -81,6 +81,9 @@ BrTree inOrderPost_BrT(BrTree root, BrTree cur);
 // 12_红黑树_确定与父结点的关系
 int relateParent_BrT(BrTree brTree);
 
+// 移植，将一个结点的位置移植给另一个结点
+void transplant(BrTree root, BrTree& src, BrTree& target);
+
 // 14_红黑树_删除自平衡
 void deleteFixUp_BrT(BrTree& root, BrTree cur);
 
