@@ -44,13 +44,12 @@ void leftRotate_BrT(BrTree& root, BrTree x)
 {
 	// 1. 保存其右孩子
 	BrTree y = x->right;
-	BrTree β = y->left;
 
 	// 2. x -> y 连接更改，改为y的左孩子
-	x->right = β;
-	if (β != &nil)
+	x->right = y->left;
+	if (y->left != &nil)
 	{
-		β->parent = x;
+		y->left->parent = x;
 	}
 
 	// 3. x与其父结点关系
@@ -83,13 +82,12 @@ void rightRotate_BrT(BrTree& root, BrTree y)
 {
 	// 1. 保存其左孩子
 	BrTree x = y->left;
-	BrTree β = x->right;
 
 	// 2. y -> x的连接更改，改为x的右孩子
-	y->left = β;
-	if (β != &nil)
+	y->left = x->right;
+	if (x->right != &nil)
 	{
-		β->parent = y;
+		x->right->parent = y;
 	}
 
 	// 3. y与上级指针的关系
@@ -193,8 +191,6 @@ Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data)
 	}
 	brSearchAddElem(root, toAdd);
 	// 3. 判断红黑特性，决定自平衡操作
-	BrTree parent = toAdd->parent;
-	// 父亲为红色结点，则需要进行自平衡操作
 	insertFixUp_BrT(root, toAdd);
 	return OK;
 }
@@ -202,16 +198,17 @@ Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data)
 // 10_红黑树_插入自平衡处理
 void insertFixUp_BrT(BrTree& root, BrTree& cur)
 {
+	// 父亲红色时候，才需要进行平衡
 	while (!cur->parent->black)
 	{
 		// 叔叔结点
 		BrTree uncle;
-		// 插入结点 -> 为父亲的左孩子
+		// 父亲是祖父左孩子
 		if (cur->parent == cur->parent->parent->left)
 		{
 			// 叔叔（祖父右孩子）
 			uncle = cur->parent->parent->right;
-			// 父代红，祖父黑，变色
+			// 1. 父代均为红色，仅变色
 			if (!uncle->black)
 			{
 				cur->parent->black = true;
@@ -221,20 +218,24 @@ void insertFixUp_BrT(BrTree& root, BrTree& cur)
 				// 为红色需重新进入判断
 				continue;
 			}
+			// 2. 叔叔黑，父亲红
+			// 2.1 当前为父亲的右孩子
 			else if (cur == cur->parent->right)
 			{
 				cur = cur->parent;
 				leftRotate_BrT(root, cur);
 			}
+			// 2.2 当前为父亲左孩子
 			cur->parent->black = true;
 			cur->parent->parent->black = false;
 			rightRotate_BrT(root, cur->parent->parent);
 		}
-		// 插入结点 -> 为父亲的左孩子
+		// 父亲是祖父右孩子
 		else
 		{
 			// 叔叔（祖父左孩子）
 			uncle = cur->parent->parent->left;
+			// 1. 父代均为红色，仅变色
 			if (!uncle->black)
 			{
 				cur->parent->black = true;
@@ -243,11 +244,14 @@ void insertFixUp_BrT(BrTree& root, BrTree& cur)
 				cur = cur->parent->parent;
 				continue;
 			}
+			// 2. 叔叔黑，父亲红
+			// 2.1 当前为父亲的左孩子
 			else if (cur == cur->parent->left)
 			{
 				cur = cur->parent;
 				rightRotate_BrT(root, cur);
 			}
+			// 2.2 当前为父亲右孩子
 			cur->parent->black = true;
 			cur->parent->parent->black = false;
 			leftRotate_BrT(root, cur->parent->parent);
