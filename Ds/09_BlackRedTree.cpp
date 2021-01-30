@@ -40,7 +40,7 @@ void changeColor_BrT(BrTree& brTree)
 }
 
 /* 02_红黑树_左旋（对某个结点及其右孩子的操作）*/
-void leftRotate_BrT(BrTree& root, BrTree& x)
+void leftRotate_BrT(BrTree& root, BrTree x)
 {
 	// 1. 保存其右孩子
 	BrTree y = x->right;
@@ -64,20 +64,22 @@ void leftRotate_BrT(BrTree& root, BrTree& x)
 	else if (x == x->parent->left)
 	{
 		x->parent->left = y;
+		y->parent = x;
 	}
 	// 为其右孩子
 	else
 	{
 		x->parent->right = y;
+		y->parent = x;
 	}
-
+	
 	// 4. 调整为 y -> x 的关系，反向
 	y->left = x;
 	x->parent = y;
 }
 
 /* 03_红黑树_右旋（对某个结点及其左孩子的操作）*/
-void rightRotate_BrT(BrTree& root, BrTree& y)
+void rightRotate_BrT(BrTree& root, BrTree y)
 {
 	// 1. 保存其左孩子
 	BrTree x = y->left;
@@ -101,13 +103,15 @@ void rightRotate_BrT(BrTree& root, BrTree& y)
 	else if (y == y->parent->left)
 	{
 		y->parent->left = x;
+		x->parent = y->parent;
 	}
 	// y为父的右
 	else
 	{
 		y->parent->right = x;
+		x->parent = y->parent;
 	}
-
+	
 	// 4. 调整为 x -> y 的关系，反向
 	x->right = y;
 	y->parent = x;
@@ -196,66 +200,56 @@ Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data)
 }
 
 // 10_红黑树_插入自平衡处理
-void insertFixUp_BrT(BrTree& root, BrTree cur)
+void insertFixUp_BrT(BrTree& root, BrTree& cur)
 {
-	BrTree parent = cur->parent;
-	BrTree pp = parent->parent;
-	// 退出条件：1. 父亲为黑色；2. 或爷爷不存在
-	if (parent->black || pp == &nil)
+	while (!cur->parent->black)
 	{
-		return;
-	}
-	BrTree uncle = parent == pp->left ? pp->right : pp->left;
-	// 3.1 叔叔结点存在且为红色
-	if (!uncle->black)
-	{
-		parent->black = true;
-		uncle->black = true;
-		pp->black = false;
-		insertFixUp_BrT(root, pp);
-		return;
-	}
-
-	// 3.2 叔叔结点为黑色（包括Null），并且父亲是祖父的左孩子
-	if (parent == pp->left)
-	{
-		// 3.2.1 插入结点是父结点的左孩子
-		if (cur == parent->left)
+		// 叔叔结点
+		BrTree uncle;
+		// 插入结点 -> 为父亲的左孩子
+		if (cur->parent == cur->parent->parent->left)
 		{
-			parent->black = true;
-			pp->black = false;
-			rightRotate_BrT(root, pp);
+			// 叔叔（祖父右孩子）
+			uncle = cur->parent->parent->right;
+			// 父代红，祖父黑，变色
+			if (!uncle->black)
+			{
+				cur->parent->black = true;
+				uncle->black = true;
+				cur->parent->parent->black = false;
+				cur = cur->parent->parent;
+			}
+			else if (cur == cur->parent->right)
+			{
+				cur = cur->parent;
+				leftRotate_BrT(root, cur);
+			}
+			cur->parent->black = true;
+			cur->parent->parent->black = false;
+			rightRotate_BrT(root, cur->parent->parent);
 		}
-		// 3.2.2 插入结点是父结点的右孩子
+		// 叔叔（祖父左孩子）
 		else
 		{
-			leftRotate_BrT(root, parent);
-			cur->black = true;
-			pp->black = false;
-			rightRotate_BrT(root, pp);
-			insertFixUp_BrT(root, cur);
+			uncle = cur->parent->parent->left;
+			if (!uncle->black)
+			{
+				cur->parent->black = true;
+				uncle->black = true;
+				cur->parent->parent->black = false;
+				cur = cur->parent->parent;
+			}
+			else if (cur == cur->parent->left)
+			{
+				cur = cur->parent;
+				rightRotate_BrT(root, cur);
+			}
+			cur->parent->black = true;
+			cur->parent->parent->black = false;
+			leftRotate_BrT(root, cur->parent->parent);
 		}
 	}
-	// 3.3 叔叔结点为黑色（包括Null），并且父亲是祖父的右孩子
-	else
-	{
-		// 3.3.1 插入结点是父亲的右孩子
-		if (cur == parent->right)
-		{
-			parent->black = true;
-			pp->black = false;
-			leftRotate_BrT(root, pp);
-		}
-		// 3.3.2 插入结点是父亲的左孩子
-		else
-		{
-			rightRotate_BrT(root, parent);
-			pp->black = false;
-			cur->black = true;
-			leftRotate_BrT(root, pp);
-			insertFixUp_BrT(root, cur);
-		}
-	}
+	root->black = true;
 }
 
 /* 05_红黑树_删除元素（删除完成，根据情况执行保持平衡的基本操作）*/

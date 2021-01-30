@@ -3,7 +3,7 @@
 /* 测试循环队列的方法*/
 void testCircularQueue()
 {
-    CQueue cQ;
+    //CQueue cQ;
 
  //   // 初始化
  //   int initStatus = initQueue_Cq(cQ);

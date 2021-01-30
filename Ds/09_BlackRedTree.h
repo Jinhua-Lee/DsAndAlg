@@ -45,10 +45,10 @@ void testBrTree();
 void changeColor_BrT(BrTree& brTree);
 
 // 02_红黑树_左旋（对某个结点及其右孩子的操作）
-void leftRotate_BrT(BrTree& root, BrTree& x);
+void leftRotate_BrT(BrTree& root, BrTree x);
 
 // 03_红黑树_右旋（对某个结点及其左孩子的操作）
-void rightRotate_BrT(BrTree& root, BrTree& y);
+void rightRotate_BrT(BrTree& root, BrTree y);
 
 /**********/
 /*存取操作*/
@@ -64,7 +64,7 @@ void brSearchAddElem(BrTree& brT, BrTree& toAdd);
 Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data);
 
 // 10_红黑树_插入自平衡处理
-void insertFixUp_BrT(BrTree& root, BrTree cur);
+void insertFixUp_BrT(BrTree& root, BrTree& cur);
 
 // 05_红黑树_删除元素（删除完成，根据情况执行保持平衡的基本操作）
 Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key);
@@ -82,7 +82,7 @@ BrTree inOrderPost_BrT(BrTree root, BrTree cur);
 int relateParent_BrT(BrTree brTree);
 
 // 移植，将一个结点的与父亲的关系移植给另一个结点
-void transplant(BrTree& root, BrTree& src, BrTree& target);
+void transparent(BrTree& root, BrTree& src, BrTree& target);
 
 // 14_红黑树_删除自平衡
 void deleteFixUp_BrT(BrTree& root, BrTree cur);
