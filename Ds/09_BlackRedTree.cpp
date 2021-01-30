@@ -218,6 +218,8 @@ void insertFixUp_BrT(BrTree& root, BrTree& cur)
 				uncle->black = true;
 				cur->parent->parent->black = false;
 				cur = cur->parent->parent;
+				// 为红色需重新进入判断
+				continue;
 			}
 			else if (cur == cur->parent->right)
 			{
@@ -228,9 +230,10 @@ void insertFixUp_BrT(BrTree& root, BrTree& cur)
 			cur->parent->parent->black = false;
 			rightRotate_BrT(root, cur->parent->parent);
 		}
-		// 叔叔（祖父左孩子）
+		// 插入结点 -> 为父亲的左孩子
 		else
 		{
+			// 叔叔（祖父左孩子）
 			uncle = cur->parent->parent->left;
 			if (!uncle->black)
 			{
@@ -238,6 +241,7 @@ void insertFixUp_BrT(BrTree& root, BrTree& cur)
 				uncle->black = true;
 				cur->parent->parent->black = false;
 				cur = cur->parent->parent;
+				continue;
 			}
 			else if (cur == cur->parent->left)
 			{
