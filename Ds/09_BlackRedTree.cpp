@@ -9,12 +9,16 @@ BrTree root = &nil;
 /* 测试红黑树的方法*/
 void testBrTree()
 {
+	// 1. 插入元素测试
 	insertElem_BrT(root, 3);
 	insertElem_BrT(root, 8);
 	insertElem_BrT(root, 5);
 	insertElem_BrT(root, 4);
 	insertElem_BrT(root, 6);
 	insertElem_BrT(root, 7);
+
+	// 2. 删除元素调试
+	deleteElem_BrT(root, 7);
 
 	printf("\n前序：\n");
 	preOrderTraverse_BrT(root);
@@ -195,8 +199,8 @@ Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data)
 	return OK;
 }
 
-// 10_红黑树_插入自平衡处理
-void insertFixUp_BrT(BrTree& root, BrTree& cur)
+/* 10_红黑树_插入自平衡处理*/
+void insertFixUp_BrT(BrTree& root, BrTree cur)
 {
 	// 父亲红色时候，才需要进行平衡
 	while (!cur->parent->black)
@@ -267,7 +271,7 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 	BrTree toDel = findKey_BrT(root, key);
 	if (!toDel || toDel == &nil)
 	{
-		return OK;
+		return ERROR;
 	}
 	// 保存实际删除的结点和颜色
 	BrTree y = toDel;
@@ -290,7 +294,7 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 		originColor = y->black;
 		x = y->right;
 		// 待删除右孩子无左子树
-		if (x->parent == toDel)
+		if (y->parent == toDel)
 		{
 			x->parent = y;
 		}
@@ -309,7 +313,9 @@ Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key)
 		y->left->parent = y;
 		y->black = toDel->black;
 	}
-	if (y->black)
+	delete toDel;
+	toDel = NULL;
+	if (originColor)
 	{
 		deleteFixUp_BrT(root, x);
 	}
@@ -341,7 +347,10 @@ void transparent(BrTree& root, BrTree& src, BrTree& target)
 /* 14_红黑树_删除自平衡*/ 
 void deleteFixUp_BrT(BrTree& root, BrTree cur)
 {
+	while (cur != root && cur->black)
+	{
 
+	}
 }
 
 /* 10_红黑树_找到等值的结点*/
@@ -358,7 +367,7 @@ BrTree findKey_BrT(BrTree brTree, BrTreeNodeElementType key)
 		return brTree;
 	}
 	// 小于，则递归其左子树
-	if (brTree->data < key)
+	if (key < brTree->data)
 	{
 		return findKey_BrT(brTree->left, key);
 	}

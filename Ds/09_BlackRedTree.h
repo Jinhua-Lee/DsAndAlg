@@ -64,7 +64,7 @@ void brSearchAddElem(BrTree& brT, BrTree& toAdd);
 Status insertElem_BrT(BrTree& root, BrTreeNodeElementType data);
 
 // 10_红黑树_插入自平衡处理
-void insertFixUp_BrT(BrTree& root, BrTree& cur);
+void insertFixUp_BrT(BrTree& root, BrTree cur);
 
 // 05_红黑树_删除元素（删除完成，根据情况执行保持平衡的基本操作）
 Status deleteElem_BrT(BrTree& root, BrTreeNodeElementType key);
