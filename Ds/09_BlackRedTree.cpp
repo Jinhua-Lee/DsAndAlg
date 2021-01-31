@@ -63,13 +63,13 @@ void leftRotate_BrT(BrTree& root, BrTree x)
 	else if (x == x->parent->left)
 	{
 		x->parent->left = y;
-		y->parent = x;
+		y->parent = x->parent;
 	}
 	// 为其右孩子
 	else
 	{
 		x->parent->right = y;
-		y->parent = x;
+		y->parent = x->parent;
 	}
 	
 	// 4. 调整为 y -> x 的关系，反向
