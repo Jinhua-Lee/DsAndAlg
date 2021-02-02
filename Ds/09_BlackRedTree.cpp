@@ -10,15 +10,17 @@ BrTree root = &nil;
 void testBrTree()
 {
 	// 1. 插入元素测试
-	insertElem_BrT(root, 3);
-	insertElem_BrT(root, 8);
+	insertElem_BrT(root, 2);
+	insertElem_BrT(root, 10);
 	insertElem_BrT(root, 5);
 	insertElem_BrT(root, 4);
 	insertElem_BrT(root, 6);
+	insertElem_BrT(root, 8);
 	insertElem_BrT(root, 7);
+	insertElem_BrT(root, 3);
 
 	// 2. 删除元素调试
-	deleteElem_BrT(root, 7);
+	deleteElem_BrT(root, 5);
 
 	printf("\n前序：\n");
 	preOrderTraverse_BrT(root);
@@ -344,12 +346,80 @@ void transparent(BrTree& root, BrTree& src, BrTree& target)
 	target->parent = src->parent;
 }
 
-/* 14_红黑树_删除自平衡*/ 
+/* 14_红黑树_删除自平衡*/
 void deleteFixUp_BrT(BrTree& root, BrTree cur)
 {
+	// 迭代到根结点或当前结点是红色结点时候，结束
 	while (cur != root && cur->black)
 	{
-
+		BrTree brother;
+		// 当前为父的左孩子
+		if (cur == cur->parent->left)
+		{
+			brother = cur->parent->right;
+			// 兄弟结点为红色 ==> （1.父亲为黑色；）
+			if (!brother->black)
+			{
+				brother->black = true;
+				cur->parent->black = false;
+				leftRotate_BrT(root, cur->parent);
+				brother = cur->parent->right;
+			}
+			// 兄弟的左孩子和右孩子同黑，则兄弟设置为红色
+			if (brother->left->black && brother->right->black)
+			{
+				brother->black = false;
+				cur = cur->parent;
+			}
+			else if (brother->right->black)
+			{
+				brother->left->black = true;
+				brother->black = false;
+				rightRotate_BrT(root, brother);
+				brother = cur->parent->right;
+			}
+			else
+			{
+				brother->black = cur->parent->black;
+				cur->parent->black = true;
+				brother->right->black = true;
+				leftRotate_BrT(root, cur->parent);
+				cur = root;
+			}
+		}
+		// 当前为父的右孩子
+		else
+		{
+			brother = cur->parent->left;
+			if (!brother->black)
+			{
+				brother->black = true;
+				cur->parent->black = false;
+				rightRotate_BrT(root, cur->parent);
+				brother = cur->parent->left;
+			}
+			// 兄弟的左孩子和右孩子同黑，则兄弟设置为红色
+			if (brother->left->black && brother->right->black)
+			{
+				brother->black = false;
+				cur = cur->parent;
+			}
+			else if (brother->left->black)
+			{
+				brother->right->black = true;
+				brother->black = false;
+				leftRotate_BrT(root, brother);
+				brother = cur->parent->left;
+			}
+			else
+			{
+				brother->black = cur->parent->black;
+				cur->parent->black = true;
+				brother->left->black = true;
+				rightRotate_BrT(root, cur->parent);
+				cur = root;
+			}
+		}
 	}
 }
 
