@@ -357,7 +357,6 @@ void deleteFixUp_BrT(BrTree& root, BrTree cur)
 		if (cur == cur->parent->left)
 		{
 			brother = cur->parent->right;
-			// 兄弟结点为红色 ==> （1.父亲为黑色；）
 			if (!brother->black)
 			{
 				brother->black = true;
@@ -365,7 +364,6 @@ void deleteFixUp_BrT(BrTree& root, BrTree cur)
 				leftRotate_BrT(root, cur->parent);
 				brother = cur->parent->right;
 			}
-			// 兄弟的左孩子和右孩子同黑，则兄弟设置为红色
 			if (brother->left->black && brother->right->black)
 			{
 				brother->black = false;
@@ -391,6 +389,7 @@ void deleteFixUp_BrT(BrTree& root, BrTree cur)
 		else
 		{
 			brother = cur->parent->left;
+			// 兄弟结点为红色 ==> （1.父亲为黑色；）
 			if (!brother->black)
 			{
 				brother->black = true;
@@ -421,6 +420,8 @@ void deleteFixUp_BrT(BrTree& root, BrTree cur)
 			}
 		}
 	}
+	// 终止情况，将当前结点置黑色即平衡
+	cur->black = true;
 }
 
 /* 10_红黑树_找到等值的结点*/
