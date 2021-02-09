@@ -357,27 +357,38 @@ void deleteFixUp_BrT(BrTree& root, BrTree cur)
 		if (cur == cur->parent->left)
 		{
 			brother = cur->parent->right;
+			// 兄弟为红色 ==> （父亲P，左侄子SL，右侄子SR一定为黑色）
 			if (!brother->black)
 			{
+				// 互换父亲P，兄弟S的颜色
 				brother->black = true;
 				cur->parent->black = false;
+				// 左旋父亲
 				leftRotate_BrT(root, cur->parent);
+				// 更新兄弟指针旋转后的指向
 				brother = cur->parent->right;
 			}
+			// 左侄子和右侄子均为黑色
 			if (brother->left->black && brother->right->black)
 			{
+				// 兄弟变红，自平衡当前结点向上迭代
 				brother->black = false;
 				cur = cur->parent;
 			}
+			// 左侄子红，右侄子黑
 			else if (brother->right->black)
 			{
+				// 对兄弟变色右旋
 				brother->left->black = true;
 				brother->black = false;
 				rightRotate_BrT(root, brother);
+				// 更新兄弟指针旋转后的指向
 				brother = cur->parent->right;
 			}
+			// 右侄子为红色，左侄子任意
 			else
 			{
+				// 对父亲左旋，互换父亲，兄弟的颜色
 				brother->black = cur->parent->black;
 				cur->parent->black = true;
 				brother->right->black = true;
@@ -389,7 +400,6 @@ void deleteFixUp_BrT(BrTree& root, BrTree cur)
 		else
 		{
 			brother = cur->parent->left;
-			// 兄弟结点为红色 ==> （1.父亲为黑色；）
 			if (!brother->black)
 			{
 				brother->black = true;
@@ -397,7 +407,6 @@ void deleteFixUp_BrT(BrTree& root, BrTree cur)
 				rightRotate_BrT(root, cur->parent);
 				brother = cur->parent->left;
 			}
-			// 兄弟的左孩子和右孩子同黑，则兄弟设置为红色
 			if (brother->left->black && brother->right->black)
 			{
 				brother->black = false;
